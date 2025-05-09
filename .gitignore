@@ -1,0 +1,27 @@
+# DEPENDENCIAS 
+**/node_modules/ 
+
+# ENTORNOS Y VARIABLES 
+.env
+.env.*
+!.env.example
+
+# LOGS Y TEMPORALES
+**/*.log
+logs/
+npm-debug.log*
+yarn-error.log
+*.tmp
+temp/ 
+
+# BUILD Y PRODUCCIÓN 
+dist/
+build/
+.coverage/
+out/ 
+
+# SISTEMA E IDEs
+.DS_Store
+thumbs.db
+**/.vscode/
+.idea/ 
