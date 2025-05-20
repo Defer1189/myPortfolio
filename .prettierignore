@@ -1,0 +1,18 @@
+# myPortfolio/.prettierignore
+
+# Ignore artifacts
+**/node_modules/
+**/build/
+**/dist/
+**/coverage/
+
+# ENTORNOS Y VARIABLES 
+.env
+
+# Ignore locks
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# Ignore LICENSE
+**/LICENSE

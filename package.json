@@ -1,0 +1,67 @@
+{
+  "name": "myportfolio-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Root configuration and tooling for the myPortfolio project.",
+  "keywords": [
+    "portfolio",
+    "monorepo",
+    "eslint",
+    "prettier",
+    "fullstack"
+  ],
+  "homepage": "https://github.com/Defer1189/myPortfolio#readme",
+  "bugs": {
+    "url": "https://github.com/Defer1189/myPortfolio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Defer1189/myPortfolio.git"
+  },
+  "license": "MIT",
+  "author": "Deiby Arango",
+  "type": "module",
+  "main": "eslint.config.js",
+  "scripts": {
+    "dev": "",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --format pretty",
+    "lint:fix": "eslint . --fix --format pretty",
+    "prepare": "husky",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css,scss}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/css": "^0.7.0",
+    "@eslint/js": "^9.26.0",
+    "@eslint/json": "^0.12.0",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-formatter-pretty": "^6.0.1",
+    "eslint-plugin-jsdoc": "^50.6.14",
+    "eslint-plugin-jsonc": "^2.20.1",
+    "eslint-plugin-markdown": "^5.1.0",
+    "eslint-plugin-n": "^17.18.0",
+    "eslint-plugin-prettier": "^5.4.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.1.0",
+    "husky": "^9.1.7",
+    "jsonc-eslint-parser": "^2.4.0",
+    "lint-staged": "^16.0.0",
+    "prettier": "^3.5.3"
+  },
+  "engines": {
+    "node": ">=22.14.0"
+  }
+}
