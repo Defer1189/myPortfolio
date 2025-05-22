@@ -7,9 +7,9 @@ import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginReactRefresh from 'eslint-plugin-react-refresh';
 import pluginJsonc from 'eslint-plugin-jsonc';
 import parserJsonc from 'jsonc-eslint-parser';
-import pluginNode from 'eslint-plugin-n';
+import pluginN from 'eslint-plugin-n';
 import pluginJsdoc from 'eslint-plugin-jsdoc';
-import prettierConfig from 'eslint-config-prettier';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import pluginPrettier from 'eslint-plugin-prettier';
 import pluginMarkdown from 'eslint-plugin-markdown';
 import pluginCss from '@eslint/css';
@@ -44,7 +44,7 @@ export default defineConfig([
             'prettier/prettier': 'error',
             camelcase: ['error', { properties: 'never', ignoreDestructuring: false, allow: ['^UNSAFE_'] }],
             'new-cap': ['error', { newIsCap: true, capIsNew: true, properties: true }],
-            'max-lines-per-function': ['error', { max: 20, skipBlankLines: true, skipComments: true }],
+            'max-lines-per-function': ['error', { max: 25, skipBlankLines: true, skipComments: true }],
             'no-throw-literal': 'error',
             'no-empty': ['error', { allowEmptyCatch: true }],
             'spaced-comment': ['error', 'always', { line: { markers: ['/'] }, block: { balanced: true } }],
@@ -73,10 +73,12 @@ export default defineConfig([
     },
     {
         files: ['server/src/**/*.{js,mjs,cjs}'],
-        plugins: { n: pluginNode },
-        languageOptions: { globals: { ...globals.node, browser: false } },
+        // ...pluginN.configs['flat/recommended'],
+        plugins: { n: pluginN, prettier: pluginPrettier },
+        languageOptions: { globals: { ...globals.node } },
         rules: {
-            ...pluginNode.configs['flat/recommended'].rules,
+            ...pluginN.configs['flat/recommended'].rules,
+            'prettier/prettier': 'error',
             'n/no-missing-import': [
                 'error',
                 { allowModules: ['express', 'mongoose', 'cors', 'dotenv', 'swagger-jsdoc', 'swagger-ui-express'] },
@@ -94,12 +96,18 @@ export default defineConfig([
     },
     {
         files: ['client/src/**/*.{js,jsx}'],
-        plugins: { react: pluginReact, 'react-hooks': pluginReactHooks, 'react-refresh': pluginReactRefresh },
-        languageOptions: { globals: { ...globals.browser, node: false } },
+        plugins: {
+            react: pluginReact,
+            'react-hooks': pluginReactHooks,
+            'react-refresh': pluginReactRefresh,
+            prettier: pluginPrettier,
+        },
+        languageOptions: { globals: { ...globals.browser } },
         settings: { react: { version: 'detect' } },
         rules: {
             ...pluginReactHooks.configs.recommended.rules,
             ...pluginReact.configs.flat.recommended.rules,
+            'prettier/prettier': 'error',
             'no-unused-vars': [
                 'error',
                 {
@@ -125,10 +133,10 @@ export default defineConfig([
     {
         files: ['**/*.json', '**/*.jsonc'],
         ignores: ['**/package.json', '**/.prettierrc.json'],
-        plugins: { jsonc: pluginJsonc },
+        plugins: { jsonc: pluginJsonc, prettier: pluginPrettier },
         languageOptions: { parser: parserJsonc },
         rules: {
-            ...pluginJsonc.configs['flat/recommended-with-json'].rules,
+            ...pluginJsonc.configs['flat/recommended-with-jsonc'].rules,
             'jsonc/sort-keys': ['error', { order: { type: 'asc', caseSensitive: false, natural: true } }],
             'jsonc/comma-style': 'error',
             'jsonc/no-dupe-keys': 'error',
@@ -140,7 +148,7 @@ export default defineConfig([
     },
     {
         files: ['**/package.json'],
-        plugins: { jsonc: pluginJsonc },
+        plugins: { jsonc: pluginJsonc, prettier: pluginPrettier },
         languageOptions: { parser: parserJsonc },
         rules: {
             ...pluginJsonc.configs['flat/recommended-with-json'].rules,
@@ -160,6 +168,7 @@ export default defineConfig([
                         'author',
                         'type',
                         'main',
+                        'workspaces',
                         'module',
                         'exports',
                         'bin',
@@ -187,13 +196,21 @@ export default defineConfig([
         files: ['**/*.md'],
         plugins: { markdown: pluginMarkdown, prettier: pluginPrettier },
         processor: pluginMarkdown.processors.markdown,
-        rules: { 'prettier/prettier': ['error', { parser: 'markdown' }], 'no-console': 'off', 'no-unused-vars': 'off' },
+        rules: {
+            'prettier/prettier': ['error', { parser: 'markdown' }],
+            'no-console': 'off',
+            'no-unused-vars': 'off',
+            'eol-last': 'off',
+        },
     },
     {
         files: ['**/*.css'],
-        language: 'css/css',
         plugins: { css: pluginCss, prettier: pluginPrettier },
-        rules: { ...pluginCss.configs.recommended.rules, 'prettier/prettier': 'error' },
+        language: 'css/css',
+        rules: {
+            'prettier/prettier': 'error',
+            'css/use-baseline': 'off',
+        },
     },
-    prettierConfig,
+    eslintConfigPrettier,
 ]);

@@ -19,7 +19,7 @@
       }
     },
     {
-      "files": ["**/package.json", "**/package-lock.json"],
+      "files": ["package.json", "*-lock.json"],
       "options": {
         "parser": "json-stringify",
         "tabWidth": 2
