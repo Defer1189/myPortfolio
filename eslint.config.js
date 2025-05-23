@@ -35,7 +35,7 @@ export default defineConfig([
         languageOptions: {
             ecmaVersion: 'latest',
             sourceType: 'module',
-            globals: { ...globals.browser, ...globals.node, ...globals.es2021 },
+            globals: { ...globals.es2021 },
             parserOptions: { ecmaFeatures: { jsx: true } },
         },
         rules: {
@@ -73,7 +73,6 @@ export default defineConfig([
     },
     {
         files: ['server/src/**/*.{js,mjs,cjs}'],
-        // ...pluginN.configs['flat/recommended'],
         plugins: { n: pluginN, prettier: pluginPrettier },
         languageOptions: { globals: { ...globals.node } },
         rules: {
