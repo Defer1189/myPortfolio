@@ -1,19 +1,20 @@
 // myPortfolio/eslint.config.js
 
+import pluginCss from '@eslint/css';
 import js from '@eslint/js';
-import globals from 'globals';
+import { defineConfig } from 'eslint/config';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import pluginImport from 'eslint-plugin-import';
+import pluginJsdoc from 'eslint-plugin-jsdoc';
+import pluginJsonc from 'eslint-plugin-jsonc';
+import pluginMarkdown from 'eslint-plugin-markdown';
+import pluginN from 'eslint-plugin-n';
+import pluginPrettier from 'eslint-plugin-prettier';
 import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginReactRefresh from 'eslint-plugin-react-refresh';
-import pluginJsonc from 'eslint-plugin-jsonc';
+import globals from 'globals';
 import parserJsonc from 'jsonc-eslint-parser';
-import pluginN from 'eslint-plugin-n';
-import pluginJsdoc from 'eslint-plugin-jsdoc';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import pluginPrettier from 'eslint-plugin-prettier';
-import pluginMarkdown from 'eslint-plugin-markdown';
-import pluginCss from '@eslint/css';
-import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
     {
@@ -31,7 +32,7 @@ export default defineConfig([
     },
     {
         files: ['**/*.{js,mjs,cjs,jsx}'],
-        plugins: { jsdoc: pluginJsdoc, prettier: pluginPrettier },
+        plugins: { jsdoc: pluginJsdoc, prettier: pluginPrettier, import: pluginImport },
         languageOptions: {
             ecmaVersion: 'latest',
             sourceType: 'module',
@@ -62,6 +63,37 @@ export default defineConfig([
             curly: ['error', 'all'],
             'no-alert': 'warn',
             'prefer-const': 'warn',
+            'import/order': [
+                'error',
+                {
+                    groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+                    pathGroups: [
+                        {
+                            pattern: '{react,react-dom}',
+                            group: 'external',
+                            position: 'before',
+                        },
+                        {
+                            pattern: './*.css',
+                            group: 'internal',
+                            position: 'before',
+                        },
+                        {
+                            pattern: '@/**',
+                            group: 'internal',
+                            position: 'after',
+                        },
+                        {
+                            pattern: './assets/**/*.{svg,png,jpg}',
+                            group: 'internal',
+                            position: 'after',
+                        },
+                    ],
+                    'newlines-between': 'always',
+                    alphabetize: { order: 'asc', caseInsensitive: true, orderImportKind: 'asc' },
+                    warnOnUnassignedImports: true,
+                },
+            ],
             'jsdoc/require-description': 'error',
             'jsdoc/check-param-names': 'error',
             'jsdoc/no-undefined-types': 'error',

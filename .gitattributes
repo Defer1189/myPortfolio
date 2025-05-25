@@ -1,0 +1,6 @@
+# myPortfolio/.gitattributes
+
+* text=auto eol=lf
+*.js text eol=lf
+*.json linguist-language=JSON
+*.{cmd,[cC][mM][dD]} text eol=crlf
