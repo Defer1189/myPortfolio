@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import reactLogo from './assets/react.svg';
 
+// eslint-disable-next-line import/no-absolute-path
 import viteLogo from '/vite.svg';
 
 import './App.css';

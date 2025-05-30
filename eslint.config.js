@@ -1,5 +1,4 @@
 // myPortfolio/eslint.config.js
-
 import pluginCss from '@eslint/css';
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
@@ -89,11 +88,14 @@ export default defineConfig([
                             position: 'after',
                         },
                     ],
-                    'newlines-between': 'always',
+                    'newlines-between': 'always-and-inside-groups',
                     alphabetize: { order: 'asc', caseInsensitive: true, orderImportKind: 'asc' },
                     warnOnUnassignedImports: true,
                 },
             ],
+            'import/first': 'error',
+            'import/newline-after-import': 'error',
+            'import/no-absolute-path': 'error',
             'jsdoc/require-description': 'error',
             'jsdoc/check-param-names': 'error',
             'jsdoc/no-undefined-types': 'error',
@@ -150,7 +152,7 @@ export default defineConfig([
                     varsIgnorePattern: '^[A-Z_]',
                 },
             ],
-            'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+            'react-refresh/only-export-components': ['error', { allowConstantExport: true }],
             'react/react-in-jsx-scope': 'off',
             'react/jsx-pascal-case': [
                 'error',
