@@ -228,7 +228,7 @@ export default defineConfig([
     {
         files: ['**/*.md'],
         plugins: { markdown: pluginMarkdown, prettier: pluginPrettier },
-        processor: pluginMarkdown.processors.markdown,
+        processor: 'markdown/markdown',
         rules: {
             'prettier/prettier': ['error', { parser: 'markdown' }],
             'no-console': 'off',
@@ -240,9 +240,10 @@ export default defineConfig([
         files: ['**/*.css'],
         plugins: { css: pluginCss, prettier: pluginPrettier },
         language: 'css/css',
+        extends: ['css/recommended'],
         rules: {
             'prettier/prettier': 'error',
-            'css/use-baseline': 'off',
+            'css/use-baseline': 'error',
         },
     },
     eslintConfigPrettier,

@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Configuración de Swagger
-swaggerDocs(app, process.env.SWAGGER_SERVER);
+swaggerDocs(app);
 
 // Ruta de prueba
 app.get('/api', (req, res) => {
