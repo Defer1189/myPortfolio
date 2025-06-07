@@ -1,8 +1,11 @@
 # MyPortfolio - Aplicación Full-Stack Profesional <a href="#"><img src="https://img.shields.io/badge/status-en%20desarrollo-orange?style=flat&logo=github" alt="Estado: En desarrollo"></a> <a href="https://github.com/Defer1189/myPortfolio"><img src="https://img.shields.io/github/repo-size/Defer1189/myPortfolio?style=flat&logo=github" alt="Tamaño del repositorio"></a> <a href="https://github.com/Defer1189/myPortfolio"><img src="https://img.shields.io/github/last-commit/Defer1189/myPortfolio?style=flat&logo=git" alt="Último commit"></a>
 
-<a href="https://github.com/Defer1189/myPortfolio"><img src="docs/images/logo(2).svg" align="right" alt="Logo" width="115" height="115"></a>
-¡Bienvenido a **MyPortfolio**!  
-Este es un proyecto Full-Stack profesional diseñado para presentar mis habilidades técnicas, proyectos destacados y experiencia en el análisis y desarrollo de software.
+<a href="https://github.com/Defer1189/myPortfolio" target="_blank" title="Ver repositorio en GitHub">
+  <img src="docs/images/logo(2).svg" alt="Logo de mi portafolio" width="100" height="100" style="float:right;" loading="lazy">
+</a>
+
+¡Bienvenido a **MyPortfolio**!
+Este es un proyecto **Full-Stack** profesional que presenta mi experiencia como analista y desarrollador de software. **MyPortfolio** nace como una plataforma de presentación personal para mostrar proyectos, habilidades y trayectoria profesional de forma elegante, interactiva y escalable.
 
 <p align="center">
   <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-v22.14.0-brightgreen?style=flat&logo=node.js" alt="Node.js versión 22.14.0"></a>
@@ -11,41 +14,55 @@ Este es un proyecto Full-Stack profesional diseñado para presentar mis habilida
   <a href="https://github.com/Defer1189/myPortfolio/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Defer1189/myPortfolio?style=flat&logo=open-source-initiative" alt="Licencia MIT"></a>
 </p>
 
-## Visión General
+---
 
-Este proyecto está estructurado como un **monorepo** (con manejo centralizado de herramientas y configuración) e incluye:
+## 📌 Visión General
 
-- **Cliente (`client/`):** aplicación frontend desarrollada con React y Vite.
-- **Servidor (`server/`):** API RESTful construida con Node.js, Express y MongoDB.
+Este proyecto está organizado como un **monorepo** y contiene:
 
-## Stack Tecnológico Principal
+- **Cliente (`client/`):** aplicación frontend en React + Vite.
+- **Servidor (`server/`):** backend con Node.js, Express y MongoDB.
 
-- **Frontend:**
-  - React (v19+)
-  - Vite
-  - JavaScript (ESM, JSX)
-  - CSS
-- **Backend:**
-  - Node.js (v22.14.0+)
-  - Express
-  - MongoDB (con Mongoose ODM)
-  - JavaScript (ESM)
-- **Herramientas de Desarrollo Globales:**
-  - ESLint (Flat Config)
-  - Prettier
-  - Husky + lint-staged
-  - EditorConfig
-  - `cross-env`
-- **Documentación de API:** Swagger / OpenAPI
+Incluye control de calidad, buenas prácticas de código, documentación de API y configuración para despliegue futuro.
 
-## Requisitos Previos
+---
+
+## 🛠️ Tecnologías Principales
+
+### Frontend
+
+- React v19+
+- Vite
+- JavaScript (ESM, JSX)
+- CSS
+
+### Backend
+
+- Node.js v22.14.0
+- Express
+- MongoDB con Mongoose
+- JWT y bcrypt
+
+### DevTools
+
+- ESLint (Flat Config)
+- Prettier
+- Husky + lint-staged
+- EditorConfig
+- Swagger / OpenAPI
+
+---
+
+## ✅ Requisitos Previos
 
 - [Node.js v22.14.0+](https://nodejs.org/)
-- [npm](https://www.npmjs.com/) (incluido con Node.js)
-- [MongoDB](https://www.mongodb.com/) (local y MongoDB Atlas)
+- [npm](https://www.npmjs.com/)
+- [MongoDB](https://www.mongodb.com/)
 - [Git](https://git-scm.com/)
 
-## Instalación
+---
+
+## 🚀 Instalación
 
 1. **Clonar el repositorio:**
 
@@ -76,7 +93,9 @@ npm install
 cd ..
 ```
 
-## Configuración del Entorno (Servidor)
+---
+
+## ⚙️ Configuración del Entorno (Servidor)
 
 El servidor utiliza archivos `.env` para la configuración específica del entorno.
 
@@ -94,16 +113,18 @@ SWAGGER_SERVER=http://localhost:3000
 
 ```ini
 # server/.env.production
-PORT=<PUERTO_PRODUCCIÓN>
-DB_URI=<MONGODB_ATLAS_URI>
+PORT=PRODUCCION_PUERTO
+DB_URI=MONGODB_ATLAS_URI
 NODE_ENV=production
-SWAGGER_SERVER=<URL_PRODUCCION>
+SWAGGER_SERVER=https://tu_dominio.com
 # Añade otros secretos como JWT_SECRET si es necesario
 ```
 
 3. _(Opcional)_ Crea `server/.env.staging` si planeas usar un entorno de pre-producción.
 
-## Ejecución del Proyecto
+---
+
+## 🖥️ Ejecución del Proyecto
 
 - **Servidor Backend:**
 
@@ -137,7 +158,9 @@ SWAGGER_SERVER=<URL_PRODUCCION>
 - **(Opcional) Ejecutar ambos simultáneamente:**
   Puedes abrir dos terminales o usar una herramienta como `concurrently` (necesitarías instalarla en la raíz y configurar un script).
 
-## Scripts de Calidad de Código (Desde la raíz `myPortfolio/`)
+---
+
+## 🧩 Scripts de Calidad de Código (Desde la raíz `myPortfolio/`)
 
 - Formatear todo el código:
   ```bash
@@ -157,6 +180,17 @@ SWAGGER_SERVER=<URL_PRODUCCION>
   ```
   Estos scripts también se ejecutan automáticamente antes de cada commit gracias a Husky y lint-staged.
 
-## Licencia
+---
+
+## 🪪 Licencia
 
 Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](https://github.com/Defer1189/myPortfolio/tree/main?tab=MIT-1-ov-file) para más detalles.
+
+---
+
+## 🤝 Contacto
+
+¿Tienes preguntas, ideas o feedback?
+¡Contáctame a través de [mi perfil de GitHub](https://github.com/Defer1189) o abre un issue!
+
+---

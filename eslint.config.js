@@ -2,7 +2,7 @@
 import pluginCss from '@eslint/css';
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
-import eslintConfigPrettier from 'eslint-config-prettier';
+// import eslintConfigPrettier from 'eslint-config-prettier';
 import pluginImport from 'eslint-plugin-import';
 import pluginJsdoc from 'eslint-plugin-jsdoc';
 import pluginJsonc from 'eslint-plugin-jsonc';
@@ -246,5 +246,5 @@ export default defineConfig([
             'css/use-baseline': 'error',
         },
     },
-    eslintConfigPrettier,
+    // eslintConfigPrettier,
 ]);

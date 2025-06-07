@@ -23,16 +23,23 @@ const validateEnvironment = () => {
         throw new Error(`❌ Variables de entorno faltantes: ${missingVars.join(', ')}`);
     }
     const port = Number(process.env.PORT);
-    if (isNaN(port)) throw new Error('PORT debe ser un número válido');
-    if (port < 1024 || port > 65535) throw new Error('PORT debe estar entre 1024 y 65535');
+    if (isNaN(port)) {
+        throw new Error('PORT debe ser un número válido');
+    }
+    if (port < 1024 || port > 65535) {
+        throw new Error('PORT debe estar entre 1024 y 65535');
+    }
 };
 
 // 2. Manejo centralizado de errores
 const handleError = (error) => {
     // eslint-disable-next-line no-console
     console.error('\x1b[31m', `❌ Error crítico: ${error.message}`);
-    // eslint-disable-next-line no-console
-    if (error.stack) console.error('Stack trace:', error.stack);
+
+    if (error.stack) {
+        // eslint-disable-next-line no-console
+        console.error('Stack trace:', error.stack);
+    }
     process.exitCode = 1;
 };
 
