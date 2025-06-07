@@ -1,7 +1,7 @@
 # MyPortfolio - Aplicación Full-Stack Profesional <a href="#"><img src="https://img.shields.io/badge/status-en%20desarrollo-orange?style=flat&logo=github" alt="Estado: En desarrollo"></a> <a href="https://github.com/Defer1189/myPortfolio"><img src="https://img.shields.io/github/repo-size/Defer1189/myPortfolio?style=flat&logo=github" alt="Tamaño del repositorio"></a> <a href="https://github.com/Defer1189/myPortfolio"><img src="https://img.shields.io/github/last-commit/Defer1189/myPortfolio?style=flat&logo=git" alt="Último commit"></a>
 
 <a href="https://github.com/Defer1189/myPortfolio" target="_blank" title="Ver repositorio en GitHub">
-  <img src="docs/images/logo(2).svg" alt="Logo de mi portafolio" width="100" height="100" style="float:right;" loading="lazy">
+  <img src="docs/images/logo(2).svg" alt="Logo de mi portafolio" width="100" height="100" align="right" loading="lazy">
 </a>
 
 ¡Bienvenido a **MyPortfolio**!
