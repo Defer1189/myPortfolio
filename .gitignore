@@ -1,10 +1,22 @@
 # DEPENDENCIAS 
 **/node_modules/ 
 
+# Lockfiles
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+**/bun.lockb
+
 # ENTORNOS Y VARIABLES 
 .env
 .env.*
 !.env.example
+
+# Credenciales y configuraciones locales
+*.local
+*.secret
+secrets.**
+config/local/**
 
 # LOGS Y TEMPORALES
 **/*.log
@@ -12,7 +24,9 @@ logs/
 npm-debug.log*
 yarn-error.log
 *.tmp
-temp/ 
+*.temp
+.temp/
+dump.rdb
 
 # BUILD Y PRODUCCIÓN 
 dist/
@@ -25,3 +39,27 @@ out/
 thumbs.db
 **/.vscode/
 .idea/ 
+desktop.ini
+._*
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.iml
+*.sublime-*
+Dockerfile.dev
+docker-compose.override.yml
+
+# CERTIFICADOS Y CLAVES
+*.key
+*.pem
+*.crt
+*.cert
+
+# ARCHIVOS DE PRUEBAS
+/test-results/
+/playwright-report/
+/screenshots/
+/cypress/videos/
+/cypress/screenshots/
