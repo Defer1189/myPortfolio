@@ -44,7 +44,7 @@ export default defineConfig([
             'prettier/prettier': 'error',
             camelcase: ['error', { properties: 'never', ignoreDestructuring: false, allow: ['^UNSAFE_'] }],
             'new-cap': ['error', { newIsCap: true, capIsNew: true, properties: true }],
-            'max-lines-per-function': ['error', { max: 25, skipBlankLines: true, skipComments: true }],
+            'max-lines-per-function': ['error', { max: 30, skipBlankLines: true, skipComments: true }],
             'no-throw-literal': 'error',
             'no-empty': ['error', { allowEmptyCatch: true }],
             'spaced-comment': ['error', 'always', { line: { markers: ['/'] }, block: { balanced: true } }],
@@ -98,6 +98,12 @@ export default defineConfig([
             'import/no-absolute-path': 'error',
             'jsdoc/require-description': 'error',
             'jsdoc/check-param-names': 'error',
+            'jsdoc/check-tag-names': ['error', { definedTags: ['swagger'] }],
+            'jsdoc/tag-lines': [
+                'error',
+                'any',
+                { startLines: 1, endLines: 1, tags: { example: { lines: 'always' }, description: { lines: 'never' } } },
+            ],
             'jsdoc/no-undefined-types': 'error',
             'jsdoc/require-param-type': 'error',
             'jsdoc/require-returns': 'error',
@@ -125,6 +131,15 @@ export default defineConfig([
             'n/process-exit-as-throw': 'error',
             'no-console': 'error',
             'no-debugger': 'error',
+            'new-cap': [
+                'error',
+                {
+                    newIsCap: true,
+                    capIsNew: false,
+                    properties: true,
+                    capIsNewExceptions: ['Router'],
+                },
+            ],
         },
     },
     {

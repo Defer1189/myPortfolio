@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 
 import { swaggerDocs } from './config/swagger.js';
+import contactRoutes from './routes/contact.routes.js';
 
 const app = express();
 
@@ -13,6 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Configuración de Swagger
 swaggerDocs(app);
+
+// Rutas de la API
+app.use('/api/contact', contactRoutes);
 
 // Ruta de prueba
 app.get('/api', (req, res) => {

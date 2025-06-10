@@ -1,3 +1,4 @@
+/* myPortfolio/client/src/index.css */
 :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
@@ -67,4 +68,68 @@ button:focus-visible {
     button {
         background-color: #f9f9f9;
     }
+}
+
+/* Nuevos estilos para la estructura de la página */
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1280px; /* Ya estaba, pero asegúrate */
+    margin: 0 auto; /* Ya estaba, pero asegúrate */
+    padding: 0; /* Ajusta el padding para que la nav/footer no tengan un margen interior */
+}
+
+body {
+    margin: 0;
+    display: flex;
+    place-items: flex-start; /* Ajusta para que el contenido empiece arriba */
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+nav {
+    background-color: #333;
+    padding: 1rem 2rem;
+    text-align: center;
+    width: 100%; /* Ocupar todo el ancho */
+    box-sizing: border-box; /* Incluir padding en el ancho */
+}
+
+nav a {
+    color: white;
+    margin: 0 1rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #646cff;
+}
+
+header {
+    padding: 2rem;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+main {
+    flex-grow: 1; /* Permite que el contenido principal ocupe el espacio restante */
+    padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contact-page {
+    padding: 2em;
 }
