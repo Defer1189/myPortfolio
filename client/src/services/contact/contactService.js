@@ -1,6 +1,7 @@
 // myPortfolio/client/src/services/contact/contactService.js
 
-const API_ENDPOINT = 'http://localhost:3000/api/contact';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_ENDPOINT = `${API_BASE_URL}/api/contact`;
 
 /**
  * Envía los datos del formulario de contacto a la API.

@@ -2,6 +2,8 @@
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
+import logger from '../utils/logger.js';
+
 const swaggerOptions = {
     definition: {
         openapi: '3.0.0',
@@ -36,8 +38,10 @@ const configureServer = (baseUrl) =>
     ]);
 
 const createSwaggerUIHandler = (baseUrl) => [
-    // eslint-disable-next-line no-console
-    (req, _, next) => console.log(`📡 ${req.method} ${req.url}`) || next(),
+    (req, _, next) => {
+        logger.info(`📡 ${req.method} ${req.url}`);
+        next();
+    },
     swaggerUi.serve,
     swaggerUi.setup(swaggerSpec, {
         customSiteTitle: 'myPortfolio API',

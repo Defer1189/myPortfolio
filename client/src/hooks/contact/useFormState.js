@@ -2,7 +2,7 @@
 import { useState, useCallback } from 'react';
 
 /**
- * Hook personalizado para manejar el estado y la lógica de un formulario genérico.
+ * Hook para manejar el estado y la lógica del formulario.
  *
  * @param {object} initialValues - Los valores iniciales del formulario.
  * @returns {object} Un objeto con el estado del formulario y manejadores.

@@ -1,5 +1,7 @@
 // myPortfolio/server/src/controllers/contact.controller.js
-import Message from '../models/Message.js';
+import { validateContactFormInput, saveNewMessage, handleMongooseValidationError } from '../utils/contactUtils.js';
+
+import logger from '../utils/logger.js';
 
 /**
  * @typedef {object} ContactFormRequestBody
@@ -19,27 +21,29 @@ const handleContactForm = async (req, res) => {
     try {
         const { name, email, message } = req.body;
 
-        // Validación de presencia de datos
-        if (!name || !email || !message) {
-            return res.status(400).json({ error: 'Todos los campos son requeridos.' });
+        // 1. Validación de datos de entrada
+        const validationError = validateContactFormInput({ name, email, message });
+        if (validationError) {
+            return res.status(400).json({ error: validationError });
         }
 
-        const newMessage = new Message({
-            name,
-            email,
-            message,
-        });
+        // 2. Guardar el nuevo mensaje
+        const newMessage = await saveNewMessage({ name, email, message });
 
-        await newMessage.save();
-
+        // 3. Respuesta exitosa
         res.status(201).json({ message: 'Mensaje enviado exitosamente. ¡Gracias por contactarme!', data: newMessage });
     } catch (error) {
-        // Manejo de errores de validación de Mongoose
-        if (error.name === 'ValidationError') {
-            const errors = Object.values(error.errors).map((err) => err.message);
-            return res.status(400).json({ error: 'Error de validación', details: errors });
+        // 4. Manejo de errores específicos (Mongoose ValidationError)
+        const validationErrResponse = handleMongooseValidationError(error);
+        if (validationErrResponse) {
+            return res.status(400).json(validationErrResponse);
         }
-        // Errores generales del servidor
+
+        // 5. Manejo de errores generales del servidor
+        logger.error('❌ Error interno del servidor al manejar formulario de contacto.', {
+            originalError: error.message,
+            stack: error.stack,
+        });
         res.status(500).json({ error: 'Error interno del servidor', details: error.message });
     }
 };

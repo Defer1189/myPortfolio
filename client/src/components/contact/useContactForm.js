@@ -76,7 +76,7 @@ export const useContactForm = () => {
 
             // Limpiar errores si el usuario intenta enviar de nuevo sin interactuar
             setErrors({});
-            setSubmitMessage(''); // <-- Limpiar el mensaje de envío al intentar enviar de nuevo
+            setSubmitMessage('');
 
             const isValid = validateFormFields(); // Valida todo el formulario
             if (!isValid) {
@@ -88,8 +88,8 @@ export const useContactForm = () => {
             // Si es válido, ejecuta el envío
             await executeSubmission(formData);
         },
-        [validateFormFields, executeSubmission, formData, setErrors, setSubmitMessage], // <-- Dependencia de setSubmitMessage es correcta
-    ); // Dependencias
+        [validateFormFields, executeSubmission, formData, setErrors, setSubmitMessage],
+    );
 
     return { formData, errors, submitMessage, isLoading, handleChange, handleBlur, handleSubmit };
 };

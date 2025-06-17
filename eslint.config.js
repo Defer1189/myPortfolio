@@ -112,7 +112,7 @@ export default defineConfig([
         },
     },
     {
-        files: ['server/src/**/*.{js,mjs,cjs}'],
+        files: ['server/src/**/*.{js,mjs,cjs}', 'server/*.{js,mjs,cjs}'],
         plugins: { n: pluginN, prettier: pluginPrettier },
         languageOptions: { globals: { ...globals.node } },
         rules: {
@@ -143,7 +143,7 @@ export default defineConfig([
         },
     },
     {
-        files: ['client/src/**/*.{js,jsx}'],
+        files: ['client/src/**/*.{js,jsx}', 'client/*.{js,jsx}'],
         plugins: {
             react: pluginReact,
             'react-hooks': pluginReactHooks,
