@@ -5,13 +5,38 @@
     max-width: 600px;
     margin: 40px auto;
     padding: 30px;
-    background-color: #282c34; /* Fondo oscuro similar al de la app */
+    background-color: #282c34;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     gap: 20px;
-    color: #e0e0e0; /* Color de texto claro */
+    color: #e0e0e0;
+
+    width: 90%;
+}
+
+/* Media queries para mejor adaptación móvil */
+@media (max-width: 640px) {
+    .contact-form {
+        margin: 20px auto;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .submit-button {
+        padding: 12px 20px;
+        font-size: 1em;
+        margin-top: 15px;
+    }
+
+    .form-group textarea {
+        min-height: 80px;
+    }
 }
 
 /* Estilos para cada grupo de formulario (label + input/textarea) */
@@ -23,7 +48,7 @@
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #92b0e6; /* Un color ligeramente diferente para las etiquetas */
+    color: #92b0e6;
 }
 
 .form-group input[type="text"],
@@ -31,12 +56,12 @@
 .form-group textarea {
     width: 100%;
     padding: 12px 15px;
-    border: 1px solid #4a505c; /* Borde más suave */
+    border: 1px solid #4a505c;
     border-radius: 8px;
-    background-color: #3b404b; /* Fondo del input más claro que el del formulario */
-    color: #e0e0e0; /* Color de texto dentro del input */
+    background-color: #3b404b;
+    color: #e0e0e0;
     font-size: 1em;
-    box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
+    box-sizing: border-box;
     transition:
         border-color 0.3s ease,
         box-shadow 0.3s ease;
@@ -45,44 +70,44 @@
 .form-group input[type="text"]::placeholder,
 .form-group input[type="email"]::placeholder,
 .form-group textarea::placeholder {
-    color: #a0a0a0; /* Color del placeholder */
+    color: #a0a0a0;
 }
 
 /* Estilos de foco para inputs y textarea */
 .form-group input[type="text"]:focus,
 .form-group input[type="email"]:focus,
 .form-group textarea:focus {
-    border-color: #646cff; /* Color de borde al enfocar */
+    border-color: #646cff;
     outline-style: none;
     outline-offset: 2px;
-    box-shadow: 0 0 8px rgba(100, 108, 255, 0.4); /* Sombra suave al enfocar */
+    box-shadow: 0 0 8px rgba(100, 108, 255, 0.4);
 }
 
 /* Estilos específicos para el textarea */
 .form-group textarea {
-    overflow-y: auto; /* Scroll vertical cuando sea necesario */
+    overflow-y: auto;
     min-height: 100px;
-    max-height: 300px; /* Limita expansión vertical */
-    line-height: 1.5; /* Altura de línea para mejor legibilidad */
+    max-height: 300px;
+    line-height: 1.5;
 }
 
 /* Estilos para mensajes de error */
 .error-message {
-    color: #ff6b6b; /* Rojo para errores */
+    color: #ff6b6b;
     font-size: 0.85em;
     margin-top: 5px;
-    animation: fadeIn 0.3s ease-out; /* Animación para que los errores aparezcan suavemente */
+    animation: fadeIn 0.3s ease-out;
 }
 
 /* Estilos para inputs con error */
 .form-group .input-error {
-    border-color: #ff6b6b; /* Borde rojo para inputs con error */
+    border-color: #ff6b6b;
 }
 
 /* Estilos del botón de envío */
 .submit-button {
     padding: 14px 25px;
-    background-color: #646cff; /* Color principal del botón */
+    background-color: #646cff;
     color: white;
     border: none;
     border-radius: 8px;
@@ -92,17 +117,17 @@
     transition:
         background-color 0.3s ease,
         transform 0.1s ease;
-    align-self: flex-end; /* Alinea el botón a la derecha si es parte de un flex container */
+    align-self: flex-end;
     margin-top: 20px;
 }
 
 .submit-button:hover:not(:disabled) {
-    background-color: #535bf2; /* Color al pasar el mouse */
-    transform: translateY(-2px); /* Pequeño efecto de elevación */
+    background-color: #535bf2;
+    transform: translateY(-2px);
 }
 
 .submit-button:disabled {
-    background-color: #4a4f5c; /* Color cuando está deshabilitado */
+    background-color: #4a4f5c;
     cursor: not-allowed;
     opacity: 0.7;
 }
@@ -119,14 +144,14 @@
 }
 
 .submit-feedback.success {
-    background-color: #4caf5022; /* Fondo verde suave */
-    color: #4caf50; /* Texto verde */
+    background-color: #4caf5022;
+    color: #4caf50;
     border: 1px solid #4caf50;
 }
 
 .submit-feedback.error {
-    background-color: #ff6b6b22; /* Fondo rojo suave */
-    color: #ff6b6b; /* Texto rojo */
+    background-color: #ff6b6b22;
+    color: #ff6b6b;
     border: 1px solid #ff6b6b;
 }
 

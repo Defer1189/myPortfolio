@@ -9,7 +9,7 @@ const router = Router();
  * @swagger
  * tags:
  *   - name: Contact
- *     description: Gestión de mensajes del formulario de contacto
+ *     description: Gestión de mensajes del formulario de contacto y contenido de la página.
  */
 
 /**

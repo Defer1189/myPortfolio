@@ -258,7 +258,8 @@ export default defineConfig([
         extends: ['css/recommended'],
         rules: {
             'prettier/prettier': 'error',
-            'css/use-baseline': 'error',
+            'css/use-baseline': ['error', { available: 'newly' }],
+            'css/no-invalid-at-rules': 'off',
         },
     },
     // eslintConfigPrettier,

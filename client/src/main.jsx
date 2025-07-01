@@ -7,6 +7,7 @@ import './index.css';
 
 import App from './App.jsx';
 import ContactPage from './pages/contact/index.jsx';
+import Homepage from './pages/homepage/index.jsx';
 
 // Definición de las rutas de la aplicación
 const router = createBrowserRouter([
@@ -16,14 +17,7 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: (
-                    <div className='card'>
-                        <h2>¡Bienvenido a mi portafolio!</h2>
-                        <p>Este es el inicio de tu experiencia. Navega a la sección de Contacto.</p>
-                        <button>¡Explora mi portafolio!</button>
-                        <p className='read-the-docs'>Click en los logos de Vite y React para aprender más.</p>
-                    </div>
-                ),
+                element: <Homepage />,
             },
             {
                 path: 'contact',
@@ -36,6 +30,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <RouterProvider router={router} /> {/* Usa RouterProvider para renderizar las rutas */}
+        <RouterProvider router={router} />
     </StrictMode>,
 );

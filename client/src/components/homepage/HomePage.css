@@ -1,0 +1,358 @@
+/* myPortfolio/client/src/components/homepage/HomePage.css */
+
+/* --- Estilos para el contenedor principal de la Homepage --- */
+.homepage {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1800px;
+    min-height: 0;
+    margin: 0 auto;
+    padding: 0 1rem;
+    flex-grow: 1;
+}
+
+@media (min-width: 768px) {
+    .homepage {
+        gap: 3rem;
+        padding: 0 2rem;
+    }
+}
+
+/* --- Mobile First: Estilos base para pantallas pequeñas --- */
+.hero-section,
+.about-me-section,
+.featured-projects-section,
+.skills-section,
+.social-links-section {
+    padding: 1.5rem;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* --- Estados de carga/error --- */
+.loading-state {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.25rem;
+    color: #4b5563;
+}
+
+.error-state {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.25rem;
+    color: #ff6b6b;
+    background-color: #fff5f5;
+    border-radius: 8px;
+    margin: 2rem;
+}
+
+.not-found-state {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.25rem;
+    color: #4b5563;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    margin: 2rem;
+}
+
+/* --- Estilos para HeroSection --- */
+.hero-section {
+    text-align: center;
+    background-color: #f3f4f6;
+    color: #333;
+}
+
+.hero-profile-picture {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-name {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: inherit;
+}
+
+.hero-title {
+    font-size: 1rem;
+    color: #4b5563;
+}
+
+.hero-cta-button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.hero-cta-button:hover {
+    background-color: #1d4ed8;
+}
+
+/* --- Estilos para AboutMeSection --- */
+.about-me-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.about-me-section h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.about-me-section p {
+    font-size: 1rem;
+    color: #4b5563;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* --- Estilos para FeaturedProjectsSection --- */
+.featured-projects-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.featured-projects-section h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* --- Estilos para ProjectCard --- */
+.project-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.project-card-image {
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+    display: block;
+}
+
+.project-card-content {
+    padding: 1.25rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.project-card-description {
+    font-size: 0.9rem;
+    color: #4b5563;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.project-card-link {
+    color: #2563eb;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: auto;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.project-card-link:hover {
+    text-decoration: underline;
+}
+
+/* --- Estilos para SkillsSection --- */
+.skills-section {
+    background-color: #f9fafb;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.skills-section h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.skill-item {
+    padding: 0.5rem 1rem;
+    background-color: #dbeafe;
+    color: #1e40af;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* --- Estilos para SocialLinks --- */
+.social-links-section {
+    text-align: center;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    background-color: #f3f4f6;
+}
+
+.social-links-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: #333;
+}
+
+.social-icons-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+.social-icon-link {
+    color: #2563eb;
+    font-size: 1.75rem;
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.social-icon-link:hover {
+    color: #1d4ed8;
+    transform: translateY(-3px);
+}
+
+/* --- Media Queries para pantallas más grandes --- */
+@media (min-width: 480px) {
+    .hero-profile-picture {
+        width: 7rem;
+        height: 7rem;
+    }
+
+    .hero-name {
+        font-size: 2.25rem;
+    }
+
+    .project-card-image {
+        height: 12rem;
+    }
+}
+
+@media (min-width: 640px) {
+    .hero-section,
+    .about-me-section,
+    .featured-projects-section,
+    .skills-section,
+    .social-links-section {
+        padding: 2rem;
+    }
+
+    .hero-name {
+        font-size: 2.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.125rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .hero-section,
+    .about-me-section,
+    .featured-projects-section,
+    .skills-section,
+    .social-links-section {
+        padding: 3rem;
+    }
+
+    .hero-profile-picture {
+        width: 8rem;
+        height: 8rem;
+    }
+
+    .hero-name {
+        font-size: 3rem;
+    }
+
+    .about-me-section h2,
+    .featured-projects-section h2,
+    .skills-section h2 {
+        font-size: 2.25rem;
+    }
+
+    .about-me-section p {
+        font-size: 1.125rem;
+    }
+
+    .projects-grid {
+        gap: 2rem;
+    }
+
+    .skill-item {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .social-links-section h2 {
+        font-size: 1.875rem;
+    }
+
+    .social-icon-link {
+        font-size: 2.25rem;
+    }
+}

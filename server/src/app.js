@@ -6,6 +6,8 @@ import helmet from 'helmet';
 
 import { swaggerDocs } from './config/swagger.js';
 import contactRoutes from './routes/contact.routes.js';
+import homepageRoutes from './routes/homepage.routes.js';
+import pageContentRoutes from './routes/pageContent.routes.js';
 import logger from './utils/logger.js';
 
 const app = express();
@@ -42,7 +44,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 
-// app.get('/favicon.ico', (req, res) => res.sendStatus(204));
+app.get('/favicon.ico', (req, res) => res.sendStatus(204));
 
 // Limitador de tasa (Rate Limiter)
 const apiLimiter = rateLimit({
@@ -64,7 +66,9 @@ app.use((req, res, next) => {
 swaggerDocs(app);
 
 // Rutas de la API
+app.use('/api/homepage', homepageRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/content', pageContentRoutes);
 
 // Ruta de prueba
 app.get('/api', (req, res) => {
