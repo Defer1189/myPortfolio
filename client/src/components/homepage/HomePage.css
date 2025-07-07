@@ -5,18 +5,18 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: var(--spacing-md);
     max-width: 1800px;
     min-height: 0;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 var(--spacing-sm);
     flex-grow: 1;
 }
 
 @media (min-width: 768px) {
     .homepage {
-        gap: 3rem;
-        padding: 0 2rem;
+        gap: var(--spacing-lg);
+        padding: 0 var(--spacing-md);
     }
 }
 
@@ -26,7 +26,7 @@
 .featured-projects-section,
 .skills-section,
 .social-links-section {
-    padding: 1.5rem;
+    padding: var(--spacing-sm);
     max-width: 100%;
     margin: 0 auto;
 }
@@ -34,43 +34,43 @@
 /* --- Estados de carga/error --- */
 .loading-state {
     text-align: center;
-    padding: 2rem;
+    padding: var(--spacing-md);
     font-size: 1.25rem;
-    color: #4b5563;
+    color: var(--color-neutral-dark-gray);
 }
 
 .error-state {
     text-align: center;
-    padding: 2rem;
+    padding: var(--spacing-md);
     font-size: 1.25rem;
-    color: #ff6b6b;
-    background-color: #fff5f5;
-    border-radius: 8px;
-    margin: 2rem;
+    color: var(--color-error);
+    background-color: rgba(var(--color-error), 0.1);
+    border-radius: var(--border-radius);
+    margin: var(--spacing-md);
 }
 
 .not-found-state {
     text-align: center;
-    padding: 2rem;
+    padding: var(--spacing-md);
     font-size: 1.25rem;
-    color: #4b5563;
-    background-color: #f9fafb;
-    border-radius: 8px;
-    margin: 2rem;
+    color: var(--color-neutral-dark-gray);
+    background-color: var(--color-neutral-light-gray);
+    border-radius: var(--border-radius);
+    margin: var(--spacing-md);
 }
 
 /* --- Estilos para HeroSection --- */
 .hero-section {
     text-align: center;
-    background-color: #f3f4f6;
-    color: #333;
+    background-color: var(--color-neutral-light-gray);
+    color: var(--color-neutral-dark-gray);
 }
 
 .hero-profile-picture {
     width: 6rem;
     height: 6rem;
     border-radius: 50%;
-    margin: 0 auto 1rem;
+    margin: 0 auto var(--spacing-sm);
     object-fit: cover;
     display: block;
 }
@@ -78,20 +78,20 @@
 .hero-name {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--spacing-xs);
     color: inherit;
 }
 
 .hero-title {
     font-size: 1rem;
-    color: #4b5563;
+    color: var(--color-neutral-dark-gray);
 }
 
 .hero-cta-button {
-    margin-top: 1.5rem;
+    margin-top: var(--spacing-sm);
     padding: 0.75rem 1.5rem;
-    background-color: #2563eb;
-    color: white;
+    background-color: var(--color-button-primary);
+    color: var(--color-text-light);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -100,53 +100,53 @@
 }
 
 .hero-cta-button:hover {
-    background-color: #1d4ed8;
+    background-color: var(--color-button-primary-hover);
 }
 
 /* --- Estilos para AboutMeSection --- */
 .about-me-section {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
 }
 
 .about-me-section h2 {
     font-size: 1.75rem;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-sm);
 }
 
 .about-me-section p {
     font-size: 1rem;
-    color: #4b5563;
+    color: var(--color-neutral-dark-gray);
     line-height: 1.6;
     text-align: center;
 }
 
 /* --- Estilos para FeaturedProjectsSection --- */
 .featured-projects-section {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
 }
 
 .featured-projects-section h2 {
     font-size: 1.75rem;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-md);
 }
 
 .projects-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: var(--spacing-sm);
 }
 
 /* --- Estilos para ProjectCard --- */
 .project-card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -158,7 +158,7 @@
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-lg);
 }
 
 .project-card-image {
@@ -178,19 +178,19 @@
 .project-card-title {
     font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #333;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-neutral-dark-gray);
 }
 
 .project-card-description {
     font-size: 0.9rem;
-    color: #4b5563;
-    margin-bottom: 1rem;
+    color: var(--color-neutral-dark-gray);
+    margin-bottom: var(--spacing-sm);
     flex-grow: 1;
 }
 
 .project-card-link {
-    color: #2563eb;
+    color: var(--color-accent);
     text-decoration: none;
     display: inline-block;
     margin-top: auto;
@@ -204,17 +204,17 @@
 
 /* --- Estilos para SkillsSection --- */
 .skills-section {
-    background-color: #f9fafb;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    background-color: var(--color-neutral-light-gray);
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
 }
 
 .skills-section h2 {
     font-size: 1.75rem;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 1.5rem;
-    color: #333;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-neutral-dark-gray);
 }
 
 .skills-container {
@@ -226,8 +226,8 @@
 
 .skill-item {
     padding: 0.5rem 1rem;
-    background-color: #dbeafe;
-    color: #1e40af;
+    background-color: var(--color-skill-bg);
+    color: var(--color-skill-text);
     border-radius: 9999px;
     font-size: 0.9rem;
     white-space: nowrap;
@@ -239,14 +239,14 @@
     text-align: center;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
-    background-color: #f3f4f6;
+    background-color: var(--color-neutral-light-gray);
 }
 
 .social-links-section h2 {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1.25rem;
-    color: #333;
+    color: var(--color-neutral-dark-gray);
 }
 
 .social-icons-container {
@@ -256,7 +256,7 @@
 }
 
 .social-icon-link {
-    color: #2563eb;
+    color: var(--color-accent);
     font-size: 1.75rem;
     transition:
         color 0.3s ease,
@@ -264,12 +264,12 @@
 }
 
 .social-icon-link:hover {
-    color: #1d4ed8;
+    color: var(--color-accent-hover);
     transform: translateY(-3px);
 }
 
 /* --- Media Queries para pantallas más grandes --- */
-@media (min-width: 480px) {
+@media (min-width: var(--breakpoint-xs)) {
     .hero-profile-picture {
         width: 7rem;
         height: 7rem;
@@ -284,13 +284,13 @@
     }
 }
 
-@media (min-width: 640px) {
+@media (min-width: var(--breakpoint-sm)) {
     .hero-section,
     .about-me-section,
     .featured-projects-section,
     .skills-section,
     .social-links-section {
-        padding: 2rem;
+        padding: var(--spacing-md);
     }
 
     .hero-name {
@@ -306,13 +306,13 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: var(--breakpoint-md)) {
     .hero-section,
     .about-me-section,
     .featured-projects-section,
     .skills-section,
     .social-links-section {
-        padding: 3rem;
+        padding: var(--spacing-lg);
     }
 
     .hero-profile-picture {
@@ -335,7 +335,7 @@
     }
 
     .projects-grid {
-        gap: 2rem;
+        gap: var(--spacing-md);
     }
 
     .skill-item {
@@ -343,7 +343,7 @@
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: var(--breakpoint-lg)) {
     .projects-grid {
         grid-template-columns: repeat(3, 1fr);
     }

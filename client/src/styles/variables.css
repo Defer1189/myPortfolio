@@ -1,19 +1,26 @@
 /* myPortfolio/client/src/styles/variables.css */
 :root {
-    /* Colores */
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --secondary-color: #646cff;
-    --text-dark: #333;
-    --text-medium: #4b5563;
-    --text-light: #ffffff;
-    --bg-light: #f3f4f6;
-    --bg-lighter: #f9fafb;
-    --bg-dark: #282c34;
-    --success: #4caf50;
-    --error: #ff6b6b;
-    --warning: #ff9800;
-    --info: #2196f3;
+    /* Paleta de Colores "El Conector de Ideas" */
+    --color-primary-dark: #0a192f;
+    --color-accent: #64ffda;
+    --color-text-light: #ccd6f6;
+    --color-text-muted: #8892b0;
+    --color-neutral-light-gray: #f4f6f6;
+    --color-neutral-dark-gray: #34495e;
+    --color-error: #ff6b6b;
+    --color-success: #4caf50;
+    --color-warning: #ff9800;
+    --color-info: #2196f3;
+    --color-button-primary: #2563eb;
+    --color-button-primary-hover: #1d4ed8;
+    --color-button-disabled: #4a4f5c;
+    --color-background-card: #ffffff;
+    --color-skill-bg: #dbeafe;
+    --color-skill-text: #1e40af;
+
+    /* Tipografía */
+    --font-heading: "Poppins", sans-serif;
+    --font-body: "Inter", sans-serif;
 
     /* Espaciado */
     --spacing-xs: 0.5rem;

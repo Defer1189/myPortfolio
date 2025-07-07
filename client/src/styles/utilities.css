@@ -43,13 +43,13 @@
     text-align: right;
 }
 .text-primary {
-    color: var(--primary-color);
+    color: var(--color-accent);
 }
 .text-error {
-    color: var(--error);
+    color: var(--color-error);
 }
 .text-success {
-    color: var(--success);
+    color: var(--color-success);
 }
 
 /* Utilidades de flexbox */
