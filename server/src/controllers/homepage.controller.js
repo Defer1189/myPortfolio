@@ -59,23 +59,6 @@ const createDefaultProfile = async () => {
     return createdProfile;
 };
 
-const handleValidationError = (error, res) => {
-    const errors = Object.values(error.errors).map((err) => err.message);
-    logger.warn('Error de validación', { details: errors });
-    return res.status(400).json({ error: 'Error de validación', details: errors });
-};
-
-const handleServerError = (error, res, context) => {
-    logger.error(`❌ Error en ${context}`, {
-        error: error.message,
-        stack: error.stack,
-    });
-    return res.status(500).json({
-        error: `Error interno en ${context}`,
-        details: error.message,
-    });
-};
-
 const validateRequiredFields = (data, fields) => {
     return fields.filter((field) => !data[field]);
 };
@@ -86,9 +69,10 @@ const validateRequiredFields = (data, fields) => {
  *
  * @param {import('express').Request} req - Objeto de solicitud de Express.
  * @param {import('express').Response} res - Objeto de respuesta de Express.
+ * @param {import('express').NextFunction} next - Función next para manejo de errores
  * @returns {Promise<void>}
  */
-export const getUserProfile = async (req, res) => {
+export const getUserProfile = async (req, res, next) => {
     try {
         let userProfile = await User.findOne({});
 
@@ -100,7 +84,7 @@ export const getUserProfile = async (req, res) => {
         logger.info('✅ Perfil obtenido');
         return res.status(200).json(userProfile);
     } catch (error) {
-        return handleServerError(error, res, 'obtener perfil');
+        next(error);
     }
 };
 
@@ -110,9 +94,10 @@ export const getUserProfile = async (req, res) => {
  *
  * @param {import('express').Request<{}, {}, UserProfileRequestBody>} req - Objeto de solicitud de Express.
  * @param {import('express').Response} res - Objeto de respuesta de Express.
+ * @param {import('express').NextFunction} next - Función next para manejo de errores.
  * @returns {Promise<void>}
  */
-export const updateOrCreateUserProfile = async (req, res) => {
+export const updateOrCreateUserProfile = async (req, res, next) => {
     try {
         const { body } = req;
         const requiredFields = ['name', 'title', 'bio'];
@@ -137,9 +122,6 @@ export const updateOrCreateUserProfile = async (req, res) => {
             data: userProfile,
         });
     } catch (error) {
-        if (error.name === 'ValidationError') {
-            return handleValidationError(error, res);
-        }
-        return handleServerError(error, res, 'actualizar perfil');
+        next(error);
     }
 };

@@ -1,10 +1,9 @@
 // myPortfolio/server/src/app.js
-import cors from 'cors';
 import express from 'express';
-import rateLimit from 'express-rate-limit';
-import helmet from 'helmet';
 
 import { swaggerDocs } from './config/swagger.js';
+import errorHandler from './middlewares/errorHandler.middleware.js';
+import setupAppMiddlewares from './middlewares/setupMiddlewares.js';
 import contactRoutes from './routes/contact.routes.js';
 import homepageRoutes from './routes/homepage.routes.js';
 import pageContentRoutes from './routes/pageContent.routes.js';
@@ -12,55 +11,8 @@ import logger from './utils/logger.js';
 
 const app = express();
 
-// Middlewares
-const allowedOrigins = [];
-
-if (process.env.NODE_ENV === 'development') {
-    allowedOrigins.push(process.env.CLIENT_URL_DEV);
-} else if (process.env.NODE_ENV === 'staging') {
-    allowedOrigins.push(process.env.CLIENT_URL_PROD);
-    allowedOrigins.push(process.env.CLIENT_URL_DEV);
-} else if (process.env.NODE_ENV === 'production') {
-    allowedOrigins.push(process.env.CLIENT_URL_PROD);
-}
-
-const corsOptions = {
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error(`Not allowed by CORS: ${origin}`));
-        }
-    },
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    credentials: true,
-    optionsSuccessStatus: 204,
-};
-
-app.options('*', cors(corsOptions));
-
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(helmet());
-
-app.get('/favicon.ico', (req, res) => res.sendStatus(204));
-
-// Limitador de tasa (Rate Limiter)
-const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-    message: 'Demasiadas peticiones desde esta IP, por favor intenta de nuevo después de 15 minutos.',
-    standardHeaders: true,
-    legacyHeaders: false,
-});
-app.use(apiLimiter);
-
-// Middleware para registrar cada solicitud entrante
-app.use((req, res, next) => {
-    logger.info(`📡 ${req.method} ${req.originalUrl}`);
-    next();
-});
+// Aplicar middlewares generales
+setupAppMiddlewares(app);
 
 // Configuración de Swagger
 swaggerDocs(app);
@@ -95,25 +47,7 @@ app.use((req, res, next) => {
     next(error);
 });
 
-// Middleware de Manejo de Errores Globales
-// eslint-disable-next-line no-unused-vars
-app.use((error, req, res, next) => {
-    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    res.status(statusCode);
-
-    logger.error(`❌ Error en la API: ${error.message}`, {
-        status: statusCode,
-        path: req.originalUrl,
-        method: req.method,
-        stack: process.env.NODE_ENV === 'production' ? '🚫' : error.stack,
-        errorDetails: error.details || 'No details provided',
-    });
-
-    res.json({
-        message: error.message,
-        stack: process.env.NODE_ENV === 'production' ? '🚫' : error.stack,
-        details: error.details || undefined,
-    });
-});
+// Middleware Centralizado de Errores
+app.use(errorHandler);
 
 export default app;

@@ -35,6 +35,7 @@ const handleError = (error, type = 'Error crítico') => {
     logger.error(`❌ ${type}: ${error.message}`, {
         stack: error.stack,
         details: error.message,
+        timestamp: new Date().toISOString(),
     });
     process.exitCode = 1;
 };
@@ -114,7 +115,12 @@ const startServer = async () => {
 
 // 6. Configuración de errores globales
 process.on('unhandledRejection', (reason, promise) => {
-    logger.error('⚠️ Promesa no manejada:', { reason, promise });
+    logger.error('⚠️ Promesa no manejada:', {
+        reason: reason.message,
+        stack: reason.stack,
+        promise,
+        timestamp: new Date().toISOString(),
+    });
     // eslint-disable-next-line n/no-process-exit
     process.exit(1);
 });
