@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
 import App from './App.jsx';
+import NotFoundPage from './pages/common/NotFoundPage.jsx';
 import ContactPage from './pages/contact/index.jsx';
 import Homepage from './pages/homepage/index.jsx';
 
@@ -23,7 +24,10 @@ const router = createBrowserRouter([
                 path: 'contact',
                 element: <ContactPage />,
             },
-            // Puedes añadir más rutas aquí para otros proyectos, acerca de, etc.
+            {
+                path: '*',
+                element: <NotFoundPage />,
+            },
         ],
     },
 ]);

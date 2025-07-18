@@ -88,7 +88,6 @@ const getDefaultContentData = (pageName) => {
 
     const specificData = PAGE_CONTENT_DEFAULTS[pageName];
 
-    // Fusiona los datos base con los datos específicos de la página si existen
     return specificData ? { ...baseData, ...specificData } : baseData;
 };
 
@@ -153,7 +152,7 @@ export const getPageContent = async (req, res) => {
             content = await createDefaultPageContent(pageName);
         }
         res.setHeader('Content-Type', 'application/json');
-        logger.info(`📡 GET /api/content/${pageName} - Contenido de página obtenido.`);
+        logger.info(`✅ Contenido de la página: '${pageName}' obtenido.`);
         res.status(200).json(content);
     } catch (error) {
         res.setHeader('Content-Type', 'application/json');
@@ -238,14 +237,13 @@ export const getPageContent = async (req, res) => {
 
 export const updatePageContent = async (req, res) => {
     const { pageName } = req.params;
-    const { body } = req; // Contiene title, introduction, sections
+    const { body } = req;
 
     try {
-        // findOneAndUpdate con upsert: true para crear si no existe
         const updatedContent = await PageContent.findOneAndUpdate(
-            { pageName: pageName }, // Criterio de búsqueda
-            { $set: body }, // Datos a actualizar/establecer
-            { new: true, upsert: true, runValidators: true }, // Opciones: devolver el doc nuevo, crear si no existe, validar antes de guardar
+            { pageName: pageName },
+            { $set: body },
+            { new: true, upsert: true, runValidators: true },
         );
 
         logger.info(`✅ Contenido para la página '${pageName}' actualizado/creado.`);

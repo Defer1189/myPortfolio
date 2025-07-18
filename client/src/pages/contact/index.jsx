@@ -15,14 +15,13 @@ import usePageContent from '../../hooks/common/usePageContent.js';
 
 /**
  * Componente auxiliar para renderizar las secciones de la página.
- * Extraído para reducir el conteo de líneas de ContactPage y mejorar la modularidad.
  *
  * @param {{ sections: Array<PageSection> }} props - Las props del componente.
  * @returns {React.ReactElement | null} El JSX renderizado para las secciones, o null si no hay secciones.
  */
 const PageSectionsRenderer = ({ sections }) => {
     if (!sections || sections.length === 0) {
-        return null; // No renderizar nada si no hay secciones
+        return null;
     }
     return (
         <>
@@ -39,13 +38,11 @@ const PageSectionsRenderer = ({ sections }) => {
 
 // Definición de PropTypes para PageSectionsRenderer
 PageSectionsRenderer.propTypes = {
-    // sections debe ser un array de objetos (forma más general),
-    // o puedes ser más específico usando PropTypes.arrayOf(PropTypes.shape(...))
     sections: PropTypes.arrayOf(
         PropTypes.shape({
             sectionTitle: PropTypes.string.isRequired,
             text: PropTypes.string.isRequired,
-            image: PropTypes.string, // image es opcional
+            image: PropTypes.string,
         }),
     ),
 };
@@ -78,8 +75,6 @@ function ContactPage() {
             <h1>{content.title}</h1>
             <p>{content.introduction}</p>
             <ContactForm />
-            {/* Renderiza secciones solo si existen y ContactPage necesita renderizarlas.
-                Para ContactPage, sections probablemente será un array vacío por defecto. */}
             <PageSectionsRenderer sections={content.sections} />
         </div>
     );

@@ -27,7 +27,7 @@ export const getUserProfile = async (signal) => {
 
 export const updateProfile = async (profileData) => {
     const response = await fetch(API_ENDPOINT, {
-        method: 'POST', // O PUT para actualizaciones completas
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(profileData),
     });

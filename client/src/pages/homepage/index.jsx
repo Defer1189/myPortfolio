@@ -1,7 +1,7 @@
 // myPortfolio/client/src/pages/homepage/index.jsx
 import React from 'react';
 
-import StateFeedback from '../../components/common/StateFeedback';
+import StateFeedback from '../../components/common/StateFeedback.jsx';
 import AboutMeSection from '../../components/homepage/AboutMeSection.jsx';
 import FeaturedProjectsSection from '../../components/homepage/FeaturedProjectsSection.jsx';
 import HeroSection from '../../components/homepage/HeroSection.jsx';

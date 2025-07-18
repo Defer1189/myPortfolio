@@ -26,6 +26,8 @@ const ContactFormFields = ({ formData, errors, isLoading, handleChange, handleBl
             id='name'
             label='Tu Nombre'
             name='name'
+            placeholder='Ej: Juan Pérez'
+            maxLength={100}
             value={formData.name}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -84,7 +86,7 @@ ContactFormFields.propTypes = {
 function ContactForm() {
     const { formData, errors, submitMessage, isLoading, handleChange, handleBlur, handleSubmit } = useContactForm();
     return (
-        <form className='contact-form' onSubmit={handleSubmit} noValidate>
+        <form className='contact-form' onSubmit={handleSubmit} noValidate aria-label='Formulario de contacto'>
             <ContactFormFields
                 formData={formData}
                 errors={errors}
@@ -93,9 +95,13 @@ function ContactForm() {
                 handleBlur={handleBlur}
             />
             {submitMessage && (
-                <p className={`submit-feedback ${submitMessage.includes('Error') ? 'error' : 'success'}`}>
+                <div
+                    role={submitMessage.includes('Error') ? 'alert' : 'status'}
+                    aria-live='assertive'
+                    className={`submit-feedback ${submitMessage.includes('Error') ? 'error' : 'success'}`}
+                >
                     {submitMessage}
-                </p>
+                </div>
             )}
         </form>
     );
