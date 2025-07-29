@@ -2,36 +2,6 @@
 import PageContent from '../models/PageContent.js';
 import logger from '../utils/logger.js';
 
-// Constantes para los textos largos de las páginas.
-// Se declaran aquí para reducir el número de líneas dentro de la función getDefaultContentData.
-const CONTACT_INTRO_TEXT =
-    '¡Estoy siempre abierto a nuevas oportunidades, colaboraciones o simplemente para charlar! Si tienes alguna pregunta, propuesta de proyecto o deseas conocer más sobre mi trabajo, no dudes en enviarme un mensaje.';
-const ABOUT_ME_INTRO_TEXT =
-    'Conoce más sobre mi trayectoria, pasiones y lo que me impulsa en el mundo del desarrollo web.';
-const ABOUT_ME_HISTORY_TEXT =
-    'Desde muy joven, la tecnología capturó mi interés. Empecé a experimentar con pequeños códigos y a construir cosas, lo que me llevó a mi pasión por el desarrollo web.';
-const ABOUT_ME_PHILOSOPHY_TEXT =
-    'Me enfoco en construir soluciones robustas y escalables, con una atención meticulosa al detalle y la experiencia de usuario. Siempre busco aprender y aplicar las últimas tecnologías.';
-
-// Mapa para definir los valores por defecto específicos de cada página.
-// Esto reduce la longitud de la función getDefaultContentData al sacar las definiciones detalladas.
-const PAGE_CONTENT_DEFAULTS = {
-    contact: {
-        title: 'Contáctame',
-        introduction: CONTACT_INTRO_TEXT,
-        sections: [],
-    },
-    about: {
-        title: 'Acerca de Mí',
-        introduction: ABOUT_ME_INTRO_TEXT,
-        sections: [
-            { sectionTitle: 'Mi Historia', text: ABOUT_ME_HISTORY_TEXT },
-            { sectionTitle: 'Filosofía de Trabajo', text: ABOUT_ME_PHILOSOPHY_TEXT },
-        ],
-    },
-    // Añadir más entradas aquí para otras páginas si fuera necesario (ej., 'services', 'blog', etc.)
-};
-
 /**
  * @typedef {object} PageContentPayload
  * @property {string} pageName - Nombre único de la página (ej. "contact", "about").
@@ -78,18 +48,12 @@ const handleServerError = (error, res, context) => {
  * @param {string} pageName - El nombre de la página.
  * @returns {object} Los datos de contenido por defecto.
  */
-const getDefaultContentData = (pageName) => {
-    const baseData = {
-        pageName: pageName,
-        title: 'Título por Defecto',
-        introduction: 'Este es un párrafo de introducción por defecto para la página.',
-        sections: [{ sectionTitle: 'Sección por Defecto', text: 'Contenido de la primera sección por Defecto.' }],
-    };
-
-    const specificData = PAGE_CONTENT_DEFAULTS[pageName];
-
-    return specificData ? { ...baseData, ...specificData } : baseData;
-};
+const getDefaultContentData = (pageName) => ({
+    pageName,
+    title: 'Título por Defecto',
+    introduction: 'Este es un párrafo de introducción por defecto para la página.',
+    sections: [{ sectionTitle: 'Sección por Defecto', text: 'Contenido de la primera sección por Defecto.' }],
+});
 
 /**
  * Crea un documento de contenido de página por defecto si no existe.
@@ -105,24 +69,26 @@ const createDefaultPageContent = async (pageName) => {
 };
 
 /**
+ * Obtiene el contenido de una página específica por su nombre único.
+ *
+ * @param {import('express').Request} req - Objeto de solicitud de Express.
+ * @param {import('express').Response} res - Objeto de respuesta de Express.
  * @swagger
  * /api/content/{pageName}:
  *   get:
- *     tags: [Page Content]
  *     summary: Obtiene el contenido de una página específica.
- *     description: Retorna el título, introducción y secciones de una página por su nombre único. Si el contenido de la página no existe, se crea uno por defecto.
+ *     description: |
+ *       Recupera el contenido de la página indicada por el parámetro `pageName`.
+ *       Si el contenido no existe, se crea un contenido por defecto para la página solicitada.
+ *     tags:
+ *       - Contenido de Página
  *     parameters:
  *       - in: path
  *         name: pageName
  *         required: true
  *         schema:
  *           type: string
- *         description: El nombre único de la página (ej., 'contact', 'about').
- *         examples:
- *           contact:
- *             value: contact
- *           about:
- *             value: about
+ *         description: Nombre de la página cuyo contenido se desea obtener.
  *     responses:
  *       200:
  *         description: Contenido de la página obtenido exitosamente.
@@ -130,18 +96,11 @@ const createDefaultPageContent = async (pageName) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/PageContent'
+ *       404:
+ *         description: No se encontró contenido para la página especificada.
  *       500:
- *         description: Error interno del servidor al obtener el contenido.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: "Error interno del servidor al obtener el contenido de la página."
+ *         description: Error interno del servidor al obtener el contenido de la página.
  */
-
 export const getPageContent = async (req, res) => {
     const { pageName } = req.params;
 
@@ -151,53 +110,43 @@ export const getPageContent = async (req, res) => {
         if (!content) {
             content = await createDefaultPageContent(pageName);
         }
-        res.setHeader('Content-Type', 'application/json');
         logger.info(`✅ Contenido de la página: '${pageName}' obtenido.`);
         res.status(200).json(content);
     } catch (error) {
-        res.setHeader('Content-Type', 'application/json');
         handleServerError(error, res, `obtener contenido para '${pageName}'`);
     }
 };
 
 /**
+ * Actualiza o crea el contenido de una página específica según el nombre único de la página.
+ *
+ * @param {import('express').Request} req - Objeto de solicitud de Express.
+ * @param {import('express').Response} res - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Envía una respuesta JSON con el resultado de la operación.
  * @swagger
  * /api/content/{pageName}:
- *   post:
- *     tags: [Page Content]
- *     summary: Crea o actualiza el contenido de una página específica.
- *     description: Permite actualizar el título, introducción y secciones de una página por su nombre único. Si el contenido no existe, se crea. Esta funcionalidad es ideal para un panel de administración.
+ *   put:
+ *     summary: Actualiza o crea el contenido de una página.
+ *     description: Actualiza el contenido de la página especificada por el parámetro `pageName`. Si la página no existe, se crea un nuevo registro. Requiere un cuerpo con los datos a actualizar.
+ *     tags:
+ *       - Contenido de Página
  *     parameters:
  *       - in: path
  *         name: pageName
  *         required: true
  *         schema:
  *           type: string
- *         description: El nombre único de la página a actualizar (ej., 'contact', 'about').
+ *         description: Nombre de la página cuyo contenido se va a actualizar o crear.
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/PageContent'
- *           examples:
- *             contactUpdate:
- *               value:
- *                 title: "¡Contáctame Ahora!"
- *                 introduction: "Mi equipo y yo estamos listos para escucharte. Envíanos tu mensaje..."
- *                 sections: []
- *             aboutUpdate:
- *               value:
- *                 title: "Sobre Deiby Arango - Full-Stack Dev"
- *                 introduction: "Mi viaje en el desarrollo web..."
- *                 sections:
- *                   - sectionTitle: "Mi Filosofía"
- *                     text: "Creo en el código limpio..."
- *                   - sectionTitle: "Mis Habilidades"
- *                     text: "JavaScript, React, Node, etc."
+ *             type: object
+ *             description: Datos del contenido de la página a actualizar.
  *     responses:
  *       200:
- *         description: Contenido de la página actualizado/creado exitosamente.
+ *         description: Contenido de la página actualizado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -205,11 +154,12 @@ export const getPageContent = async (req, res) => {
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Contenido de la página actualizado exitosamente."
+ *                   example: Contenido de la página actualizado exitosamente.
  *                 data:
- *                   $ref: '#/components/schemas/PageContent'
+ *                   type: object
+ *                   description: El contenido actualizado de la página.
  *       400:
- *         description: Error de validación de entrada o datos inválidos.
+ *         description: Error de validación en los datos enviados.
  *         content:
  *           application/json:
  *             schema:
@@ -217,31 +167,25 @@ export const getPageContent = async (req, res) => {
  *               properties:
  *                 error:
  *                   type: string
- *                   example: "Error de validación"
- *                 details:
- *                   type: array
- *                   items:
- *                     type: string
- *                   example: "El título es requerido."
+ *                   example: Error de validación de Mongoose.
  *       500:
- *         description: Error interno del servidor al actualizar el contenido.
+ *         description: Error interno del servidor al actualizar el contenido de la página.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 message:
+ *                 error:
  *                   type: string
- *                   example: "Error interno del servidor al actualizar el contenido de la página."
+ *                   example: Error interno del servidor.
  */
-
 export const updatePageContent = async (req, res) => {
     const { pageName } = req.params;
     const { body } = req;
 
     try {
         const updatedContent = await PageContent.findOneAndUpdate(
-            { pageName: pageName },
+            { pageName },
             { $set: body },
             { new: true, upsert: true, runValidators: true },
         );
