@@ -5,39 +5,51 @@
 /* Estilos para el encabezado principal de la aplicación (header) */
 .app-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 2rem;
-    background-color: var(--color-primary-dark);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    background-color: var(--color-primary);
     color: var(--color-text-light);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-md);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: var(--z-header);
+}
+
+/* Ajustes para el modo oscuro en el encabezado */
+body.dark-mode .app-header {
+    background-color: var(--color-background-main);
+    color: var(--color-text-dark);
 }
 
 /* Contenedor para el logo y el título dentro del encabezado */
 .logo-title-container {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: var(--spacing-md);
 }
 
 /* Estilos para el logotipo SVG */
 .site-logo {
-    height: 6em;
+    height: 4.5em;
     width: auto;
     display: block;
+    transition: transform 0.3s ease-in-out;
 }
 
 /* Estilos para el título principal */
 .site-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-family-heading);
     font-size: 2.8em;
     color: var(--color-text-light);
     margin: 0;
     letter-spacing: 1px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste del título en modo oscuro */
+body.dark-mode .site-title {
+    color: var(--color-primary);
 }
 
 /* Estilos para el enlace que envuelve el logo */
@@ -49,77 +61,129 @@
 
 /* Estilos para el enlace de navegación principal */
 .main-nav {
-    background-color: var(--color-primary-dark);
-    padding: 0.8rem 2rem;
+    background-color: var(--color-primary);
+    padding: var(--spacing-sm) var(--spacing-xl);
     text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(var(--color-text-light-rgb), 0.1);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+/* Ajuste de la navegación en modo oscuro */
+body.dark-mode .main-nav {
+    background-color: var(--color-background-card);
+    border-bottom: 1px solid rgba(var(--color-text-dark-rgb), 0.1);
 }
 
 .main-nav a {
     color: var(--color-accent);
     text-decoration: none;
     font-weight: bold;
-    margin: 0 15px;
     transition: color 0.3s ease;
-    font-family: var(--font-body);
+    font-family: var(--font-family-body);
     font-size: 1.1em;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
 }
 
 .main-nav a:hover {
     color: var(--color-text-light);
+    background-color: rgba(var(--color-text-light-rgb), 0.1);
+}
+
+/* Estilo para el NavLink activo */
+.main-nav a.active {
+    color: var(--color-text-light);
+    background-color: var(--color-accent-hover);
+    pointer-events: none;
+    cursor: default;
+}
+
+/* Ajuste de NavLink en modo oscuro */
+body.dark-mode .main-nav a {
+    color: var(--color-text-dark);
+}
+
+body.dark-mode .main-nav a:hover {
+    color: var(--color-primary);
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+}
+
+body.dark-mode .main-nav a.active {
+    color: var(--color-accent);
+    background-color: var(--color-accent-hover);
 }
 
 /* Estilos para el contenido principal de la aplicación */
 .app-main-content {
-    padding: 2rem;
+    padding: var(--spacing-lg);
     min-height: calc(100vh - 150px);
-    background-color: var(--color-neutral-light-gray);
-    color: var(--color-neutral-dark-gray);
-    font-family: var(--font-body);
+    background-color: var(--color-background-main);
+    color: var(--color-text-dark);
+    font-family: var(--font-family-body);
+    flex-grow: 1;
 }
 
 /* Estilos para el pie de página */
 .app-footer {
-    padding: 1.5rem 0;
-    background-color: var(--color-primary-dark);
-    color: var(--color-text-muted);
+    padding: var(--spacing-lg) 0;
+    background-color: var(--color-primary);
+    color: var(--color-text-dark);
     text-align: center;
     font-size: 0.95em;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(var(--color-text-light-rgb), 0.1);
 }
 
-/* Media Queries para Responsividad (Ajustes para pantallas más pequeñas) */
-@media (max-width: 768px) {
-    .app-header {
-        flex-direction: column;
-        padding: 1rem;
-    }
+/* Ajuste del pie de página en modo oscuro */
+body.dark-mode .app-footer {
+    background-color: var(--color-background-main);
+    color: var(--color-text-dark);
+    border-top: 1px solid rgba(var(--color-text-dark-rgb), 0.1);
+}
 
-    .logo-title-container {
-        flex-direction: column;
-        gap: 10px;
-    }
+/* Estilos para el botón de Dark Mode Toggle */
+.dark-mode-toggle-button {
+    background-color: transparent;
+    border: 2px solid var(--color-accent);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    margin-left: var(--spacing-md);
+}
 
-    .site-logo {
-        height: 3.5em;
-    }
+.dark-mode-toggle-button:hover {
+    background-color: rgba(var(--color-accent-rgb), 0.1);
+    transform: scale(1.1);
+}
 
-    .site-title {
-        font-size: 2em;
-    }
+.dark-mode-toggle-button:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+}
 
-    .main-nav {
-        padding: 0.5rem 1rem;
-    }
+/* Estilos para los iconos de sol y luna */
+.dark-mode-toggle-button .icon-sun,
+.dark-mode-toggle-button .icon-moon {
+    transition: color 0.3s ease;
+}
 
-    .main-nav a {
-        margin: 0 8px;
-        font-size: 1em;
-    }
+/* Ajustes para el modo oscuro en el botón */
+body.dark-mode .dark-mode-toggle-button {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
 
-    .app-main-content {
-        padding: 1rem;
-    }
+body.dark-mode .dark-mode-toggle-button:hover {
+    background-color: rgba(var(--color-primary-rgb), 0.1);
 }
 
 /* --- UTILIDADES DE ACCESIBILIDAD --- */
@@ -142,15 +206,15 @@
 /* Animación de Resplandor/Pulso para la Diple Izquierda (Sabio) */
 @keyframes diple-left-glow {
     0% {
-        filter: drop-shadow(0 0 0px var(--color-text-light));
+        filter: drop-shadow(0 0 0px var(--logo-diple-left-fill));
         opacity: 0;
     }
     50% {
-        filter: drop-shadow(0 0 5px var(--color-text-light));
+        filter: drop-shadow(0 0 5px var(--logo-diple-left-fill));
         opacity: 1;
     }
     100% {
-        filter: drop-shadow(0 0 0px var(--color-text-light));
+        filter: drop-shadow(0 0 0px var(--logo-diple-left-fill));
         opacity: 0;
     }
 }
@@ -158,15 +222,15 @@
 /* Animación de Resplandor/Pulso para la Diple Derecha (Creador) */
 @keyframes diple-right-glow {
     0% {
-        filter: drop-shadow(0 0 0px var(--color-accent));
+        filter: drop-shadow(0 0 0px var(--logo-diple-right-stroke));
         opacity: 0;
     }
     50% {
-        filter: drop-shadow(0 0 5px var(--color-accent));
+        filter: drop-shadow(0 0 5px var(--logo-diple-right-stroke));
         opacity: 1;
     }
     100% {
-        filter: drop-shadow(0 0 0px var(--color-accent));
+        filter: drop-shadow(0 0 0px var(--logo-diple-right-stroke));
         opacity: 0;
     }
 }
@@ -217,4 +281,46 @@
 .site-logo .chispas-shape {
     animation: chispas-sparkle 2.5s ease-out infinite;
     animation-delay: 2s;
+}
+
+/* Media Queries para Responsividad (Ajustes para pantallas más pequeñas) */
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        padding: var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+
+    .logo-title-container {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .site-logo {
+        height: 3.5em;
+    }
+
+    .site-title {
+        font-size: 2em;
+    }
+
+    .main-nav {
+        padding: var(--spacing-sm) var(--spacing-md);
+        flex-direction: column;
+        gap: var(--spacing-xs);
+    }
+
+    .main-nav a {
+        margin: 0;
+        width: 100%;
+    }
+
+    .app-main-content {
+        padding: var(--spacing-md);
+    }
+
+    .dark-mode-toggle-button {
+        margin-left: 0;
+        margin-top: var(--spacing-sm);
+    }
 }

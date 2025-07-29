@@ -1,29 +1,49 @@
 /* myPortfolio/client/src/index.css */
-/* Importa las fuentes de Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@400;700&display=swap");
 
-@import "./styles/reset.css";
+/* Importaciones */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Fira+Code:wght@400;700&family=Poppins:wght@400;700&display=swap");
 @import "./styles/variables.css";
+@import "./styles/reset.css";
+@import "./styles/utilities.css";
+@import "./App.css";
+@import "./components/homepage/HomePage.css";
+@import "./styles/StateFeedback.css";
+@import "./components/contact/ContactForm.css";
+@import "./pages/contact/ContactPage.css";
+@import "./pages/about/AboutPage.css";
+@import "./pages/experience/ExperiencePage.css";
+@import "./pages/projects/ProjectDetailPage.css";
+@import "./pages/projects/ProjectsPage.css";
+@import "./pages/skills/SkillsPage.css";
 
-/* Limpiamos el bloque :root de propiedades */
-:root {
+/* Normaliza el box-sizing para todos los elementos */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Propiedades globales para el HTML */
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    color-scheme: light dark;
 }
 
-/* Estilos globales para el cuerpo del documento */
+/* Estilos globales para el body */
 body {
+    font-family: var(--font-family-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    background-color: var(--color-background-main);
     margin: 0;
-    min-width: 320px;
     min-height: 100vh;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-
-    font-family: var(--font-body);
-    background-color: var(--color-neutral-light-gray);
-    color: var(--color-neutral-dark-gray);
+    min-width: 320px;
 }
 
 /* Accesibilidad: estilos focus-visible */
@@ -37,8 +57,66 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    max-width: 1280px;
     margin: 0 auto;
     padding: 0;
     width: 100%;
+}
+
+/* Estilos para imágenes */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Estilos para listas */
+ul,
+ol {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+li {
+    margin-bottom: 0.25rem;
+}
+
+/* Scrollbar para navegadores Webkit */
+::-webkit-scrollbar {
+    width: 8px;
+    background: var(--color-background-main);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 4px;
+}
+
+/* Estilo para el texto seleccionado */
+::-webkit-selection {
+    background: var(--color-accent);
+    color: var(--color-primary);
+}
+
+/* Encabezados */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-family-heading);
+    color: var(--color-primary);
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* Enlaces */
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+a:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
 }
