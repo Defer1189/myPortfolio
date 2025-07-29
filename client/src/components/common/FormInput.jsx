@@ -80,7 +80,7 @@ FormInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     onBlur: PropTypes.func.isRequired,
     error: PropTypes.string,
-    disabled: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool,
     isTextarea: PropTypes.bool,
     placeholder: PropTypes.string,
     maxLength: PropTypes.number,

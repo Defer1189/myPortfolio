@@ -1,6 +1,8 @@
 // myPortfolio/client/src/components/common/StateFeedback.jsx
+
 import PropTypes from 'prop-types';
 import React from 'react';
+import { FaExclamationCircle, FaInbox } from 'react-icons/fa';
 
 import '../../styles/StateFeedback.css';
 
@@ -13,14 +15,14 @@ const STATE_CONFIG = {
         ariaLive: 'polite',
     },
     error: {
-        icon: <span className='icon'>❌</span>,
+        icon: <FaExclamationCircle className='icon' />,
         text: 'Se produjo un error',
         className: 'error-state',
         role: 'alert',
         ariaLive: 'assertive',
     },
     empty: {
-        icon: <span className='icon'>📭</span>,
+        icon: <FaInbox className='icon' />,
         text: 'No se encontraron datos',
         className: 'empty-state',
         role: 'status',
@@ -40,10 +42,8 @@ const STATE_CONFIG = {
  * @returns {React.JSX.Element} Componente de feedback.
  */
 const StateFeedback = ({ type, message, loadingIcon, errorIcon, emptyIcon }) => {
-    // Usar una copia mutable si se necesita modificar los valores por defecto
     const config = { ...STATE_CONFIG[type] };
 
-    // Sobrescribir iconos y mensajes si se proporcionan
     if (loadingIcon && type === 'loading') {
         config.icon = loadingIcon;
     }
@@ -57,7 +57,6 @@ const StateFeedback = ({ type, message, loadingIcon, errorIcon, emptyIcon }) => 
         config.text = message;
     }
 
-    // Si el tipo no coincide con ninguna configuración, no renderizar nada.
     if (!config || !type) {
         return null;
     }

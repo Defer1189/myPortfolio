@@ -1,0 +1,125 @@
+/* myPortfolio/client/src/pages/contact/ContactPage.css */
+
+/* --- Estilos generales para la página de Contacto --- */
+.contact-page {
+    padding: var(--spacing-lg) var(--spacing-md);
+    max-width: 1000px;
+    margin: var(--spacing-xl) auto;
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text-dark);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+body.dark-mode .contact-page {
+    background-color: var(--color-background-main);
+    color: var(--color-text-light);
+}
+
+/* Título principal de la página (h1) */
+.contact-page .page-title {
+    font-family: var(--font-family-heading);
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    text-align: center;
+}
+
+body.dark-mode .contact-page .page-title {
+    color: var(--color-primary);
+}
+
+/* Párrafo de introducción de la página */
+.contact-page .page-introduction {
+    font-family: var(--font-family-body);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-dark);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+body.dark-mode .contact-page .page-introduction {
+    color: var(--color-text-light);
+}
+
+/* Estilos para cada sección dinámica de la página */
+.contact-page .page-section {
+    padding: var(--spacing-md);
+    border-top: 1px solid rgba(var(--color-text-dark-rgb), 0.1);
+}
+
+body.dark-mode .contact-page .page-section {
+    border-top-color: rgba(var(--color-text-light-rgb), 0.1);
+}
+
+.contact-page .page-section:first-of-type {
+    border-top: none;
+}
+
+.contact-page .page-section h2 {
+    font-family: var(--font-family-heading);
+    font-size: 1.7rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+
+body.dark-mode .contact-page .page-section h2 {
+    color: var(--color-primary);
+}
+
+.contact-page .page-section p {
+    font-family: var(--font-family-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    text-align: justify;
+}
+
+body.dark-mode .contact-page .page-section p {
+    color: var(--color-text-light);
+}
+
+.contact-page .section-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+}
+
+body.dark-mode .contact-page .section-image {
+    box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 640px) {
+    .contact-page {
+        margin: var(--spacing-md) var(--spacing-sm);
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+
+    .contact-page .page-title {
+        font-size: 2rem;
+    }
+
+    .contact-page .page-introduction {
+        font-size: 1rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .contact-page .page-section h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .contact-page .page-title {
+        font-size: 3rem;
+    }
+}

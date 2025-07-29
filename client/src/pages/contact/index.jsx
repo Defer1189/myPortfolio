@@ -4,7 +4,7 @@ import React from 'react';
 
 import StateFeedback from '../../components/common/StateFeedback.jsx';
 import ContactForm from '../../components/contact/ContactForm.jsx';
-import usePageContent from '../../hooks/common/usePageContent.js';
+import { usePageContent } from '../../hooks/common/usePageContent.js';
 
 /**
  * @typedef {object} PageSection
@@ -54,10 +54,8 @@ PageSectionsRenderer.propTypes = {
  * @returns {React.ReactElement} El componente ContactPage renderizado.
  */
 function ContactPage() {
-    // Usa el hook usePageContent para obtener los datos de la página 'contact'
     const { content, loading, error } = usePageContent('contact');
 
-    // Renderizado condicional usando StateFeedback
     if (loading) {
         return <StateFeedback type='loading' message='Cargando contenido de contacto...' />;
     }
@@ -72,8 +70,8 @@ function ContactPage() {
 
     return (
         <div className='contact-page'>
-            <h1>{content.title}</h1>
-            <p>{content.introduction}</p>
+            <h1 className='page-title'>{content.title}</h1>
+            <p className='page-introduction'>{content.introduction}</p>
             <ContactForm />
             <PageSectionsRenderer sections={content.sections} />
         </div>

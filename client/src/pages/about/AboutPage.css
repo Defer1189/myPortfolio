@@ -1,0 +1,144 @@
+/* myPortfolio/client/src/pages/about/AboutPage.css */
+
+/* --- Estilos generales para la página "Acerca de Mí" --- */
+.about-page {
+    padding: var(--spacing-lg) var(--spacing-md);
+    max-width: 1000px;
+    margin: var(--spacing-xl) auto;
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text-dark);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+body.dark-mode .about-page {
+    background-color: var(--color-background-main);
+    color: var(--color-text-light);
+}
+
+/* Título principal de la página (h1) */
+.about-page .page-title {
+    font-family: var(--font-family-heading);
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+body.dark-mode .about-page .page-title {
+    color: var(--color-primary);
+}
+
+/* Párrafo de introducción de la página */
+.about-page .page-introduction {
+    font-family: var(--font-family-body);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-dark);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl) auto;
+}
+
+body.dark-mode .about-page .page-introduction {
+    color: var(--color-text-light);
+}
+
+/* Contenedor de las subsecciones (Mi Historia, Filosofía de Trabajo) */
+.about-sections-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+/* Estilos para cada bloque de sección (div que contiene h3 y p) */
+.about-section-block {
+    padding: var(--spacing-md);
+    border-top: 1px solid rgba(var(--color-text-dark-rgb), 0.1);
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+}
+
+body.dark-mode .about-section-block {
+    background-color: var(--color-background-card);
+    border-top-color: rgba(var(--color-text-light-rgb), 0.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.about-section-block:first-of-type {
+    border-top: none;
+}
+
+/* Título de la subsección */
+.about-section-block .section-title {
+    font-family: var(--font-family-heading);
+    font-size: 1.75rem;
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+}
+
+body.dark-mode .about-section-block .section-title {
+    color: var(--color-primary);
+}
+
+/* Texto de la subsección (p) */
+.about-section-block .section-text {
+    font-family: var(--font-family-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    text-align: justify;
+}
+
+body.dark-mode .about-section-block .section-text {
+    color: var(--color-text-light);
+}
+
+/* Estilos para la imagen dentro de la sección */
+.about-section-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    margin-top: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.dark-mode .about-section-image {
+    box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 640px) {
+    .about-page {
+        margin: var(--spacing-md) var(--spacing-sm);
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+
+    .about-page .page-title {
+        font-size: 2rem;
+    }
+
+    .about-page .page-introduction {
+        font-size: 1rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .about-section-block .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .about-page .page-title {
+        font-size: 3rem;
+    }
+}
