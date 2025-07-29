@@ -1,0 +1,97 @@
+/* myPortfolio/client/src/pages/projects/ProjectsPage.css */
+
+/* --- Estilos generales para la página de Proyectos --- */
+.projects-page {
+    padding: var(--spacing-lg) var(--spacing-md);
+    max-width: 1200px;
+    margin: var(--spacing-xl) auto;
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text-dark);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+body.dark-mode .projects-page {
+    background-color: var(--color-background-main);
+    color: var(--color-text-light);
+}
+
+/* Título principal de la página (h2) */
+.projects-page .page-title {
+    font-family: var(--font-family-heading);
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+body.dark-mode .projects-page .page-title {
+    color: var(--color-primary);
+}
+
+/* Párrafo de introducción de la página */
+.projects-page .page-introduction {
+    font-family: var(--font-family-body);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-dark);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl) auto;
+}
+
+body.dark-mode .projects-page .page-introduction {
+    color: var(--color-text-light);
+}
+
+/* Contenedor de la cuadrícula de proyectos */
+.projects-page .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Wrapper para los enlaces de las tarjetas de proyecto */
+.projects-page .project-link-wrapper {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+.projects-page .project-link-wrapper:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+body.dark-mode .projects-page .project-link-wrapper:hover {
+    box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 640px) {
+    .projects-page {
+        margin: var(--spacing-md) var(--spacing-sm);
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+
+    .projects-page .page-title {
+        font-size: 2rem;
+    }
+
+    .projects-page .page-introduction {
+        font-size: 1rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .projects-page .projects-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+}
