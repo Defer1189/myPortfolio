@@ -19,46 +19,30 @@ import { useContactForm } from './useContactForm.js';
  * @param {Function} props.handleBlur - Manejador de desenfoque de input.
  * @returns {import('react').JSX.Element} El JSX del formulario.
  */
-/* eslint-disable-next-line max-lines-per-function */
 const ContactFormFields = ({ formData, errors, isLoading, handleChange, handleBlur }) => (
     <>
-        <FormInput
-            id='name'
-            label='Tu Nombre'
-            name='name'
-            placeholder='Ej: Juan Pérez'
-            maxLength={100}
+        <NameInput
             value={formData.name}
-            onChange={handleChange}
-            onBlur={handleBlur}
             error={errors.name}
-            disabled={isLoading}
+            isLoading={isLoading}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
         />
-        <FormInput
-            id='email'
-            label='Tu Correo Electrónico'
-            type='email'
-            name='email'
+        <EmailInput
             value={formData.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
             error={errors.email}
-            disabled={isLoading}
+            isLoading={isLoading}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
         />
-        <FormInput
-            id='message'
-            label='Tu Mensaje'
-            name='message'
+        <MessageInput
             value={formData.message}
-            onChange={handleChange}
-            onBlur={handleBlur}
             error={errors.message}
-            disabled={isLoading}
-            isTextarea={true}
+            isLoading={isLoading}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
         />
-        <button type='submit' disabled={isLoading} className='submit-button'>
-            {isLoading ? 'Enviando...' : 'Enviar Mensaje'}
-        </button>
+        <SubmitButton isLoading={isLoading} />
     </>
 );
 
@@ -76,6 +60,83 @@ ContactFormFields.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     handleChange: PropTypes.func.isRequired,
     handleBlur: PropTypes.func.isRequired,
+};
+
+const NameInput = ({ value, error, isLoading, handleChange, handleBlur }) => (
+    <FormInput
+        id='name'
+        label='Tu Nombre'
+        name='name'
+        placeholder='Ej: Juan Pérez'
+        maxLength={100}
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={error}
+        disabled={isLoading}
+    />
+);
+
+NameInput.propTypes = {
+    value: PropTypes.string.isRequired,
+    error: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    handleBlur: PropTypes.func.isRequired,
+};
+
+const EmailInput = ({ value, error, isLoading, handleChange, handleBlur }) => (
+    <FormInput
+        id='email'
+        label='Tu Correo Electrónico'
+        type='email'
+        name='email'
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={error}
+        disabled={isLoading}
+    />
+);
+
+EmailInput.propTypes = {
+    value: PropTypes.string.isRequired,
+    error: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    handleBlur: PropTypes.func.isRequired,
+};
+
+const MessageInput = ({ value, error, isLoading, handleChange, handleBlur }) => (
+    <FormInput
+        id='message'
+        label='Tu Mensaje'
+        name='message'
+        value={value}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={error}
+        disabled={isLoading}
+        isTextarea={true}
+    />
+);
+
+MessageInput.propTypes = {
+    value: PropTypes.string.isRequired,
+    error: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    handleBlur: PropTypes.func.isRequired,
+};
+
+const SubmitButton = ({ isLoading }) => (
+    <button type='submit' disabled={isLoading} className='submit-button'>
+        {isLoading ? 'Enviando...' : 'Enviar Mensaje'}
+    </button>
+);
+
+SubmitButton.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
 };
 
 /**
