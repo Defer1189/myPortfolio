@@ -58,11 +58,13 @@ const fetchDataFromApi = async (endpointPath, signal) => {
  */
 const performInitialChecks = (pageName, setError, setLoading) => {
     if (!pageName) {
-        setError(new Error('Nombre de página requerido.'), setLoading(false));
+        setError(new Error('Nombre de página requerido.'));
+        setLoading(false);
         return false;
     }
     if (!API_BASE_URL) {
-        setError(new Error('URL base API no configurada.'), setLoading(false));
+        setError(new Error('URL base API no configurada.'));
+        setLoading(false);
         return false;
     }
     return true;
@@ -101,7 +103,7 @@ const initiateFetchProcess = (pageName, setContent, setLoading, setError) => {
  * @param {string} pageName - Nombre único de la página (ej. 'contact', 'about').
  * @returns {{ content: PageContentData | null, loading: boolean, error: Error | null }} Un objeto con el contenido, estado de carga y error.
  */
-const usePageContent = (pageName) => {
+export const usePageContent = (pageName) => {
     const [content, setContent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -114,9 +116,7 @@ const usePageContent = (pageName) => {
         const cleanupFunction = initiateFetchProcess(pageName, setContent, setLoading, setError);
 
         return cleanupFunction;
-    }, [pageName, setContent, setLoading, setError]);
+    }, [pageName]);
 
     return { content, loading, error };
 };
-
-export default usePageContent;
