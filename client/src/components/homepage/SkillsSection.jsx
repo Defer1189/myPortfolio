@@ -8,9 +8,9 @@ const SkillsSection = ({ skills }) => {
             <h2>Habilidades</h2>
             <div className='skills-container'>
                 {skills &&
-                    skills.map((skill, index) => (
-                        <span key={index} className='skill-item'>
-                            {skill}
+                    skills.map((skill) => (
+                        <span key={skill._id} className='skill-item'>
+                            {skill.name}
                         </span>
                     ))}
             </div>
@@ -19,7 +19,14 @@ const SkillsSection = ({ skills }) => {
 };
 
 SkillsSection.propTypes = {
-    skills: PropTypes.arrayOf(PropTypes.string).isRequired,
+    skills: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            iconUrl: PropTypes.string,
+            level: PropTypes.string.isRequired,
+        }),
+    ).isRequired,
 };
 
 export default SkillsSection;

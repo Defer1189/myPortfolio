@@ -21,9 +21,10 @@ FeaturedProjectsSection.propTypes = {
         PropTypes.shape({
             _id: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
-            description: PropTypes.string.isRequired,
+            shortDescription: PropTypes.string.isRequired,
             imageUrl: PropTypes.string,
-            projectUrl: PropTypes.string,
+            liveDemoUrl: PropTypes.string,
+            githubUrl: PropTypes.string,
         }),
     ).isRequired,
 };

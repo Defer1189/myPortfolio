@@ -14,11 +14,11 @@ const SocialLinks = ({ socialLinks }) => {
             <h2>Conéctate Conmigo</h2>
             <div className='social-icons-container'>
                 {socialLinks &&
-                    socialLinks.map((link, index) => {
+                    socialLinks.map((link) => {
                         const IconComponent = platformIcons[link.platform];
                         return (
                             <a
-                                key={index}
+                                key={link.platform}
                                 href={link.url}
                                 target='_blank'
                                 rel='noopener noreferrer'
