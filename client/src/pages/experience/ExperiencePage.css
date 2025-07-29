@@ -1,0 +1,296 @@
+/* myPortfolio/client/src/pages/experience/ExperiencePage.css */
+
+/* --- Estilos generales para la página de Experiencia --- */
+.experience-page {
+    padding: var(--spacing-lg) var(--spacing-md);
+    max-width: 1000px;
+    margin: var(--spacing-xl) auto;
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text-dark);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+body.dark-mode .experience-page {
+    background-color: var(--color-background-main);
+    color: var(--color-text-light);
+}
+
+/* Título principal de la página (h1) */
+.experience-page .page-title {
+    font-family: var(--font-family-heading);
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+body.dark-mode .experience-page .page-title {
+    color: var(--color-primary);
+}
+
+/* Párrafo de introducción de la página */
+.experience-page .page-introduction {
+    font-family: var(--font-family-body);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-dark);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl) auto;
+}
+
+body.dark-mode .experience-page .page-introduction {
+    color: var(--color-text-light);
+}
+
+/* --- Estilos para la línea de tiempo de experiencia --- */
+.experience-timeline {
+    position: relative;
+    padding: var(--spacing-md) 0;
+    margin: 0 var(--spacing-md);
+}
+
+/* Línea vertical central */
+.experience-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    background-color: var(--color-text-dark);
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+body.dark-mode .experience-timeline::before {
+    background-color: var(--color-text-light);
+}
+
+/* Estilos para cada entrada de experiencia */
+.experience-entry {
+    position: relative;
+    padding: var(--spacing-md) var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    background-color: var(--color-background-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    width: calc(50% - var(--spacing-md));
+    z-index: 1;
+    transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+body.dark-mode .experience-entry {
+    background-color: var(--color-background-card);
+    box-shadow: var(--shadow-lg);
+}
+
+body.dark-mode .experience-entry:hover {
+    box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* Puntos en la línea de tiempo */
+.experience-entry::before {
+    content: "";
+    position: absolute;
+    top: var(--spacing-lg);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    border: 2px solid var(--color-primary);
+    z-index: 2;
+}
+
+body.dark-mode .experience-entry::before {
+    background-color: var(--color-primary);
+    border-color: var(--color-accent);
+}
+
+/* Alternar entradas a izquierda y derecha */
+.experience-entry:nth-child(odd) {
+    left: 0;
+    transform: translateX(0);
+}
+
+.experience-entry:nth-child(even) {
+    left: 50%;
+    transform: translateX(var(--spacing-md));
+}
+
+.experience-entry:nth-child(odd)::before {
+    right: -25px;
+    left: auto;
+}
+
+.experience-entry:nth-child(even)::before {
+    left: -25px;
+    right: auto;
+}
+
+/* Estilos para el encabezado de cada entrada (título y fechas) */
+.experience-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--spacing-xs);
+    gap: var(--spacing-sm);
+}
+
+body.dark-mode .experience-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+}
+
+/* Para móviles: fechas debajo */
+@media (max-width: 768px) {
+    .experience-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+}
+
+.experience-entry .entry-title {
+    font-family: var(--font-family-heading);
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin: 0;
+    line-height: 1.2;
+    order: 1;
+}
+
+body.dark-mode .experience-entry .entry-title {
+    color: var(--color-primary);
+}
+
+.experience-entry .experience-dates {
+    font-family: var(--font-family-body);
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    margin: 0;
+    order: 2;
+}
+
+body.dark-mode .experience-entry .experience-dates {
+    color: var(--color-text-light);
+}
+
+/* Estilos para la organización/institución */
+.experience-entry .experience-organization {
+    font-family: var(--font-family-body);
+    font-size: 1rem;
+    color: var(--color-text-dark);
+    margin-bottom: var(--spacing-xs);
+}
+
+body.dark-mode .experience-entry .experience-organization {
+    color: var(--color-text-dark);
+}
+
+.experience-entry .experience-location {
+    font-style: italic;
+    color: var(--color-text-dark);
+}
+
+body.dark-mode .experience-entry .experience-location {
+    color: var(--color-text-light);
+}
+
+/* Estilos para la descripción */
+.experience-entry .experience-description {
+    font-family: var(--font-family-body);
+    font-size: 0.95rem;
+    color: var(--color-text-dark);
+    line-height: 1.5;
+}
+
+body.dark-mode .experience-entry .experience-description {
+    color: var(--color-text-light);
+}
+
+/* Estilos específicos por tipo de experiencia (si los datos de la API lo proporcionan) */
+/* Puedes agregar estilos específicos por tipo de experiencia aquí si es necesario */
+
+/* Media Queries para Responsividad */
+
+/* Para tablets y dispositivos medianos (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .experience-page {
+        max-width: 900px;
+        padding: var(--spacing-md);
+    }
+
+    .experience-entry {
+        width: calc(50% - var(--spacing-sm));
+    }
+
+    .experience-entry .entry-title {
+        font-size: 1.1rem;
+    }
+
+    .experience-entry .experience-dates {
+        font-size: 0.85rem;
+    }
+}
+
+/* Línea de tiempo en una sola columna para móviles y tablets pequeñas */
+@media (max-width: 768px) {
+    .experience-timeline::before {
+        left: var(--spacing-md);
+        transform: translateX(0);
+    }
+
+    .experience-entry {
+        width: calc(100% - var(--spacing-xl));
+        margin-left: var(--spacing-xl);
+        left: 0 !important;
+        transform: translateX(0) !important;
+    }
+
+    .experience-entry::before {
+        left: -25px !important;
+        right: auto !important;
+    }
+
+    .experience-entry:nth-child(even) {
+        left: 0 !important;
+        transform: translateX(0) !important;
+    }
+
+    .experience-entry:nth-child(even)::before {
+        left: -25px !important;
+        right: auto !important;
+    }
+
+    .experience-page .page-title {
+        font-size: 2rem;
+    }
+
+    .experience-page .page-introduction {
+        font-size: 1rem;
+    }
+
+    .experience-entry .entry-title {
+        font-size: 1.1rem;
+    }
+
+    .experience-entry .experience-dates {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .experience-page {
+        margin: var(--spacing-md) var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+}
