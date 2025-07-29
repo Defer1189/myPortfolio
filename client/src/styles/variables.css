@@ -1,26 +1,53 @@
 /* myPortfolio/client/src/styles/variables.css */
+
+/* --- Variables Globales: "Deiby Arango – Full-stack Developer & Creator". --- */
 :root {
-    /* Paleta de Colores "El Conector de Ideas" */
-    --color-primary-dark: #0a192f;
+    /* Paleta de colores */
+    --color-primary: #0a192f;
     --color-accent: #64ffda;
+    --color-accent-hover: #41a890;
     --color-text-light: #ccd6f6;
-    --color-text-muted: #8892b0;
+    --color-text-dark: #8892b0;
     --color-neutral-light-gray: #f4f6f6;
-    --color-neutral-dark-gray: #34495e;
+
+    /* Colores de fondo */
+    --color-background-main: var(--color-neutral-light-gray);
+    --color-background-card: #ffffff;
+
+    /* Colores de estado/feedback */
     --color-error: #ff6b6b;
-    --color-success: #4caf50;
+    --color-success: #28a745;
     --color-warning: #ff9800;
     --color-info: #2196f3;
-    --color-button-primary: #2563eb;
-    --color-button-primary-hover: #1d4ed8;
-    --color-button-disabled: #4a4f5c;
-    --color-background-card: #ffffff;
+
+    /* Variables para componentes */
+    --color-button-primary-bg: var(--color-accent);
+    --color-button-primary-text: var(--color-primary);
+    --color-button-primary-hover-bg: var(--color-accent-hover);
+    --color-button-primary-hover-text: var(--color-primary);
+    --color-button-secondary-bg: var(--color-text-dark);
+    --color-button-secondary-text: var(--color-text-light);
+    --color-button-secondary-hover-bg: #616e87;
+    --color-button-secondary-hover-text: var(--color-text-light);
+    --color-button-disabled-bg: #4a4f5c;
+    --color-button-disabled-text: #a0a4ae;
     --color-skill-bg: #dbeafe;
     --color-skill-text: #1e40af;
 
+    /* Colores específicos para SVG del logo en modo claro */
+    --logo-diple-left-fill: var(--color-text-light);
+    --logo-diple-left-stroke: var(--color-accent);
+    --logo-diple-right-fill: var(--color-accent);
+    --logo-diple-right-stroke: var(--color-text-light);
+    --logo-initials-fill: var(--color-text-dark);
+    --logo-initials-stroke: var(--color-accent);
+    --logo-chispas-fill: var(--color-accent);
+    --logo-chispas-stroke: transparent;
+
     /* Tipografía */
-    --font-heading: "Poppins", sans-serif;
-    --font-body: "Inter", sans-serif;
+    --font-family-heading: "Poppins", sans-serif;
+    --font-family-body: "Inter", sans-serif;
+    --font-family-monospace: "Fira Code", monospace;
 
     /* Espaciado */
     --spacing-xs: 0.5rem;
@@ -28,6 +55,7 @@
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
+    --spacing-xxl: 4rem;
 
     /* Bordes */
     --border-radius: 8px;
@@ -35,11 +63,17 @@
     --border-radius-lg: 12px;
 
     /* Sombras */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md:
         0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg:
         0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Transiciones y z-index */
+    --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --z-header: 1000;
+    --z-modal: 2000;
 
     /* Breakpoints */
     --breakpoint-xs: 480px;
@@ -47,4 +81,57 @@
     --breakpoint-md: 768px;
     --breakpoint-lg: 1024px;
     --breakpoint-xl: 1280px;
+
+    /* Para usar en rgba() */
+    --color-accent-rgb: 100, 255, 218;
+    --color-error-rgb: 255, 107, 107;
+    --color-primary-rgb: 10, 25, 47;
+    --color-text-dark-rgb: 136, 146, 176;
+    --color-text-light-rgb: 204, 214, 246;
+    --color-success-rgb: 40, 167, 69;
+    --color-neutral-dark-gray-rgb: 34, 35, 47;
+}
+
+/* --- Variables para Modo Oscuro (aplicadas cuando .dark-mode está activo) --- */
+body.dark-mode {
+    --color-primary: #64ffda;
+    --color-accent: #0a192f;
+    --color-accent-hover: #1a3e6d;
+    --color-text-light: #f4f6f6;
+    --color-text-dark: #ccd6f6;
+
+    --color-background-main: #0a192f;
+    --color-background-card: #112240;
+    --color-background-card-dark: #112240;
+    --color-background-hero: #0a192f;
+
+    --color-button-primary-bg: var(--color-accent);
+    --color-button-primary-text: var(--color-primary);
+    --color-button-primary-hover-bg: var(--color-accent-hover);
+    --color-button-primary-hover-text: var(--color-primary);
+
+    --color-button-secondary-bg: var(--color-background-card);
+    --color-button-secondary-text: var(--color-text-light);
+    --color-button-secondary-hover-bg: #2a3d5e;
+    --color-button-secondary-hover-text: var(--color-primary);
+
+    --color-button-disabled-bg: #2a3d5e;
+    --color-button-disabled-text: #606b87;
+
+    --color-skill-bg: var(--color-background-card);
+    --color-skill-text: var(--color-text-light);
+
+    --logo-diple-left-fill: var(--color-text-dark);
+    --logo-diple-left-stroke: var(--color-primary);
+    --logo-diple-right-fill: var(--color-primary);
+    --logo-diple-right-stroke: var(--color-text-dark);
+    --logo-initials-fill: var(--color-primary);
+    --logo-initials-stroke: var(--color-background-main);
+    --logo-chispas-fill: var(--color-primary);
+    --logo-chispas-stroke: transparent;
+
+    --color-accent-rgb: 10, 25, 47;
+    --color-primary-rgb: 100, 255, 218;
+    --color-text-dark-rgb: 204, 214, 246;
+    --color-text-light-rgb: 244, 246, 246;
 }

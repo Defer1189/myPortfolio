@@ -1,4 +1,6 @@
 /* myPortfolio/client/src/styles/StateFeedback.css */
+
+/* --- Estilos para el contenedor de feedback de estado --- */
 .state-feedback {
     text-align: center;
     padding: var(--spacing-xl);
@@ -11,22 +13,26 @@
     justify-content: center;
 }
 
+/* Estilos específicos para el estado de carga */
 .loading-state {
-    color: var(--color-neutral-dark-gray);
+    color: var(--color-text-dark);
 }
 
+/* Estilos específicos para el estado de error */
 .error-state {
     color: var(--color-error);
-    background-color: rgba(255, 107, 107, 0.1);
+    background-color: rgba(var(--color-error-rgb), 0.1);
 }
 
+/* Estilos específicos para el estado vacío */
 .empty-state {
-    color: var(--color-neutral-dark-gray);
-    background-color: var(--color-neutral-light-gray);
+    color: var(--color-text-dark);
+    background-color: var(--color-background-main);
 }
 
+/* Estilos para el spinner de carga */
 .spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
+    border: 4px solid rgba(var(--color-primary-rgb), 0.1);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -44,6 +50,7 @@
     }
 }
 
+/* Estilos para los iconos dentro del feedback */
 .icon {
     font-size: 2rem;
     margin-bottom: var(--spacing-sm);

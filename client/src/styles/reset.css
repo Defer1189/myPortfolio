@@ -1,5 +1,6 @@
 /* myPortfolio/client/src/styles/reset.css */
-/* Reset básico */
+
+/* Reset básico universal */
 *,
 *::before,
 *::after {
@@ -8,16 +9,13 @@
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
+/* Eliminar estilos por defecto de listas */
+ul,
+ol {
+    list-style: none;
 }
 
-body {
-    min-height: 100vh;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-}
-
+/* Asegurar que los elementos de medios se comporten de forma responsiva */
 img,
 picture,
 video,
@@ -25,8 +23,10 @@ canvas,
 svg {
     display: block;
     max-width: 100%;
+    height: auto;
 }
 
+/* Heredar fuentes y eliminar estilos por defecto de formularios y botones */
 input,
 button,
 textarea,
@@ -40,7 +40,21 @@ button {
     background: none;
 }
 
+/* Eliminar subrayado y heredar color de texto para enlaces */
 a {
     text-decoration: none;
     color: inherit;
+}
+
+/* Eliminar estilos por defecto de bloques de citas si no se usarán */
+blockquote,
+q {
+    quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
 }

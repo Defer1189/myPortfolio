@@ -8,11 +8,11 @@ const API_ENDPOINT = `${API_BASE_URL}/api/homepage`;
  * @returns {Promise<object>} Los datos de la Homepage.
  */
 
-export const getUserProfile = async (signal) => {
+export const getHomepageProfileData = async (signal) => {
     const response = await fetch(API_ENDPOINT, { signal });
     const data = await response.json();
     if (!response.ok) {
-        const error = new Error(data.error || 'Ocurrió un error al obtener el perfil del usuario.');
+        const error = new Error(data.message || 'Ocurrió un error al obtener homepage');
         error.details = data.details;
         throw error;
     }
@@ -27,7 +27,7 @@ export const getUserProfile = async (signal) => {
 
 export const updateProfile = async (profileData) => {
     const response = await fetch(API_ENDPOINT, {
-        method: 'PUT',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(profileData),
     });
@@ -35,7 +35,7 @@ export const updateProfile = async (profileData) => {
     const data = await response.json();
 
     if (!response.ok) {
-        const error = new Error(data.error || 'Ocurrió un error al actualizar el perfil.');
+        const error = new Error(data.message || 'Ocurrió un error al actualizar el perfil.');
         error.details = data.details;
         throw error;
     }

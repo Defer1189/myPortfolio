@@ -1,4 +1,5 @@
 /* myPortfolio/client/src/styles/utilities.css */
+
 /* Utilidades de espaciado */
 .p-xs {
     padding: var(--spacing-xs);
@@ -43,7 +44,16 @@
     text-align: right;
 }
 .text-primary {
+    color: var(--color-primary);
+}
+.text-accent {
     color: var(--color-accent);
+}
+.text-dark {
+    color: var(--color-text-dark);
+}
+.text-light {
+    color: var(--color-text-light);
 }
 .text-error {
     color: var(--color-error);
@@ -77,39 +87,75 @@
 .gap-md {
     gap: var(--spacing-md);
 }
+.gap-lg {
+    gap: var(--spacing-lg);
+}
+.gap-xl {
+    gap: var(--spacing-xl);
+}
 
 /* Utilidades para modo responsive */
-@media (min-width: var(--breakpoint-sm)) {
+@media (min-width: 640px) {
     .sm-flex-row {
         flex-direction: row;
     }
     .sm-text-left {
         text-align: left;
     }
+    .sm-p-md {
+        padding: var(--spacing-md);
+    }
 }
 
-@media (min-width: var(--breakpoint-md)) {
+@media (min-width: 768px) {
     .md-flex-row {
         flex-direction: row;
     }
     .md-text-left {
         text-align: left;
     }
+    .md-p-lg {
+        padding: var(--spacing-lg);
+    }
 }
 
-/* Utilidades de botones */
+/* Estilos para botones primarios */
 .button-primary {
     margin-top: var(--spacing-md);
     padding: 0.75rem 1.5rem;
-    background-color: var(--color-button-primary);
-    color: var(--color-text-light);
+    background-color: var(--color-button-primary-bg);
+    color: var(--color-button-primary-text);
     border: none;
-    border-radius: 6px;
+    border-radius: var(--border-radius-sm);
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
 }
 
-.button-primary:hover {
-    background: var(--color-button-primary-hover);
+.button-primary:hover,
+.button-primary:focus-visible {
+    background: var(--color-button-primary-hover-bg);
+    color: var(--color-button-primary-hover-text);
+}
+
+/* Estilos para botones secundarios */
+.button-secondary {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-button-secondary-bg);
+    color: var(--color-button-secondary-text);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    cursor: pointer;
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
+}
+
+.button-secondary:hover,
+.button-secondary:focus-visible {
+    background: var(--color-button-secondary-hover-bg);
+    color: var(--color-button-secondary-hover-text);
 }
