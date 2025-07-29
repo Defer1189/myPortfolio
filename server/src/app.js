@@ -5,8 +5,11 @@ import { swaggerDocs } from './config/swagger.js';
 import errorHandler from './middlewares/errorHandler.middleware.js';
 import setupAppMiddlewares from './middlewares/setupMiddlewares.js';
 import contactRoutes from './routes/contact.routes.js';
+import experienceRoutes from './routes/experience.routes.js';
 import homepageRoutes from './routes/homepage.routes.js';
 import pageContentRoutes from './routes/pageContent.routes.js';
+import projectRoutes from './routes/project.routes.js';
+import skillRoutes from './routes/skill.routes.js';
 import logger from './utils/logger.js';
 
 const app = express();
@@ -21,6 +24,9 @@ swaggerDocs(app);
 app.use('/api/homepage', homepageRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/content', pageContentRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/skills', skillRoutes);
+app.use('/api/experience', experienceRoutes);
 
 // Ruta de prueba
 app.get('/api', (req, res) => {

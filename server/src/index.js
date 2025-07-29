@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import app from './app.js';
 import { connectDB } from './config/db.js';
 import logger from './utils/logger.js';
+import seedDatabase from './utils/seedDatabase.js';
 
 let httpServer;
 
@@ -105,6 +106,17 @@ const startServer = async () => {
         const PORT = Number(process.env.PORT);
         const start = Date.now();
         await connectDB();
+        if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') {
+            const collections = await mongoose.connection.db.listCollections().toArray();
+            if (collections.length === 0) {
+                logger.info(
+                    `Detectada base de datos vacía en ${process.env.NODE_ENV}. Iniciando población de datos...`,
+                );
+                await seedDatabase();
+            } else {
+                logger.info(`Base de datos no vacía en ${process.env.NODE_ENV}. Saltando población de datos.`);
+            }
+        }
         await startHttpServer(PORT, start);
     } catch (error) {
         handleError(error, 'Error durante el inicio del servidor');
