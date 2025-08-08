@@ -1,4 +1,5 @@
 // myPortfolio/server/src/models/User.js
+import bcrypt from 'bcryptjs';
 import { Schema, model } from 'mongoose';
 
 /**
@@ -11,6 +12,8 @@ import { Schema, model } from 'mongoose';
  *         - name
  *         - title
  *         - bio
+ *         - email
+ *         - password
  *       properties:
  *         _id:
  *           type: string
@@ -22,6 +25,23 @@ import { Schema, model } from 'mongoose';
  *           minLength: 2
  *           maxLength: 100
  *           example: "Deiby Arango"
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: Correo electrónico del usuario (único).
+ *           example: "deiby@example.com"
+ *         password:
+ *           type: string
+ *           format: password
+ *           writeOnly: true
+ *           description: Contraseña del usuario (min 8 caracteres).
+ *           example: "********"
+ *         role:
+ *           type: string
+ *           enum: [admin, editor]
+ *           description: Rol del usuario en el sistema.
+ *           default: editor
+ *           example: "admin"
  *         title:
  *           type: string
  *           description: Título profesional (máx. 100 caracteres).
@@ -65,19 +85,6 @@ import { Schema, model } from 'mongoose';
  *                 format: url
  *                 description: URL del perfil (debe ser válida).
  *                 example: "https://linkedin.com/in/deibyarango"
- *       example:
- *         name: "Deiby Arango"
- *         title: "Full-stack Developer"
- *         bio: "Apasionado por la creación de soluciones web robustas y escalables, con enfoque en rendimiento y experiencia de usuario. Siempre aprendiendo nuevas tecnologías y compartiendo conocimiento."
- *         profilePicture: ""
- *         featuredSkills:
- *           - "60d0fe4f5311236168a109ca"
- *           - "60d0fe4f5311236168a109cb"
- *         socialLinks:
- *           - platform: "LinkedIn"
- *             url: "https://linkedin.com/in/deibyarango"
- *           - platform: "GitHub"
- *             url: "https://github.com/deibyarango"
  */
 const UserSchema = new Schema(
     {
@@ -87,6 +94,28 @@ const UserSchema = new Schema(
             trim: true,
             minlength: [2, 'El nombre debe tener al menos 2 caracteres'],
             maxlength: [100, 'El nombre no puede exceder los 100 caracteres'],
+        },
+        email: {
+            type: String,
+            required: [true, 'El correo electrónico es requerido'],
+            unique: true,
+            trim: true,
+            lowercase: true,
+            match: [
+                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                'Por favor, ingresa un correo electrónico válido',
+            ],
+        },
+        password: {
+            type: String,
+            required: [true, 'La contraseña es requerida'],
+            minlength: [8, 'La contraseña debe tener al menos 8 caracteres'],
+            select: false,
+        },
+        role: {
+            type: String,
+            enum: ['admin', 'editor'],
+            default: 'editor',
         },
         title: {
             type: String,
@@ -105,7 +134,10 @@ const UserSchema = new Schema(
             type: String,
             trim: true,
             default: '',
-            match: [/^$|^https?:\/\/.+\..+$/, 'Por favor, ingresa una URL de imagen válida o vacía'],
+            match: [
+                /^$|^(https?:\/\/)?(?:[\w-]+\.?)+(?:[a-z]{2,63}|localhost)(?::\d{1,5})?(?:[/?#]\S*)?$/i,
+                'Por favor, ingresa una URL de imagen válida o vacía',
+            ],
         },
         featuredSkills: [
             {
@@ -126,7 +158,10 @@ const UserSchema = new Schema(
                     type: String,
                     required: [true, 'La URL es requerida'],
                     trim: true,
-                    match: [/^https?:\/\/.+\..+$/, 'Por favor, ingresa una URL válida'],
+                    match: [
+                        /^(https?:\/\/)?(?:[\w-]+\.?)+(?:[a-z]{2,63}|localhost)(?::\d{1,5})?(?:[/?#]\S*)?$/i,
+                        'Por favor, ingresa una URL válida',
+                    ],
                 },
             },
         ],
@@ -136,6 +171,25 @@ const UserSchema = new Schema(
         versionKey: false,
     },
 );
+
+// Middleware para encriptar la contraseña antes de guardar el usuario
+UserSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+    try {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Método para comparar la contraseña ingresada con la almacenada
+UserSchema.methods.comparePassword = async function (candidatePassword) {
+    return await bcrypt.compare(candidatePassword, this.password);
+};
 
 const User = model('User', UserSchema);
 export default User;

@@ -7,7 +7,7 @@ import { useParams, Link } from 'react-router-dom';
 import './ProjectDetailPage.css';
 
 import StateFeedback from '../../components/common/StateFeedback.jsx';
-import { useProjectsData } from '../../hooks/projects/useProjectsData.js';
+import { useProject } from '../../hooks/projects/useProject.js';
 
 /**
  * Componente para la página de detalle de un proyecto.
@@ -17,22 +17,19 @@ import { useProjectsData } from '../../hooks/projects/useProjectsData.js';
  */
 function ProjectDetailPage() {
     const { id } = useParams();
-    const { data: project, loading, error } = useProjectsData(id);
-
+    const { data: project, loading, error } = useProject(id);
     if (loading) {
         return <StateFeedback type='loading' message='Cargando detalles del proyecto...' />;
     }
-
     if (error) {
-        return <StateFeedback type='error' message={`Error al cargar el proyecto: ${error.message}`} />;
+        return <StateFeedback type='error' message={`Error al cargar el proyecto: ${error}`} />;
     }
-
     if (!project) {
         return <StateFeedback type='empty' message='Proyecto no encontrado.' />;
     }
-
     return <ProjectDetailSection project={project} />;
 }
+ProjectDetailPage.propTypes = {};
 
 /**
  * Sección principal que muestra los detalles de un proyecto específico.
@@ -53,7 +50,6 @@ function ProjectDetailSection({ project }) {
         </section>
     );
 }
-
 ProjectDetailSection.propTypes = {
     project: PropTypes.shape({
         title: PropTypes.string.isRequired,
@@ -88,6 +84,14 @@ function ProjectDetailHeader({ project }) {
         </div>
     );
 }
+ProjectDetailHeader.propTypes = {
+    project: PropTypes.shape({
+        imageUrl: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        githubUrl: PropTypes.string,
+        liveDemoUrl: PropTypes.string,
+    }).isRequired,
+};
 
 /**
  * Componente que muestra la imagen de un proyecto.
@@ -110,7 +114,6 @@ function ProjectImage({ imageUrl, title }) {
         />
     );
 }
-
 ProjectImage.propTypes = {
     imageUrl: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -140,19 +143,9 @@ function ProjectLinks({ githubUrl, liveDemoUrl }) {
         </div>
     );
 }
-
 ProjectLinks.propTypes = {
     githubUrl: PropTypes.string,
     liveDemoUrl: PropTypes.string,
-};
-
-ProjectDetailHeader.propTypes = {
-    project: PropTypes.shape({
-        imageUrl: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        githubUrl: PropTypes.string,
-        liveDemoUrl: PropTypes.string,
-    }).isRequired,
 };
 
 /**
@@ -167,7 +160,6 @@ function ProjectDetailContent({ project }) {
         <div className='project-detail-content'>
             <h3>Descripción</h3>
             <p>{project.longDescription}</p>
-
             <h3>Tecnologías Utilizadas</h3>
             <ul className='project-technologies'>
                 {project.technologies &&
@@ -180,7 +172,6 @@ function ProjectDetailContent({ project }) {
         </div>
     );
 }
-
 ProjectDetailContent.propTypes = {
     project: PropTypes.shape({
         longDescription: PropTypes.string,
@@ -195,7 +186,5 @@ ProjectDetailContent.propTypes = {
         ),
     }).isRequired,
 };
-
-ProjectDetailPage.propTypes = {};
 
 export default ProjectDetailPage;

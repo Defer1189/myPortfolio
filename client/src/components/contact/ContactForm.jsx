@@ -45,7 +45,6 @@ const ContactFormFields = ({ formData, errors, isLoading, handleChange, handleBl
         <SubmitButton isLoading={isLoading} />
     </>
 );
-
 ContactFormFields.propTypes = {
     formData: PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -76,7 +75,6 @@ const NameInput = ({ value, error, isLoading, handleChange, handleBlur }) => (
         disabled={isLoading}
     />
 );
-
 NameInput.propTypes = {
     value: PropTypes.string.isRequired,
     error: PropTypes.string,
@@ -98,7 +96,6 @@ const EmailInput = ({ value, error, isLoading, handleChange, handleBlur }) => (
         disabled={isLoading}
     />
 );
-
 EmailInput.propTypes = {
     value: PropTypes.string.isRequired,
     error: PropTypes.string,
@@ -120,7 +117,6 @@ const MessageInput = ({ value, error, isLoading, handleChange, handleBlur }) => 
         isTextarea={true}
     />
 );
-
 MessageInput.propTypes = {
     value: PropTypes.string.isRequired,
     error: PropTypes.string,
@@ -134,7 +130,6 @@ const SubmitButton = ({ isLoading }) => (
         {isLoading ? 'Enviando...' : 'Enviar Mensaje'}
     </button>
 );
-
 SubmitButton.propTypes = {
     isLoading: PropTypes.bool.isRequired,
 };

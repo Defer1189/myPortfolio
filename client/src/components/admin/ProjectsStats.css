@@ -1,0 +1,107 @@
+/* myPortfolio/client/src/components/admin/ProjectsStats.css */
+
+.projects-stats {
+    margin-bottom: var(--spacing-lg);
+}
+
+.projects-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--color-background-card);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition:
+        box-shadow var(--transition-base),
+        transform var(--transition-base);
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.stat-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    padding: var(--spacing-sm);
+    font-size: 1.6rem;
+    color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.13);
+    border-radius: 50%;
+}
+
+.stat-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.stat-card__number {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.stat-card__label {
+    font-size: 0.89rem;
+    color: var(--color-text-dark);
+}
+
+.stat-card__trend {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.stat-card__trend--up {
+    color: var(--color-success);
+}
+
+.stat-card__trend--down {
+    color: var(--color-error);
+}
+
+.stat-card__trend--stable {
+    color: var(--color-text-dark);
+}
+
+.projects-stats__summary {
+    text-align: center;
+    font-size: 0.98rem;
+    color: var(--color-text-dark);
+}
+
+/* Modo oscuro */
+body.dark-mode .stat-card {
+    background: var(--color-background-main);
+    box-shadow: var(--shadow-xs);
+}
+
+body.dark-mode .stat-card__icon {
+    color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.18);
+}
+
+body.dark-mode .stat-card__number {
+    color: var(--color-accent);
+}
+
+body.dark-mode .stat-card__label,
+body.dark-mode .projects-stats__summary {
+    color: var(--color-text-light);
+}
+
+body.dark-mode .stat-card__trend--stable {
+    color: var(--color-text-light);
+}

@@ -1,5 +1,4 @@
 // myPortfolio/client/src/components/common/StateFeedback.jsx
-
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FaExclamationCircle, FaInbox } from 'react-icons/fa';

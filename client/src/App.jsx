@@ -5,14 +5,16 @@ import { Outlet, Link, NavLink } from 'react-router-dom';
 import './App.css';
 
 import DarkModeToggle from './components/common/DarkModeToggle.jsx';
+import useAuth from './hooks/auth/useAuth.js';
 
 /**
- * El componente principal y layout de la aplicación.
- * Incluye la navegación, encabezado, pie de página y renderiza las rutas hijas.
+ * El componente de navegación principal.
+ * Incluye enlaces a todas las secciones principales y el enlace de login.
  *
- * @returns {import('react').JSX.Element} El componente App renderizado.
+ * @returns {import('react').JSX.Element} El componente de navegación renderizado.
  */
 function MainNav() {
+    const { isAuthenticated } = useAuth();
     return (
         <nav className='main-nav'>
             <NavLink to='/' end>
@@ -23,13 +25,22 @@ function MainNav() {
             <NavLink to='/skills'>Habilidades</NavLink>
             <NavLink to='/projects'>Proyectos</NavLink>
             <NavLink to='/contact'>Contacto</NavLink>
+            {!isAuthenticated && (
+                <NavLink to='/admin/login' className='login-link'>
+                    Login
+                </NavLink>
+            )}
+            {isAuthenticated && (
+                <NavLink to='/admin/dashboard' className='dashboard-link'>
+                    Dashboard
+                </NavLink>
+            )}
         </nav>
     );
 }
 
 /**
  * Componente de encabezado de la aplicación que muestra el logo y el título del sitio.
- *
  * Renderiza el logo enlazado a la página principal, el título del sitio y el botón de alternancia de modo oscuro.
  *
  * @returns {import('react').JSX.Element} El encabezado de la aplicación renderizado.

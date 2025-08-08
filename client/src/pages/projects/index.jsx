@@ -6,7 +6,7 @@ import './ProjectsPage.css';
 
 import StateFeedback from '../../components/common/StateFeedback.jsx';
 import ProjectCard from '../../components/homepage/ProjectCard.jsx';
-import { useProjectsData } from '../../hooks/projects/useProjectsData.js';
+import { useProjectsList } from '../../hooks/projects/useProjectsList.js';
 
 /**
  * Componente para la página de Proyectos.
@@ -15,20 +15,16 @@ import { useProjectsData } from '../../hooks/projects/useProjectsData.js';
  * @returns {import('react').JSX.Element} El componente ProjectsPage renderizado.
  */
 function ProjectsPage() {
-    const { data: projects, loading, error } = useProjectsData();
-
+    const { data: projects, loading, error } = useProjectsList();
     if (loading) {
         return <StateFeedback type='loading' message='Cargando proyectos...' />;
     }
-
     if (error) {
-        return <StateFeedback type='error' message={`Error al cargar proyectos: ${error.message || 'Desconocido'}`} />;
+        return <StateFeedback type='error' message={`Error al cargar proyectos: ${error}`} />;
     }
-
     if (!projects || projects.length === 0) {
         return <StateFeedback type='empty' message='No hay proyectos disponibles en este momento.' />;
     }
-
     return (
         <section className='projects-page'>
             <h1 className='page-title'>Mis Proyectos</h1>

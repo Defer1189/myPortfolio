@@ -112,7 +112,7 @@ body.dark-mode .project-detail-image {
 body.dark-mode .project-link.github-link {
     background-color: var(--color-accent);
     color: var(--color-primary);
-    border-color: var(--color-accent);
+    border-color: var(--color-primary);
 }
 
 .project-link.github-link:hover {

@@ -29,7 +29,6 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 const fetchDataFromApi = async (endpointPath, signal) => {
     const fullUrl = `${API_BASE_URL}${endpointPath}`;
     const response = await fetch(fullUrl, { signal });
-
     if (!response.ok) {
         let errorMessage = `Error HTTP: ${response.status} - ${response.statusText}`;
         try {
@@ -93,7 +92,6 @@ const initiateFetchProcess = (pageName, setContent, setLoading, setError) => {
             }
         })
         .finally(() => setLoading(false));
-
     return () => abortController.abort();
 };
 
@@ -107,16 +105,12 @@ export const usePageContent = (pageName) => {
     const [content, setContent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
     useEffect(() => {
         if (!performInitialChecks(pageName, setError, setLoading)) {
             return;
         }
-
         const cleanupFunction = initiateFetchProcess(pageName, setContent, setLoading, setError);
-
         return cleanupFunction;
     }, [pageName]);
-
     return { content, loading, error };
 };

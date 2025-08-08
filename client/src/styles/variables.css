@@ -33,6 +33,11 @@
     --color-button-disabled-text: #a0a4ae;
     --color-skill-bg: #dbeafe;
     --color-skill-text: #1e40af;
+    --spinner-color: var(--color-accent);
+    --spinner-bg-color: rgba(var(--color-accent-rgb), 0.1);
+    --spinner-size-sm: 16px;
+    --spinner-size-md: 24px;
+    --spinner-size-lg: 36px;
 
     /* Colores específicos para SVG del logo en modo claro */
     --logo-diple-left-fill: var(--color-text-light);
@@ -120,6 +125,9 @@ body.dark-mode {
 
     --color-skill-bg: var(--color-background-card);
     --color-skill-text: var(--color-text-light);
+
+    --spinner-color: var(--color-primary);
+    --spinner-bg-color: rgba(var(--color-primary-rgb), 0.1);
 
     --logo-diple-left-fill: var(--color-text-dark);
     --logo-diple-left-stroke: var(--color-primary);

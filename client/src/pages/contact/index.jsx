@@ -35,8 +35,6 @@ const PageSectionsRenderer = ({ sections }) => {
         </>
     );
 };
-
-// Definición de PropTypes para PageSectionsRenderer
 PageSectionsRenderer.propTypes = {
     sections: PropTypes.arrayOf(
         PropTypes.shape({
@@ -55,19 +53,15 @@ PageSectionsRenderer.propTypes = {
  */
 function ContactPage() {
     const { content, loading, error } = usePageContent('contact');
-
     if (loading) {
         return <StateFeedback type='loading' message='Cargando contenido de contacto...' />;
     }
-
     if (error) {
         return <StateFeedback type='error' message={`Error: ${error.message}`} />;
     }
-
     if (!content) {
         return <StateFeedback type='empty' message='No se encontró contenido para la página de contacto.' />;
     }
-
     return (
         <div className='contact-page'>
             <h1 className='page-title'>{content.title}</h1>

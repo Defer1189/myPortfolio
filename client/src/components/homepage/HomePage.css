@@ -20,6 +20,38 @@
     }
 }
 
+/* --- Project Title Link --- */
+.project-title-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: inherit;
+    transition:
+        color var(--transition-base),
+        border-bottom-color var(--transition-base);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    cursor: pointer;
+    outline: none;
+}
+.project-title-link:hover,
+.project-title-link:focus {
+    color: var(--color-accent);
+    text-decoration: none;
+    border-bottom-color: var(--color-accent);
+}
+
+body.dark-mode .project-title-link {
+    color: var(--color-primary);
+    border-bottom-color: transparent;
+}
+
+body.dark-mode .project-title-link:hover,
+body.dark-mode .project-title-link:focus {
+    color: var(--color-text-dark);
+    border-bottom-color: var(--color-text-light);
+}
+
 /* --- Estilos para HeroSection --- */
 .hero-section {
     display: flex;

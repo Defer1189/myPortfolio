@@ -59,6 +59,9 @@ async function cleanCollections() {
 async function seedUser(skillIds) {
     const defaultUser = {
         name: 'Deiby Arango',
+        email: 'admin@portfolio.com',
+        password: 'admin123456',
+        role: 'admin',
         title: 'Full-stack Developer',
         bio: 'Apasionado por la creación de soluciones web robustas y escalables, con experiencia en tecnologías modernas y un enfoque en el rendimiento y la experiencia de usuario.',
         profilePicture: '',
@@ -69,7 +72,7 @@ async function seedUser(skillIds) {
         ],
     };
     await User.create(defaultUser);
-    logger.info('🌱 Perfil de usuario poblado.');
+    logger.info('🌱 Usuario administrador creado con email: admin@portfolio.com');
     return User.findOne();
 }
 

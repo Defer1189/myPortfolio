@@ -1,18 +1,20 @@
 // myPortfolio/client/src/components/homepage/ProjectCard.jsx
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ProjectImageTitle = ({ project }) => (
     <div className='project-card-image-title'>
         <img src={project.imageUrl} alt={`Imagen del proyecto ${project.title}`} className='project-image' />
         <div className='project-info'>
             <h3 id={`project-title-${project._id}`} className='project-title'>
-                {project.title}
+                <Link className='project-title-link' to={`/projects/${project._id}`}>
+                    {project.title}
+                </Link>
             </h3>
         </div>
     </div>
 );
-
 ProjectImageTitle.propTypes = {
     project: PropTypes.shape({
         _id: PropTypes.string.isRequired,
@@ -45,7 +47,6 @@ const ProjectCardActions = ({ project }) => (
         )}
     </div>
 );
-
 ProjectCardActions.propTypes = {
     project: PropTypes.shape({
         _id: PropTypes.string.isRequired,
@@ -67,7 +68,6 @@ const ProjectCard = ({ project }) => {
         </article>
     );
 };
-
 ProjectCard.propTypes = {
     project: PropTypes.shape({
         _id: PropTypes.string.isRequired,

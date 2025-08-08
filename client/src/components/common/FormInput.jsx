@@ -18,11 +18,8 @@ const InputField = ({ isTextarea, ...props }) => {
         maxLength: props.maxLength,
         type: props.type,
     };
-
     return isTextarea ? <textarea {...commonProps} rows='5' /> : <input type={props.type} {...commonProps} />;
 };
-
-// Validación de propTypes para InputField
 InputField.propTypes = {
     isTextarea: PropTypes.bool.isRequired,
     id: PropTypes.string.isRequired,
@@ -56,7 +53,6 @@ const FormInput = (props) => {
         placeholder: props.placeholder,
         maxLength: props.maxLength,
     };
-
     return (
         <div className='form-group'>
             <label htmlFor={props.id}>{props.label}</label>
@@ -69,8 +65,6 @@ const FormInput = (props) => {
         </div>
     );
 };
-
-// Validación de propTypes
 FormInput.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,

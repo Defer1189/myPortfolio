@@ -15,11 +15,8 @@ export const sendContactMessage = async (formData) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
     });
-
     const data = await response.json();
-
     if (!response.ok) {
-        // Lanza un error con el mensaje y detalles del servidor para que el hook lo maneje.
         const error = new Error(data.error || 'Ocurrió un error en la solicitud.');
         error.details = data.details;
         throw error;

@@ -1,0 +1,108 @@
+/* myPortfolio/client/src/pages/admin/login/LoginPage.css */
+
+.login-page {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background-card);
+    padding: var(--spacing-lg) var(--spacing-md);
+    min-height: 100vh;
+    transition: background-color var(--transition-base);
+}
+
+.login-container {
+    max-width: 1000px;
+    width: 90%;
+    margin: var(--spacing-xl) auto;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    color: var(--color-text-dark);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.login-header h1 {
+    font-family: var(--font-family-heading);
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+}
+
+body.dark-mode .login-header h1 {
+    color: var(--color-primary);
+}
+
+.login-subheader {
+    font-family: var(--font-family-body);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text-dark);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+body.dark-mode .login-subheader {
+    color: var(--color-text-light);
+}
+
+.back-to-home-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--color-accent);
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: var(--spacing-lg);
+    text-decoration: none;
+    transition:
+        color var(--transition-base),
+        transform var(--transition-base);
+}
+
+.back-to-home-link:hover {
+    color: var(--color-accent-hover);
+    transform: translateX(-5px);
+}
+
+body.dark-mode .back-to-home-link {
+    color: var(--color-primary);
+}
+
+body.dark-mode .back-to-home-link:hover {
+    color: var(--color-accent-hover);
+}
+
+@media (max-width: 1024px) {
+    .login-header h1 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .login-header h1 {
+        font-size: 2rem;
+    }
+    .login-subheader {
+        font-size: 1rem;
+    }
+    .back-to-home-link {
+        font-size: 0.9rem;
+        margin-bottom: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .login-page {
+        padding: var(--spacing-md);
+    }
+    .login-header h1 {
+        font-size: 1.8rem;
+    }
+    .login-subheader {
+        font-size: 0.95rem;
+    }
+}

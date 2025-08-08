@@ -4,6 +4,7 @@ import express from 'express';
 import { swaggerDocs } from './config/swagger.js';
 import errorHandler from './middlewares/errorHandler.middleware.js';
 import setupAppMiddlewares from './middlewares/setupMiddlewares.js';
+import authRoutes from './routes/auth.routes.js';
 import contactRoutes from './routes/contact.routes.js';
 import experienceRoutes from './routes/experience.routes.js';
 import homepageRoutes from './routes/homepage.routes.js';
@@ -21,6 +22,7 @@ setupAppMiddlewares(app);
 swaggerDocs(app);
 
 // Rutas de la API
+app.use('/api/auth', authRoutes);
 app.use('/api/homepage', homepageRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/content', pageContentRoutes);

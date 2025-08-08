@@ -16,7 +16,6 @@ import React from 'react';
  */
 export const useFormValidation = (formData, validationLogic) => {
     const [errors, setErrors] = useState({});
-
     const handleBlur = useCallback(
         (e) => {
             const { name } = e.target;
@@ -34,12 +33,10 @@ export const useFormValidation = (formData, validationLogic) => {
         },
         [formData, validationLogic],
     );
-
     const validateFormFields = useCallback(() => {
         const validationErrors = validationLogic(formData);
         setErrors(validationErrors);
         return Object.keys(validationErrors).length === 0;
     }, [formData, validationLogic]);
-
     return { errors, handleBlur, validateFormFields, setErrors };
 };

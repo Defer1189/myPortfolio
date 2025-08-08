@@ -9,16 +9,13 @@ import { useState, useCallback } from 'react';
  */
 export const useFormState = (initialValues) => {
     const [formData, setFormData] = useState(initialValues);
-
     const handleChange = useCallback((e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     }, []);
-
     const resetForm = useCallback(() => {
         setFormData(initialValues);
     }, [initialValues]);
-
     return {
         formData,
         handleChange,

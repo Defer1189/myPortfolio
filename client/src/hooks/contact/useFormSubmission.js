@@ -12,12 +12,10 @@ import { useState, useCallback } from 'react';
 export const useFormSubmission = (apiCall, formatError, onSuccess) => {
     const [isLoading, setIsLoading] = useState(false);
     const [submitMessage, setSubmitMessage] = useState('');
-
     const executeSubmission = useCallback(
         async (dataToSubmit) => {
             setIsLoading(true);
             setSubmitMessage('');
-
             try {
                 const response = await apiCall(dataToSubmit);
                 setSubmitMessage(response.message || 'Operación completada con éxito.');
@@ -32,7 +30,6 @@ export const useFormSubmission = (apiCall, formatError, onSuccess) => {
         },
         [apiCall, formatError, onSuccess],
     );
-
     return {
         isLoading,
         submitMessage,

@@ -1,0 +1,228 @@
+/* myPortfolio/client/src/pages/admin/projects/AdminProjectsPage.css */
+
+/* Estilos para la página de administración de proyectos */
+
+.admin-projects-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* Header de la página */
+.admin-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 2px solid rgba(var(--color-primary-rgb), 0.1);
+}
+
+.admin-page-title-section h1 {
+    margin: 0 0 var(--spacing-xs);
+    font-family: var(--font-family-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.admin-page-title-section p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-text-dark);
+}
+
+.admin-page-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+/* Botones de acción principales */
+.admin-action-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius);
+    font-family: var(--font-family-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background var(--transition-base),
+        color var(--transition-base),
+        border var(--transition-base),
+        box-shadow var(--transition-base),
+        transform var(--transition-base);
+}
+
+/* Botón primario refinado */
+.admin-action-button.primary,
+.admin-action-button--primary {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+}
+
+.admin-action-button.primary:hover,
+.admin-action-button--primary:hover {
+    background-color: rgba(var(--color-accent-rgb), 0.85);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 2px 8px 0 rgba(var(--color-accent-rgb), 0.13);
+    transform: translateY(-2px) scale(1.03);
+}
+
+/* Estadísticas rápidas */
+.admin-projects-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.stat-card {
+    background-color: var(--color-background-card);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.stat-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+}
+
+/* Estado vacío */
+.admin-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-xxl);
+    text-align: center;
+}
+
+/* Grid de proyectos */
+.admin-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Botón de volver */
+.admin-back-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-family: var(--font-family-body);
+    font-size: 0.9rem;
+    background: none;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition:
+        background var(--transition-base),
+        color var(--transition-base);
+    text-decoration: none;
+}
+
+.admin-back-button:hover {
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .admin-projects-page {
+        padding: var(--spacing-md);
+    }
+
+    .admin-page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-projects-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-projects-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Modo oscuro */
+body.dark-mode .admin-projects-page {
+    background-color: var(--color-background-main);
+}
+
+body.dark-mode .admin-page-header {
+    border-bottom-color: rgba(var(--color-accent-rgb), 0.1);
+}
+
+body.dark-mode .admin-page-title-section h1 {
+    color: var(--color-accent);
+}
+
+body.dark-mode .admin-page-title-section p {
+    color: var(--color-text-light);
+}
+
+body.dark-mode .stat-card {
+    background-color: var(--color-background-card);
+}
+
+body.dark-mode .stat-label {
+    color: var(--color-text-light);
+}
+
+body.dark-mode .admin-empty-state {
+    background-color: var(--color-background-card);
+}
+
+body.dark-mode .admin-back-button {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+body.dark-mode .admin-back-button:hover {
+    background-color: rgba(var(--color-accent-rgb), 0.1);
+}
+
+/* Refinar botón primario en modo oscuro */
+body.dark-mode .admin-action-button.primary,
+body.dark-mode .admin-action-button--primary {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+}
+
+body.dark-mode .admin-action-button.primary:hover,
+body.dark-mode .admin-action-button--primary:hover {
+    background-color: rgba(var(--color-accent-rgb), 0.85);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 2px 8px 0 rgba(var(--color-accent-rgb), 0.13);
+    transform: translateY(-2px) scale(1.03);
+}

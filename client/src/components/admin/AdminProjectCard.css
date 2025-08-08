@@ -1,0 +1,209 @@
+/* myPortfolio/client/src/components/admin/AdminProjectCard.css */
+
+.admin-project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    background: var(--color-background-card);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    transition:
+        box-shadow var(--transition-base),
+        transform var(--transition-base);
+}
+
+.admin-project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.admin-project-card__thumbnail {
+    position: relative;
+    height: 11.25rem;
+    overflow: hidden;
+}
+
+.admin-project-card__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+}
+
+.admin-project-card:hover .admin-project-card__thumbnail img {
+    transform: scale(1.05);
+}
+
+.admin-project-card__badge {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-warning);
+    color: var(--color-text-light);
+    border-radius: var(--border-radius);
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+.admin-project-card__details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+}
+
+.admin-project-card__title {
+    margin: 0;
+    font-family: var(--font-family-heading);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-primary);
+}
+
+.admin-project-card__category {
+    width: fit-content;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: rgba(var(--color-accent-rgb), 0.1);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent);
+}
+
+.admin-project-card__description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    /* eslint-disable-next-line css/use-baseline */
+    line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.2em;
+    line-height: 1.4em;
+}
+
+.admin-project-card__meta {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--color-text-dark);
+}
+
+.admin-project-card__tech-count {
+    padding: var(--spacing-xs);
+    background: rgba(var(--color-primary-rgb), 0.1);
+    color: var(--color-primary);
+    border-radius: var(--border-radius-sm);
+    font-weight: 500;
+}
+
+.admin-project-card__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(var(--color-primary-rgb), 0.05);
+    border-top: 1px solid rgba(var(--color-text-dark-rgb), 0.1);
+}
+
+.admin-project-card__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: none;
+    border-radius: 50%;
+    color: var(--color-text-light);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition:
+        transform var(--transition-base),
+        background var(--transition-base);
+    text-decoration: none;
+}
+
+.admin-project-card__action:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.admin-project-card__action:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.admin-project-card__action--edit {
+    background-color: var(--color-info);
+}
+
+.admin-project-card__action--edit:hover {
+    background-color: rgba(var(--color-info-rgb), 0.85);
+}
+
+.admin-project-card__action--view {
+    background-color: var(--color-primary);
+}
+
+.admin-project-card__action--view:hover {
+    background-color: rgba(var(--color-primary-rgb), 0.85);
+}
+
+.admin-project-card__action--delete {
+    background-color: var(--color-error);
+}
+
+.admin-project-card__action--delete:hover {
+    background-color: rgba(var(--color-error-rgb), 0.85);
+}
+
+/* Modo oscuro */
+body.dark-mode .admin-project-card {
+    background: var(--color-background-main);
+    box-shadow: var(--shadow-xs);
+}
+
+body.dark-mode .admin-project-card__title {
+    color: var(--color-accent);
+}
+
+body.dark-mode .admin-project-card__meta,
+body.dark-mode .admin-project-card__description {
+    color: var(--color-text-light);
+}
+
+body.dark-mode .admin-project-card__category {
+    color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.13);
+}
+
+body.dark-mode .admin-project-card__tech-count {
+    color: var(--color-accent);
+    background: rgba(var(--color-accent-rgb), 0.13);
+}
+
+body.dark-mode .admin-project-card__actions {
+    background: rgba(var(--color-primary-rgb), 0.08);
+    border-top-color: rgba(var(--color-text-light-rgb), 0.1);
+}
+
+/* Utilidad responsive */
+@media (max-width: 640px) {
+    .admin-project-card__details {
+        padding: var(--spacing-sm);
+    }
+
+    .admin-project-card__actions {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}

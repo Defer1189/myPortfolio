@@ -2,7 +2,6 @@
 
 /* --- ESTILOS GENERALES DE LAYOUT Y COMPONENTES PRINCIPALES --- */
 
-/* Estilos para el encabezado principal de la aplicación (header) */
 .app-header {
     display: flex;
     justify-content: space-between;
@@ -14,52 +13,48 @@
     position: sticky;
     top: 0;
     z-index: var(--z-header);
+    transition: background-color var(--transition-base);
 }
 
-/* Ajustes para el modo oscuro en el encabezado */
 body.dark-mode .app-header {
-    background-color: var(--color-background-main);
-    color: var(--color-text-dark);
+    background-color: var(--color-background-card);
 }
 
-/* Contenedor para el logo y el título dentro del encabezado */
 .logo-title-container {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
+    transition: all var(--transition-base);
 }
 
-/* Estilos para el logotipo SVG */
 .site-logo {
-    height: 4.5em;
+    height: 4.5rem;
     width: auto;
     display: block;
-    transition: transform 0.3s ease-in-out;
+    transition: transform var(--transition-base);
 }
 
-/* Estilos para el título principal */
 .site-title {
     font-family: var(--font-family-heading);
-    font-size: 2.8em;
+    font-size: 2.8rem;
+    font-weight: 600;
     color: var(--color-text-light);
     margin: 0;
     letter-spacing: 1px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    transition: color var(--transition-base);
 }
 
-/* Ajuste del título en modo oscuro */
 body.dark-mode .site-title {
     color: var(--color-primary);
 }
 
-/* Estilos para el enlace que envuelve el logo */
 .logo-link {
     text-decoration: none;
     display: flex;
     align-items: center;
 }
 
-/* Estilos para el enlace de navegación principal */
 .main-nav {
     background-color: var(--color-primary);
     padding: var(--spacing-sm) var(--spacing-xl);
@@ -69,9 +64,9 @@ body.dark-mode .site-title {
     justify-content: center;
     flex-wrap: wrap;
     gap: var(--spacing-md);
+    transition: all var(--transition-base);
 }
 
-/* Ajuste de la navegación en modo oscuro */
 body.dark-mode .main-nav {
     background-color: var(--color-background-card);
     border-bottom: 1px solid rgba(var(--color-text-dark-rgb), 0.1);
@@ -81,9 +76,9 @@ body.dark-mode .main-nav {
     color: var(--color-accent);
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.3s ease;
+    transition: all var(--transition-base);
     font-family: var(--font-family-body);
-    font-size: 1.1em;
+    font-size: 1.1rem;
     padding: var(--spacing-xs) var(--spacing-sm);
     border-radius: var(--border-radius-sm);
 }
@@ -93,7 +88,6 @@ body.dark-mode .main-nav {
     background-color: rgba(var(--color-text-light-rgb), 0.1);
 }
 
-/* Estilo para el NavLink activo */
 .main-nav a.active {
     color: var(--color-text-light);
     background-color: var(--color-accent-hover);
@@ -101,7 +95,6 @@ body.dark-mode .main-nav {
     cursor: default;
 }
 
-/* Ajuste de NavLink en modo oscuro */
 body.dark-mode .main-nav a {
     color: var(--color-text-dark);
 }
@@ -112,11 +105,45 @@ body.dark-mode .main-nav a:hover {
 }
 
 body.dark-mode .main-nav a.active {
-    color: var(--color-accent);
+    color: var(--color-text-light);
     background-color: var(--color-accent-hover);
 }
 
-/* Estilos para el contenido principal de la aplicación */
+.main-nav .login-link,
+.main-nav .dashboard-link {
+    margin-left: auto;
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    transition: all var(--transition-base);
+}
+
+.main-nav .login-link:hover,
+.main-nav .dashboard-link:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.main-nav .login-link.active,
+.main-nav .dashboard-link.active {
+    background-color: var(--color-button-primary-hover-bg);
+    color: var(--color-button-primary-hover-text);
+}
+
+body.dark-mode .main-nav .login-link,
+body.dark-mode .main-nav .dashboard-link {
+    background-color: var(--color-primary);
+    color: var(--color-accent);
+}
+
+body.dark-mode .main-nav .login-link:hover,
+body.dark-mode .main-nav .dashboard-link:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-primary);
+}
+
 .app-main-content {
     padding: var(--spacing-lg);
     min-height: calc(100vh - 150px);
@@ -124,26 +151,27 @@ body.dark-mode .main-nav a.active {
     color: var(--color-text-dark);
     font-family: var(--font-family-body);
     flex-grow: 1;
+    transition:
+        background-color var(--transition-base),
+        color var(--transition-base);
 }
 
-/* Estilos para el pie de página */
 .app-footer {
     padding: var(--spacing-lg) 0;
     background-color: var(--color-primary);
-    color: var(--color-text-dark);
+    color: var(--color-text-light);
     text-align: center;
-    font-size: 0.95em;
+    font-size: 0.95rem;
     border-top: 1px solid rgba(var(--color-text-light-rgb), 0.1);
+    transition: all var(--transition-base);
 }
 
-/* Ajuste del pie de página en modo oscuro */
 body.dark-mode .app-footer {
     background-color: var(--color-background-main);
     color: var(--color-text-dark);
     border-top: 1px solid rgba(var(--color-text-dark-rgb), 0.1);
 }
 
-/* Estilos para el botón de Dark Mode Toggle */
 .dark-mode-toggle-button {
     background-color: transparent;
     border: 2px solid var(--color-accent);
@@ -154,7 +182,7 @@ body.dark-mode .app-footer {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
     color: var(--color-accent);
     font-size: 1.2rem;
     margin-left: var(--spacing-md);
@@ -170,13 +198,11 @@ body.dark-mode .app-footer {
     outline-offset: 2px;
 }
 
-/* Estilos para los iconos de sol y luna */
 .dark-mode-toggle-button .icon-sun,
 .dark-mode-toggle-button .icon-moon {
-    transition: color 0.3s ease;
+    transition: color var(--transition-base);
 }
 
-/* Ajustes para el modo oscuro en el botón */
 body.dark-mode .dark-mode-toggle-button {
     border-color: var(--color-primary);
     color: var(--color-primary);
@@ -186,9 +212,6 @@ body.dark-mode .dark-mode-toggle-button:hover {
     background-color: rgba(var(--color-primary-rgb), 0.1);
 }
 
-/* --- UTILIDADES DE ACCESIBILIDAD --- */
-
-/* Clase para ocultar visualmente contenido, pero mantenerlo para lectores de pantalla */
 .sr-only {
     position: absolute;
     width: 1px;
@@ -201,9 +224,6 @@ body.dark-mode .dark-mode-toggle-button:hover {
     border-width: 0;
 }
 
-/* --- ANIMACIONES DEL LOGOTIPO --- */
-
-/* Animación de Resplandor/Pulso para la Diple Izquierda (Sabio) */
 @keyframes diple-left-glow {
     0% {
         filter: drop-shadow(0 0 0px var(--logo-diple-left-fill));
@@ -219,7 +239,6 @@ body.dark-mode .dark-mode-toggle-button:hover {
     }
 }
 
-/* Animación de Resplandor/Pulso para la Diple Derecha (Creador) */
 @keyframes diple-right-glow {
     0% {
         filter: drop-shadow(0 0 0px var(--logo-diple-right-stroke));
@@ -235,7 +254,6 @@ body.dark-mode .dark-mode-toggle-button:hover {
     }
 }
 
-/* Animación de Aparición y Pulso para las Iniciales DA */
 @keyframes initials-fade-in {
     0% {
         opacity: 0;
@@ -247,7 +265,6 @@ body.dark-mode .dark-mode-toggle-button:hover {
     }
 }
 
-/* Animación de Aparición y Movimiento para las Chispas */
 @keyframes chispas-sparkle {
     0% {
         opacity: 0;
@@ -263,7 +280,6 @@ body.dark-mode .dark-mode-toggle-button:hover {
     }
 }
 
-/* Aplicar animaciones a las partes del logotipo */
 .site-logo .diple-left-shape {
     animation: diple-left-glow 3s ease-in-out infinite alternate;
     animation-delay: 0s;
@@ -283,44 +299,51 @@ body.dark-mode .dark-mode-toggle-button:hover {
     animation-delay: 2s;
 }
 
-/* Media Queries para Responsividad (Ajustes para pantallas más pequeñas) */
 @media (max-width: 768px) {
     .app-header {
         flex-direction: column;
         padding: var(--spacing-md);
         gap: var(--spacing-sm);
     }
-
     .logo-title-container {
         flex-direction: column;
         gap: var(--spacing-xs);
     }
-
     .site-logo {
-        height: 3.5em;
+        height: 3.5rem;
     }
-
     .site-title {
-        font-size: 2em;
+        font-size: 2rem;
     }
-
     .main-nav {
         padding: var(--spacing-sm) var(--spacing-md);
         flex-direction: column;
         gap: var(--spacing-xs);
     }
-
     .main-nav a {
         margin: 0;
         width: 100%;
     }
-
+    .login-dashboard-container {
+        display: flex;
+        gap: var(--spacing-sm);
+        width: 100%;
+        margin-top: var(--spacing-sm);
+    }
+    .main-nav .login-link,
+    .main-nav .dashboard-link {
+        margin-left: 0;
+        margin-top: 0;
+        flex: 1;
+    }
     .app-main-content {
         padding: var(--spacing-md);
     }
-
     .dark-mode-toggle-button {
         margin-left: 0;
         margin-top: var(--spacing-sm);
+    }
+    .site-logo * {
+        animation: none !important;
     }
 }

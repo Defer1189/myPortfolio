@@ -9,14 +9,30 @@ import seedDatabase from './utils/seedDatabase.js';
 let httpServer;
 
 // 1. Validación de variables de entorno
-const validateEnvironment = () => {
-    const requiredEnvVars = ['PORT', 'DB_URI', 'NODE_ENV', 'SWAGGER_SERVER', 'CLIENT_URL_DEV', 'CLIENT_URL_PROD'];
+const validateRequiredEnvVars = () => {
+    const requiredEnvVars = [
+        'PORT',
+        'DB_URI',
+        'NODE_ENV',
+        'SWAGGER_SERVER',
+        'CLIENT_URL_DEV',
+        'CLIENT_URL_PROD',
+        'JWT_SECRET',
+        'JWT_EXPIRES_IN',
+        'JWT_COOKIE_EXPIRES_IN',
+        'JWT_REFRESH_SECRET',
+        'JWT_REFRESH_EXPIRES_IN',
+        'JWT_REFRESH_COOKIE_EXPIRES_IN',
+    ];
     const missingVars = requiredEnvVars.filter((varName) => !process.env[varName]);
     if (missingVars.length > 0) {
         const errorMessage = `❌ Variables de entorno faltantes: ${missingVars.join(', ')}`;
         logger.error(errorMessage);
         throw new Error(errorMessage);
     }
+};
+
+const validatePort = () => {
     const port = Number(process.env.PORT);
     if (isNaN(port)) {
         const errorMessage = 'PORT debe ser un número válido';
@@ -28,6 +44,11 @@ const validateEnvironment = () => {
         logger.error(errorMessage);
         throw new Error(errorMessage);
     }
+};
+
+const validateEnvironment = () => {
+    validateRequiredEnvVars();
+    validatePort();
     logger.info('✅ Variables de entorno validadas correctamente.');
 };
 
