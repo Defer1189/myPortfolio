@@ -67,7 +67,7 @@ stages:
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
 
-    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: drop
 
 - stage: Deploy
@@ -95,4 +95,4 @@ stages:
               StartupCommand: 'npm run start:staging'
               ScriptType: 'Inline Script'
               InlineScript: |
-                npm install --production
+                npm install
