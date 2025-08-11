@@ -1,4 +1,7 @@
 // myPortfolio/server/src/app.js
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 import express from 'express';
 
 import { swaggerDocs } from './config/swagger.js';
@@ -12,6 +15,9 @@ import pageContentRoutes from './routes/pageContent.routes.js';
 import projectRoutes from './routes/project.routes.js';
 import skillRoutes from './routes/skill.routes.js';
 import logger from './utils/logger.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -29,6 +35,19 @@ app.use('/api/content', pageContentRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/experience', experienceRoutes);
+
+// Servir archivos estáticos de React
+const reactBuildPath = path.join(__dirname, '..', 'public');
+app.use(express.static(reactBuildPath));
+
+// SPA fallback para cualquier ruta que NO sea /api/*
+app.get('*', (req, res, next) => {
+    if (!req.originalUrl.startsWith('/api')) {
+        res.sendFile(path.join(reactBuildPath, 'index.html'));
+    } else {
+        next();
+    }
+});
 
 // Ruta raíz para "/"
 app.get('/', (req, res) => {
@@ -59,9 +78,13 @@ app.get('/api', (req, res) => {
 
 // Manejo de Rutas No Encontradas (404)
 app.use((req, res, next) => {
-    const error = new Error(`No encontrada - ${req.originalUrl}`);
-    res.status(404);
-    next(error);
+    if (req.originalUrl.startsWith('/api')) {
+        const error = new Error(`No encontrada - ${req.originalUrl}`);
+        res.status(404);
+        next(error);
+    } else {
+        next();
+    }
 });
 
 // Middleware Centralizado de Errores
