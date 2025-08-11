@@ -30,6 +30,15 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/experience', experienceRoutes);
 
+// Ruta raíz para "/"
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: 'Bienvenido a MyPortfolio API 🦾',
+        documentation: '/api-docs',
+        status: 'running',
+    });
+});
+
 // Ruta de prueba
 app.get('/api', (req, res) => {
     try {
