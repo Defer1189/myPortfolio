@@ -29,6 +29,8 @@ const validateRequiredEnvVars = () => {
         const errorMessage = `❌ Variables de entorno faltantes: ${missingVars.join(', ')}`;
         logger.error(errorMessage);
         throw new Error(errorMessage);
+    } else {
+        logger.info('✅ Variables de entorno cargadas correctamente desde el entorno del servidor.');
     }
 };
 
