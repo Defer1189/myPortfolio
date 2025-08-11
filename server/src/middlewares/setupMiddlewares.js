@@ -8,15 +8,10 @@ import helmet from 'helmet';
 import logger from '../utils/logger.js';
 
 const configureCors = (app) => {
-    const allowedOrigins = [];
-    if (process.env.NODE_ENV === 'development') {
-        allowedOrigins.push(process.env.CLIENT_URL_DEV);
-    } else if (process.env.NODE_ENV === 'staging') {
-        allowedOrigins.push(process.env.CLIENT_URL_PROD);
-        allowedOrigins.push(process.env.CLIENT_URL_DEV);
-    } else if (process.env.NODE_ENV === 'production') {
-        allowedOrigins.push(process.env.CLIENT_URL_PROD);
-    }
+    const allowedOrigins = [
+        'https://myportfolio-staging.azurewebsites.net',
+        'https://myportfolio-staging-b7b6ffc6ftg5f9fd.brazilsouth-01.azurewebsites.net',
+    ];
     const corsOptions = {
         origin: (origin, callback) => {
             if (!origin || allowedOrigins.includes(origin)) {
