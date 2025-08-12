@@ -33,9 +33,17 @@ const configureBodyParsers = (app) => {
 
 const configureSecurityMiddlewares = (app) => {
     app.use(helmet());
+    app.set('trust proxy', 1);
     const apiLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
-        max: 100,
+        max: 400,
+        skip: (req) =>
+            req.originalUrl.startsWith('/assets/') ||
+            req.originalUrl === '/favicon.ico' ||
+            req.originalUrl === '/robots933456.txt' ||
+            req.originalUrl === '/api-docs' ||
+            req.originalUrl === '/api-docs.json' ||
+            req.originalUrl === '/health',
         message: {
             success: false,
             message: 'Demasiadas peticiones desde esta IP, por favor intenta de nuevo después de 15 minutos.',
@@ -62,6 +70,7 @@ const setupAppMiddlewares = (app) => {
     configureBodyParsers(app);
     configureSecurityMiddlewares(app);
     app.get('/favicon.ico', (req, res) => res.sendStatus(204));
+    app.get('/health', (req, res) => res.status(200).send('OK'));
     configureRequestLogging(app);
 };
 
