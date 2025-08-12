@@ -9,6 +9,7 @@ variables:
   webAppName: 'myportfolio-staging'
   environmentName: 'myportfolio-staging'
   vmImageName: 'ubuntu-latest'
+  apiBaseUrl: 'https://myportfolio-staging-b7b6ffc6ftg5f9fd.brazilsouth-01.azurewebsites.net'
 
 stages:
 - stage: Build
@@ -25,10 +26,10 @@ stages:
         versionSpec: '22.x'
       displayName: 'Install Node.js 22.x'
 
-    # Crear un archivo .env.staging en el cliente si no existe
+    # Crear un archivo .env.staging en el cliente con el dominio correcto
     - script: |
         cd client
-        echo "VITE_API_BASE_URL=https://myportfolio-staging.azurewebsites.net" > .env.staging
+        echo "VITE_API_BASE_URL=$(apiBaseUrl)" > .env.staging
       displayName: 'Ensure .env.staging exists for client'
 
     # Build el frontend React (client) con configuración de staging
