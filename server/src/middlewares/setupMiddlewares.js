@@ -8,10 +8,7 @@ import helmet from 'helmet';
 import logger from '../utils/logger.js';
 
 const configureCors = (app) => {
-    const allowedOrigins = [
-        'https://myportfolio-staging.azurewebsites.net',
-        'https://myportfolio-staging-b7b6ffc6ftg5f9fd.brazilsouth-01.azurewebsites.net',
-    ];
+    const allowedOrigins = ['https://myportfolio-staging-b7b6ffc6ftg5f9fd.brazilsouth-01.azurewebsites.net'];
     const corsOptions = {
         origin: (origin, callback) => {
             if (!origin || allowedOrigins.includes(origin)) {
