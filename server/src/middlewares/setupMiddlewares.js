@@ -31,19 +31,34 @@ const configureBodyParsers = (app) => {
     app.use(cookieParser());
 };
 
+const skipRateLimit = (req) =>
+    req.originalUrl.startsWith('/assets/') ||
+    req.originalUrl === '/favicon.ico' ||
+    req.originalUrl === '/robots933456.txt' ||
+    req.originalUrl === '/api-docs' ||
+    req.originalUrl === '/api-docs.json' ||
+    req.originalUrl === '/health';
+
+const rateLimitKeyGenerator = (req, _res) => {
+    let ip = req.ip;
+    if (ip.includes(':')) {
+        ip = ip.split(':')[0];
+    }
+    return ip;
+};
+
+const rateLimitHandler = (req, res, next, options) => {
+    res.status(options.statusCode || 429).json(options.message);
+};
+
 const configureSecurityMiddlewares = (app) => {
     app.use(helmet());
     app.set('trust proxy', 1);
     const apiLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 400,
-        skip: (req) =>
-            req.originalUrl.startsWith('/assets/') ||
-            req.originalUrl === '/favicon.ico' ||
-            req.originalUrl === '/robots933456.txt' ||
-            req.originalUrl === '/api-docs' ||
-            req.originalUrl === '/api-docs.json' ||
-            req.originalUrl === '/health',
+        skip: skipRateLimit,
+        keyGenerator: rateLimitKeyGenerator,
         message: {
             success: false,
             message: 'Demasiadas peticiones desde esta IP, por favor intenta de nuevo después de 15 minutos.',
@@ -51,9 +66,7 @@ const configureSecurityMiddlewares = (app) => {
         },
         standardHeaders: true,
         legacyHeaders: false,
-        handler: (req, res, next, options) => {
-            res.status(options.statusCode || 429).json(options.message);
-        },
+        handler: rateLimitHandler,
     });
     app.use(apiLimiter);
 };
