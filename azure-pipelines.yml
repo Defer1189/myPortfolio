@@ -98,4 +98,3 @@ stages:
               packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               RuntimeStack: 'NODE|22'
               StartupCommand: 'rm -rf node_modules && npm install && npm run start:staging'
-              ScriptType: 'Inline Script'
