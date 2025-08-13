@@ -1,12 +1,36 @@
 // myPortfolio/server/src/index.js
-import mongoose from 'mongoose';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-import '../bootstrap.js';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 import app from './app.js';
 import { connectDB } from './config/db.js';
 import logger from './utils/logger.js';
 import seedDatabase from './utils/seedDatabase.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const envFile = `.env.${process.env.NODE_ENV || 'development'}`;
+const envPath = path.resolve(__dirname, '../../', envFile);
+
+try {
+    dotenv.config({ path: envPath });
+    // eslint-disable-next-line no-console
+    console.log(`✅ Variables cargadas desde ${envPath}`);
+} catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`❌ Error cargando variables de ${envPath}:`, error.message);
+    if (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production') {
+        // eslint-disable-next-line no-console
+        console.log('🌐 Usando variables del entorno de Azure');
+        process.env.PORT = process.env.PORT || 8080;
+    } else {
+        throw error;
+    }
+}
 
 let httpServer;
 
