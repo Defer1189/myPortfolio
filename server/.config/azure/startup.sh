@@ -1,16 +1,16 @@
 #!/bin/bash
 
-# Configurar versión de Node.js
-export NVM_DIR="/usr/local/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-# Usar Node.js 22
-nvm use 22 || nvm install 22
-
 # Verificar versión de Node.js
 echo "=== VERSIÓN DE NODE.JS ==="
 node -v
 echo "==========================="
+
+# Validar versión mínima de Node.js
+NODE_MAJOR=$(node -v | cut -d'.' -f1 | tr -d 'v')
+if [ "$NODE_MAJOR" -lt 22 ]; then
+    echo "❌ ERROR: Se requiere Node.js versión 22 o superior."
+    exit 1
+fi
 
 # Navegar al directorio de la aplicación
 cd /home/site/wwwroot

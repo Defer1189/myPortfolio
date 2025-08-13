@@ -9,6 +9,7 @@ variables:
   webAppName: 'myportfolio-staging'
   environmentName: 'myportfolio-staging'
   vmImageName: 'ubuntu-latest'
+  nodeVersion: '~22'
 
 stages:
 - stage: Build
