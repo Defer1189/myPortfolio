@@ -2,15 +2,16 @@
 **/node_modules/ 
 
 # Lockfiles
-**/package-lock.json
-**/yarn.lock
-**/pnpm-lock.yaml
-**/bun.lockb
+# **/package-lock.json
+# **/yarn.lock
+# **/pnpm-lock.yaml
+# **/bun.lockb
 
 # ENTORNOS Y VARIABLES 
 .env
 .env.*
 !.env.example
+!.env.staging
 
 # Credenciales y configuraciones locales
 *.local

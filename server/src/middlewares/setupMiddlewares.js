@@ -8,7 +8,7 @@ import helmet from 'helmet';
 import logger from '../utils/logger.js';
 
 const configureCors = (app) => {
-    const allowedOrigins = ['https://myportfolio-staging-b7b6ffc6ftg5f9fd.brazilsouth-01.azurewebsites.net'];
+    const allowedOrigins = [process.env.CLIENT_URL_DEV, process.env.CLIENT_URL_PROD, 'http://localhost:3000'];
     const corsOptions = {
         origin: (origin, callback) => {
             if (!origin || allowedOrigins.includes(origin)) {
@@ -51,9 +51,26 @@ const rateLimitHandler = (req, res, next, options) => {
     res.status(options.statusCode || 429).json(options.message);
 };
 
-const configureSecurityMiddlewares = (app) => {
-    app.use(helmet());
+const configureHelmet = (app) => {
+    app.use(
+        helmet({
+            contentSecurityPolicy: {
+                directives: {
+                    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                    defaultSrc: ["'self'"],
+                    scriptSrc: ["'self'", "'unsafe-inline'"],
+                    styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+                    imgSrc: ["'self'", 'data:', 'https:'],
+                    fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+                    connectSrc: ["'self'", process.env.CLIENT_URL_DEV, process.env.CLIENT_URL_PROD],
+                },
+            },
+        }),
+    );
     app.set('trust proxy', 1);
+};
+
+const configureRateLimiter = (app) => {
     const apiLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 400,
@@ -69,6 +86,11 @@ const configureSecurityMiddlewares = (app) => {
         handler: rateLimitHandler,
     });
     app.use(apiLimiter);
+};
+
+const configureSecurityMiddlewares = (app) => {
+    configureHelmet(app);
+    configureRateLimiter(app);
 };
 
 const configureRequestLogging = (app) => {

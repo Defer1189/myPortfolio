@@ -36,29 +36,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/experience', experienceRoutes);
 
-// Servir archivos estáticos de React
-const reactBuildPath = path.join(__dirname, '..', 'public');
-app.use(express.static(reactBuildPath));
-
-// SPA fallback para cualquier ruta que NO sea /api/*
-app.get('*', (req, res, next) => {
-    if (!req.originalUrl.startsWith('/api')) {
-        res.sendFile(path.join(reactBuildPath, 'index.html'));
-    } else {
-        next();
-    }
-});
-
-// Ruta raíz para "/"
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'Bienvenido a MyPortfolio API 🦾',
-        documentation: '/api-docs',
-        status: 'running',
-    });
-});
-
-// Ruta de prueba
+// Ruta de bienvenida de la API
 app.get('/api', (req, res) => {
     try {
         logger.info('Solicitud recibida en /api');
@@ -82,6 +60,19 @@ app.use((req, res, next) => {
         const error = new Error(`No encontrada - ${req.originalUrl}`);
         res.status(404);
         next(error);
+    } else {
+        next();
+    }
+});
+
+// Servir archivos estáticos de React
+const reactBuildPath = path.join(__dirname, '..', 'public');
+app.use(express.static(reactBuildPath));
+
+// SPA fallback para cualquier ruta que NO sea /api/*
+app.get('*', (req, res, next) => {
+    if (!req.originalUrl.startsWith('/api')) {
+        res.sendFile(path.join(reactBuildPath, 'index.html'));
     } else {
         next();
     }
