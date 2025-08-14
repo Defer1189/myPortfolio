@@ -61,7 +61,7 @@ const configureHelmet = (app) => {
         helmet({
             contentSecurityPolicy: {
                 directives: {
-                    ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+                    defaultSrc: ["'self'"],
                     scriptSrc: ["'self'", "'unsafe-inline'"],
                     styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
                     imgSrc: ["'self'", 'data:', 'https:'],
@@ -70,10 +70,17 @@ const configureHelmet = (app) => {
                         "'self'",
                         process.env.CLIENT_URL_DEV,
                         process.env.CLIENT_URL_PROD,
-                        'http://localhost:3000',
                         'https://myportfolio-staging-b7b6ffc6ftg5f9fd.brazilsouth-01.azurewebsites.net',
                     ],
+                    objectSrc: ["'none'"],
+                    upgradeInsecureRequests: [],
                 },
+            },
+            frameguard: { action: 'deny' },
+            hsts: {
+                maxAge: 31536000,
+                includeSubDomains: true,
+                preload: true,
             },
         }),
     );
