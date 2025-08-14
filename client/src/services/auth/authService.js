@@ -2,7 +2,7 @@
 import { setToken, setRefreshToken, setUser, getToken, getRefreshToken, clearAuth } from './tokenService.js';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const AUTH_ENDPOINT = `${API_BASE_URL}/api/auth`;
+const AUTH_ENDPOINT = `${API_BASE_URL}/auth`;
 
 /**
  * Realiza la petición para iniciar sesión

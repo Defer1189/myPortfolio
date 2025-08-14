@@ -1,6 +1,6 @@
 // myPortfolio/client/src/services/experience/experienceService.js
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const API_ENDPOINT = `${API_BASE_URL}/api/experience`;
+const API_ENDPOINT = `${API_BASE_URL}/experience`;
 
 /**
  * Obtiene toda la experiencia del portafolio.

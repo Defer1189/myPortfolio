@@ -1,6 +1,6 @@
 // myPortfolio/client/src/services/skill/skillService.js
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const API_ENDPOINT = `${API_BASE_URL}/api/skills`;
+const API_ENDPOINT = `${API_BASE_URL}/skills`;
 
 /**
  * Obtiene todas las habilidades del portafolio.
