@@ -154,6 +154,7 @@ const startServer = async () => {
         validateEnvironment();
         const PORT = Number(process.env.PORT);
         const start = Date.now();
+        logger.info('⏳ Intentando conectar a la base de datos MongoDB...');
         await connectDB();
         if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') {
             const collections = await mongoose.connection.db.listCollections().toArray();
@@ -169,6 +170,8 @@ const startServer = async () => {
         await startHttpServer(PORT, start);
     } catch (error) {
         handleError(error, 'Error durante el inicio del servidor');
+        // eslint-disable-next-line no-console
+        console.error(error);
         // eslint-disable-next-line n/no-process-exit
         process.exit(1);
     }
@@ -182,11 +185,15 @@ process.on('unhandledRejection', (reason, promise) => {
         promise,
         timestamp: new Date().toISOString(),
     });
+    // eslint-disable-next-line no-console
+    console.error('⚠️ Promesa no manejada:', reason);
     // eslint-disable-next-line n/no-process-exit
     process.exit(1);
 });
 process.on('uncaughtException', (error) => {
     handleError(error, 'Excepción no capturada');
+    // eslint-disable-next-line no-console
+    console.error(error);
     // eslint-disable-next-line n/no-process-exit
     process.exit(1);
 });
