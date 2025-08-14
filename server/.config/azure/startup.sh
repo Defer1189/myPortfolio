@@ -29,6 +29,11 @@ else
   echo "🔍 Dependencias existentes"
 fi
 
+# ======== CORRECCIÓN DE PERMISOS ========
+echo "Corrigiendo permisos en node_modules..."
+chmod -R 755 node_modules
+echo "✅ Permisos corregidos"
+
 # ======== EJECUCIÓN ========
 echo "Iniciando aplicación..."
 node src/index.js

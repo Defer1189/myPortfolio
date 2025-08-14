@@ -62,7 +62,6 @@ const configureHelmet = (app) => {
             contentSecurityPolicy: {
                 directives: {
                     ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-                    defaultSrc: ["'self'"],
                     scriptSrc: ["'self'", "'unsafe-inline'"],
                     styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
                     imgSrc: ["'self'", 'data:', 'https:'],
