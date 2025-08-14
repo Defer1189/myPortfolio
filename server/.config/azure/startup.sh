@@ -1,14 +1,27 @@
 #!/bin/bash
 
-# Verificar versión de Node.js
+# Información del sistema
+echo "=== INFORMACIÓN DEL SISTEMA ==="
+echo "Fecha y hora: $(date)"
+echo "Directorio actual: $(pwd)"
+echo "Usuario: $(whoami)"
+echo "==============================="
+
+# Validar versión de Node.js
+NODE_VERSION=$(node -v)
 echo "=== VERSIÓN DE NODE.JS ==="
-node -v
+echo $NODE_VERSION
 echo "==========================="
 
+# Extraer la versión mayor de Node.js
+NODE_MAJOR=$(echo $NODE_VERSION | cut -d'.' -f1 | tr -d 'v')
+
 # Validar versión mínima de Node.js
-NODE_MAJOR=$(node -v | cut -d'.' -f1 | tr -d 'v')
 if [ "$NODE_MAJOR" -lt 22 ]; then
     echo "❌ ERROR: Se requiere Node.js versión 22 o superior."
+    echo "Versión actual: $NODE_VERSION"
+    echo "WEBSITE_NODE_DEFAULT_VERSION=${WEBSITE_NODE_DEFAULT_VERSION}"
+    echo "Por favor, verifique la configuración en Azure Portal"
     exit 1
 fi
 
