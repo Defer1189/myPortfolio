@@ -82,7 +82,7 @@ const initiateFetchProcess = (pageName, setContent, setLoading, setError) => {
     setLoading(true);
     setError(null);
     const abortController = new AbortController();
-    fetchDataFromApi(`/api/content/${pageName}`, abortController.signal)
+    fetchDataFromApi(`/content/${pageName}`, abortController.signal)
         .then(setContent)
         .catch((err) => {
             if (err.name !== 'AbortError') {
