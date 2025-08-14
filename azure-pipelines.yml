@@ -26,28 +26,28 @@ stages:
         versionSpec: '22.x'
       displayName: 'Install Node.js 22.x'
 
-    # Crear un archivo .env.staging en el cliente con la ruta relativa
+    # Crear .env.staging para el cliente
     - script: |
         cd client
         echo "VITE_API_BASE_URL=/api" > .env.staging
       displayName: 'Ensure .env.staging exists for client'
 
-    # Build el frontend React (client) con configuración de staging
+    # Build frontend React
     - script: |
         cd client
         npm ci
         npm run build:staging
       displayName: 'Build React frontend for staging'
 
-    # Preparar el servidor y copiar los archivos compilados del frontend
+    # Preparar servidor y copiar build de React
     - script: |
         cd server
-        npm ci
+        npm ci --production
         mkdir -p public
         cp -r ../client/dist/* public/
       displayName: 'Setup server and copy frontend build'
 
-    # Crear un archivo .env.staging en el servidor si no existe
+    # Crear .env.staging para servidor
     - script: |
         cd server
         if [ ! -f .env.staging ]; then
@@ -57,12 +57,7 @@ stages:
         fi
       displayName: 'Ensure .env.staging exists'
 
-    # Comprimir todo para el despliegue
-    - script: |
-        cd server
-        rm -rf node_modules
-      displayName: 'Remove node_modules before archiving'
-
+    # Comprimir para despliegue
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:

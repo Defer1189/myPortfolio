@@ -150,28 +150,32 @@ const startHttpServer = async (port, startTime) => {
 // 5. Función principal
 const startServer = async () => {
     try {
-        logger.info(`🧪 Modo de ejecución: ${process.env.NODE_ENV === 'production' ? 'Producción' : 'Desarrollo'}`);
+        // eslint-disable-next-line no-console
+        console.log('✅ PASO 1: Validando entorno...');
         validateEnvironment();
         const PORT = Number(process.env.PORT);
         const start = Date.now();
-        logger.info('⏳ Intentando conectar a la base de datos MongoDB...');
+        // eslint-disable-next-line no-console
+        console.log('✅ PASO 2: Conectando a MongoDB...');
         await connectDB();
-        if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'staging') {
+        if (process.env.NODE_ENV === 'development') {
+            // eslint-disable-next-line no-console
+            console.log('✅ PASO 3: Verificando estado DB (solo desarrollo)...');
             const collections = await mongoose.connection.db.listCollections().toArray();
             if (collections.length === 0) {
-                logger.info(
-                    `Detectada base de datos vacía en ${process.env.NODE_ENV}. Iniciando población de datos...`,
-                );
+                logger.info(`Poblando datos iniciales en DESARROLLO...`);
                 await seedDatabase();
-            } else {
-                logger.info(`Base de datos no vacía en ${process.env.NODE_ENV}. Saltando población de datos.`);
             }
+        } else {
+            // eslint-disable-next-line no-console
+            console.log('ℹ️ Saltando semilla de DB (entorno no de desarrollo)');
         }
+        // eslint-disable-next-line no-console
+        console.log('✅ PASO 4: Iniciando servidor HTTP...');
         await startHttpServer(PORT, start);
     } catch (error) {
-        handleError(error, 'Error durante el inicio del servidor');
         // eslint-disable-next-line no-console
-        console.error(error);
+        console.error('❌ ERROR CRÍTICO EN startServer:', error);
         // eslint-disable-next-line n/no-process-exit
         process.exit(1);
     }

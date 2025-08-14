@@ -8,7 +8,12 @@ import helmet from 'helmet';
 import logger from '../utils/logger.js';
 
 const configureCors = (app) => {
-    const allowedOrigins = [process.env.CLIENT_URL_DEV, process.env.CLIENT_URL_PROD, 'http://localhost:3000'];
+    const allowedOrigins = [
+        process.env.CLIENT_URL_DEV,
+        process.env.CLIENT_URL_PROD,
+        'http://localhost:3000',
+        'https://myportfolio-staging-b7b6ffc6ftg5f9fd.brazilsouth-01.azurewebsites.net',
+    ];
     const corsOptions = {
         origin: (origin, callback) => {
             if (!origin || allowedOrigins.includes(origin)) {
@@ -62,7 +67,13 @@ const configureHelmet = (app) => {
                     styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
                     imgSrc: ["'self'", 'data:', 'https:'],
                     fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-                    connectSrc: ["'self'", process.env.CLIENT_URL_DEV, process.env.CLIENT_URL_PROD],
+                    connectSrc: [
+                        "'self'",
+                        process.env.CLIENT_URL_DEV,
+                        process.env.CLIENT_URL_PROD,
+                        'http://localhost:3000',
+                        'https://myportfolio-staging-b7b6ffc6ftg5f9fd.brazilsouth-01.azurewebsites.net',
+                    ],
                 },
             },
         }),
