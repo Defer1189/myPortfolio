@@ -98,5 +98,4 @@ stages:
               packageForLinux: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
               RuntimeStack: 'NODE|22'
               StartupCommand: 'chmod +x .config/azure/startup.sh && .config/azure/startup.sh'
-              AppSettings: |
-                WEBSITE_NODE_DEFAULT_VERSION=~22
+              AppSettings: '-WEBSITE_NODE_DEFAULT_VERSION ~22'
