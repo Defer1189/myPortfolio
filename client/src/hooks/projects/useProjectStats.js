@@ -4,8 +4,8 @@ import { useMemo } from 'react';
 /**
  * Hook para calcular estadísticas de proyectos
  *
- * @param {*} projects - Array de proyectos para calcular las estadísticas
- * @returns {object} Objeto con estadísticas de los proyectos incluyendo total, destacados, con GitHub, con demo, categorías y proyectos recientes
+ * @param {Array} projects - Array de proyectos para calcular las estadísticas
+ * @returns {object} Objeto con estadísticas de los proyectos incluyendo total, destacados, etc.
  */
 export const useProjectStats = (projects) => {
     const stats = useMemo(() => {
@@ -15,13 +15,14 @@ export const useProjectStats = (projects) => {
                 featured: 0,
                 withGitHub: 0,
                 withDemo: 0,
-                categories: [],
+                categories: 0,
+                recentProjects: 0,
             };
         }
         const categories = [...new Set(projects.map((p) => p.category).filter(Boolean))];
         return {
             total: projects.length,
-            featured: projects.filter((p) => p.featured || p.isFeatured).length,
+            featured: projects.filter((p) => p.isFeatured).length,
             withGitHub: projects.filter((p) => p.githubUrl).length,
             withDemo: projects.filter((p) => p.liveDemoUrl).length,
             categories: categories.length,

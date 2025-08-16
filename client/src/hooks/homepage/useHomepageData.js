@@ -4,48 +4,50 @@ import { useEffect, useState } from 'react';
 import { getHomepageProfileData } from '../../services/homepage/homepageService.js';
 
 /**
- * Carga los datos del perfil de la Homepage.
+ * Formatea los datos del perfil de la página de inicio.
  *
- * @param {AbortController} abortController - Controlador para abortar la petición.
- * @param {Function} setProfile - Función para actualizar el estado del perfil.
- * @param {Function} setError - Función para actualizar el estado de error.
- * @param {Function} setLoading - Función para actualizar el estado de carga.
- * @returns {Promise<void>}
+ * @param {*} data - Datos del perfil recibidos desde el servicio.
+ * @returns {object} Objeto formateado con usuario, habilidades y proyectos destacados.
  */
-const fetchProfile = async (abortController, setProfile, setError, setLoading) => {
-    let isAborted = false;
-    try {
-        const data = await getHomepageProfileData(abortController.signal);
-        setProfile(data);
-    } catch (err) {
-        if (err.name === 'AbortError') {
-            isAborted = true;
-        } else {
-            setError(err.message || 'Error al cargar la información del perfil.');
-        }
-    } finally {
-        if (!isAborted) {
-            setLoading(false);
-        }
-    }
-};
+function formatProfileData(data) {
+    return {
+        user: data.user || {},
+        skills: data.skills || [],
+        featuredProjects: data.featuredProjects || [],
+    };
+}
 
-const useHomepageData = () => {
-    const [profile, setProfile] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
+/**
+ * Hook personalizado para obtener y gestionar los datos del perfil de la página de inicio.
+ *
+ * @returns {object} Estado de la página de inicio.
+ */
+export function useHomepageData() {
+    const [state, setState] = useState({
+        profile: null,
+        loading: true,
+        error: null,
+    });
     useEffect(() => {
-        const abortController = new AbortController();
-
-        fetchProfile(abortController, setProfile, setError, setLoading);
-
-        return () => {
-            abortController.abort();
-        };
+        const controller = new AbortController();
+        getHomepageProfileData(controller.signal)
+            .then((data) =>
+                setState({
+                    profile: formatProfileData(data),
+                    loading: false,
+                    error: null,
+                }),
+            )
+            .catch(
+                (error) =>
+                    !controller.signal.aborted &&
+                    setState({
+                        profile: null,
+                        loading: false,
+                        error,
+                    }),
+            );
+        return () => controller.abort();
     }, []);
-
-    return { profile, loading, error };
-};
-
-export default useHomepageData;
+    return state;
+}

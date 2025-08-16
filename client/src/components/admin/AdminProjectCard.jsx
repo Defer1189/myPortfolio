@@ -24,7 +24,7 @@ const ProjectThumbnail = ({ project }) => (
                 e.target.src = '/placeholder-project.jpg';
             }}
         />
-        {(project.featured || project.isFeatured) && (
+        {project.isFeatured && (
             <div className='admin-project-card__badge'>
                 <FaStar />
                 <span>Destacado</span>
@@ -36,7 +36,6 @@ ProjectThumbnail.propTypes = {
     project: PropTypes.shape({
         imageUrl: PropTypes.string,
         title: PropTypes.string.isRequired,
-        featured: PropTypes.bool,
         isFeatured: PropTypes.bool,
     }).isRequired,
 };

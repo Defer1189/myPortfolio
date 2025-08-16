@@ -5,17 +5,88 @@ import logger from '../utils/logger.js';
 
 /**
  * @swagger
- * tags:
- *   - name: Projects
- *     description: Gestión de proyectos del portafolio
+ * components:
+ *   schemas:
+ *     Project:
+ *       type: object
+ *       required:
+ *         - title
+ *         - shortDescription
+ *         - longDescription
+ *         - technologies
+ *         - imageUrl
+ *         - githubUrl
+ *       properties:
+ *         _id:
+ *           type: string
+ *           readOnly: true
+ *           description: ID único del proyecto.
+ *         title:
+ *           type: string
+ *           description: Título del proyecto.
+ *           minLength: 3
+ *           maxLength: 150
+ *           example: "Plataforma de Gestión de Contenidos"
+ *         shortDescription:
+ *           type: string
+ *           description: Descripción breve del proyecto para listas o tarjetas.
+ *           minLength: 10
+ *           maxLength: 300
+ *           example: "Sistema CMS robusto para administración de sitios web."
+ *         longDescription:
+ *           type: string
+ *           description: Descripción detallada del proyecto.
+ *           minLength: 50
+ *           maxLength: 5000
+ *           example: "Desarrollé un sistema de gestión de contenidos completo..."
+ *         technologies:
+ *           type: array
+ *           items:
+ *             type: string
+ *             description: ID de la tecnología (Skill)
+ *           description: Lista de IDs de tecnologías utilizadas (referencia a Skill).
+ *           example: ["60f7c2b8e1b1c8a1b8e1b1c8", "60f7c2b8e1b1c8a1b8e1b1c9"]
+ *         imageUrl:
+ *           type: string
+ *           format: uri
+ *           description: URL de la imagen principal del proyecto.
+ *           example: ""
+ *         liveDemoUrl:
+ *           type: string
+ *           format: uri
+ *           description: URL a una demo en vivo del proyecto (opcional, puede estar vacío).
+ *           example: "https://demo.cms-project.com"
+ *         githubUrl:
+ *           type: string
+ *           format: uri
+ *           description: URL al repositorio de GitHub del proyecto.
+ *           example: "https://github.com/usuario/proyecto"
+ *         order:
+ *           type: integer
+ *           description: Orden de visualización (por defecto 999).
+ *           example: 1
+ *         isFeatured:
+ *           type: boolean
+ *           description: Indica si el proyecto es destacado (por defecto false).
+ *           example: true
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           readOnly: true
+ *           description: Fecha de creación del proyecto.
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           readOnly: true
+ *           description: Fecha de última actualización.
  */
 
 /**
  * Obtiene todos los proyectos del portafolio, ordenados por prioridad (campo 'order' ascendente).
  *
- * @param {object} req - Express request object
- * @param {object} res - Express response object
- * @param {Function} next - Express next middleware function
+ * @param {object} req - Objeto de solicitud de Express
+ * @param {object} res - Objeto de respuesta de Express
+ * @param {Function} next - Función middleware next de Express
  */
 export const getAllProjects = async (req, res, next) => {
     try {
@@ -31,16 +102,15 @@ export const getAllProjects = async (req, res, next) => {
 /**
  * Obtiene un proyecto específico del portafolio usando su ID único.
  *
- * @param {object} req - Express request object
- * @param {object} res - Express response object
- * @param {Function} next - Express next middleware function
- * @returns {Promise<void>} Promise that resolves when the operation is complete
+ * @param {object} req - Objeto de solicitud de Express
+ * @param {object} res - Objeto de respuesta de Express
+ * @param {Function} next - Función middleware next de Express
+ * @returns {Promise<void>} Promesa que se resuelve cuando la operación se completa
  */
 export const getProjectById = async (req, res, next) => {
     try {
         const { id } = req.params;
         const project = await Project.findById(id).populate('technologies', 'name');
-
         if (!project) {
             logger.warn(`⚠️ Proyecto con ID ${id} no encontrado.`);
             return res.status(404).json({
@@ -52,7 +122,6 @@ export const getProjectById = async (req, res, next) => {
                 },
             });
         }
-
         logger.info(`✅ Proyecto con ID ${id} obtenido exitosamente.`);
         res.status(200).json({
             success: true,
@@ -75,37 +144,26 @@ export const getProjectById = async (req, res, next) => {
  * @returns {Array} Array de ObjectIds válidos
  */
 const validateTechnologies = async (technologies) => {
-    if (!technologies || !Array.isArray(technologies)) {
-        return [];
-    }
-
-    const validTechnologies = [];
-
-    for (const tech of technologies) {
-        if (typeof tech === 'string' && tech.length === 24) {
-            // Es un ObjectId válido
-            const skill = await Skill.findById(tech);
+    const validTechs = await Promise.all(
+        technologies.map(async (tech) => {
+            if (typeof tech === 'string' && tech.length === 24) {
+                return tech;
+            }
+            const skill = await Skill.findOne({ name: tech.trim() });
             if (skill) {
-                validTechnologies.push(tech);
+                return skill._id;
             }
-        } else if (typeof tech === 'string') {
-            // Es un nombre de tecnología, buscar o crear
-            let skill = await Skill.findOne({ name: tech.trim() });
-            if (!skill) {
-                // Crear nueva habilidad si no existe
-                skill = new Skill({
-                    name: tech.trim(),
-                    category: 'Otras', // Categoría por defecto
-                    level: 'Intermedio',
-                });
-                await skill.save();
-                logger.info(`✅ Nueva habilidad creada: ${tech.trim()}`);
-            }
-            validTechnologies.push(skill._id);
-        }
-    }
-
-    return validTechnologies;
+            const newSkill = new Skill({
+                name: tech.trim(),
+                category: 'Otras',
+                level: 'Intermedio',
+            });
+            await newSkill.save();
+            logger.info(`✅ Nueva habilidad creada: ${tech.trim()}`);
+            return newSkill._id;
+        }),
+    );
+    return validTechs.filter((id) => id);
 };
 
 /**
@@ -131,28 +189,19 @@ const mapProjectData = (projectData) => {
 /**
  * Crea un nuevo proyecto
  *
- * @param {object} req - Express request object
- * @param {object} res - Express response object
- * @param {Function} next - Express next middleware function
+ * @param {object} req - Objeto de solicitud de Express
+ * @param {object} res - Objeto de respuesta de Express
+ * @param {Function} next - Función middleware next de Express
  */
 export const createProject = async (req, res, next) => {
     try {
         const projectData = req.body;
-
-        // Validar tecnologías
-        const validTechnologies = await validateTechnologies(projectData.technologies);
+        const validTechnologies = validateTechnologies(projectData.technologies);
         projectData.technologies = validTechnologies;
-
-        // Mapear datos
         const mappedData = mapProjectData(projectData);
-
-        // Crear el proyecto
         const newProject = new Project(mappedData);
         const savedProject = await newProject.save();
-
-        // Poblar las tecnologías para la respuesta
         const populatedProject = await Project.findById(savedProject._id).populate('technologies', 'name');
-
         logger.info(`✅ Proyecto creado exitosamente: ${savedProject.title}`);
         res.status(201).json({
             success: true,
@@ -202,8 +251,7 @@ const processUpdateTechnologies = async (updateData) => {
     if (!updateData.technologies || !Array.isArray(updateData.technologies)) {
         return;
     }
-
-    const validTechnologies = await validateTechnologies(updateData.technologies);
+    const validTechnologies = validateTechnologies(updateData.technologies);
     updateData.technologies = validTechnologies;
 };
 
@@ -211,7 +259,7 @@ const processUpdateTechnologies = async (updateData) => {
  * Valida que un proyecto existe y retorna una respuesta de error si no existe
  *
  * @param {string} id - ID del proyecto
- * @param {object} res - Express response object
+ * @param {object} res - Objeto de respuesta de Express
  * @returns {Promise<object|null>} Proyecto existente o null si no se encuentra
  */
 const validateProjectExists = async (id, res) => {
@@ -234,24 +282,21 @@ const validateProjectExists = async (id, res) => {
 /**
  * Actualiza un proyecto existente
  *
- * @param {object} req - Express request object
- * @param {object} res - Express response object
- * @param {Function} next - Express next middleware function
- * @returns {Promise<void>} Promise that resolves when the operation is complete
+ * @param {object} req - Objeto de solicitud de Express
+ * @param {object} res - Objeto de respuesta de Express
+ * @param {Function} next - Función middleware next de Express
+ * @returns {Promise<void>} Promesa que se resuelve cuando la operación se completa
  */
 export const updateProject = async (req, res, next) => {
     try {
         const { id } = req.params;
         const updateData = req.body;
-
         const existingProject = await validateProjectExists(id, res);
         if (!existingProject) {
             return;
         }
-
         await processUpdateTechnologies(updateData);
         const mappedData = mapUpdateData(updateData, existingProject);
-
         const updatedProject = await Project.findByIdAndUpdate(id, mappedData, {
             new: true,
             runValidators: true,
@@ -275,16 +320,14 @@ export const updateProject = async (req, res, next) => {
 /**
  * Elimina un proyecto
  *
- * @param {object} req - Express request object
- * @param {object} res - Express response object
- * @param {Function} next - Express next middleware function
- * @returns {Promise<void>} Promise that resolves when the operation is complete
+ * @param {object} req - Objeto de solicitud de Express
+ * @param {object} res - Objeto de respuesta de Express
+ * @param {Function} next - Función middleware next de Express
+ * @returns {Promise<void>} Promesa que se resuelve cuando la operación se completa
  */
 export const deleteProject = async (req, res, next) => {
     try {
         const { id } = req.params;
-
-        // Verificar que el proyecto existe
         const existingProject = await Project.findById(id);
         if (!existingProject) {
             logger.warn(`⚠️ Proyecto con ID ${id} no encontrado para eliminar.`);
@@ -297,10 +340,7 @@ export const deleteProject = async (req, res, next) => {
                 },
             });
         }
-
-        // Eliminar el proyecto
         await Project.findByIdAndDelete(id);
-
         logger.info(`✅ Proyecto eliminado exitosamente: ${existingProject.title}`);
         res.status(200).json({
             success: true,
@@ -317,18 +357,30 @@ export const deleteProject = async (req, res, next) => {
 };
 
 /**
- * Obtiene proyectos destacados
+ * Obtiene los proyectos destacados del portafolio, ordenados por prioridad y fecha de creación.
  *
- * @param {object} req - Express request object
- * @param {object} res - Express response object
- * @param {Function} next - Express next middleware function
+ * @param {object} req - Objeto de solicitud de Express
+ * @param {object} res - Objeto de respuesta de Express
+ * @param {Function} next - Función middleware next de Express
+ * @swagger
+ * /api/projects/featured:
+ *   get:
+ *     summary: Obtiene proyectos destacados
+ *     responses:
+ *       200:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Project'
  */
 export const getFeaturedProjects = async (req, res, next) => {
     try {
         const featuredProjects = await Project.find({ isFeatured: true })
             .populate('technologies', 'name')
-            .sort({ order: 1, createdAt: -1 });
-
+            .sort({ order: 1, createdAt: -1 })
+            .limit(4);
         logger.info('✅ Proyectos destacados obtenidos exitosamente.');
         res.status(200).json({
             success: true,

@@ -1,5 +1,6 @@
 // myPortfolio/server/src/controllers/homepage.controller.js
 import Homepage from '../models/Homepage.js';
+import Project from '../models/Project.js';
 import User from '../models/User.js';
 import logger from '../utils/logger.js';
 
@@ -80,10 +81,6 @@ async function fetchPopulatedHomepage() {
         .populate({
             path: 'skills',
             select: 'name category iconUrl level',
-        })
-        .populate({
-            path: 'featuredProjects',
-            select: 'title shortDescription imageUrl liveDemoUrl githubUrl',
         });
 }
 
@@ -91,21 +88,34 @@ async function fetchPopulatedHomepage() {
  * Construye la respuesta estructurada para el frontend
  *
  * @param {object} homepage - Documento de homepage con referencias pobladas
+ * @param {Array} featuredProjects - Proyectos destacados obtenidos
  * @returns {object} Respuesta estructurada para el frontend
  */
-function buildHomepageResponse(homepage) {
+function buildHomepageResponse(homepage, featuredProjects) {
     return {
         user: homepage.user,
         skills: homepage.skills,
-        featuredProjects: homepage.featuredProjects.map((proj) => ({
+        featuredProjects: featuredProjects.map((proj) => ({
             _id: proj._id,
             title: proj.title,
             description: proj.shortDescription,
-            imageUrl: proj.imageUrl,
+            imageUrl: proj.imageUrl || '/default-project.jpg',
             liveDemoUrl: proj.liveDemoUrl,
             githubUrl: proj.githubUrl,
         })),
     };
+}
+
+/**
+ * Obtiene proyectos destacados usando el campo isFeatured
+ *
+ * @returns {Promise<Array>} Lista de proyectos destacados
+ */
+async function getFeaturedProjects() {
+    return await Project.find({ isFeatured: true })
+        .select('title shortDescription imageUrl liveDemoUrl githubUrl')
+        .sort({ order: 1, createdAt: -1 })
+        .limit(4);
 }
 
 /**
@@ -140,15 +150,14 @@ function buildHomepageResponse(homepage) {
 export const getHomepageData = async (req, res, next) => {
     try {
         const homepage = await fetchPopulatedHomepage();
-
         if (!homepage) {
             logger.warn('Homepage no configurada. Ejecute el seeder.');
             return res.status(404).json({
                 message: 'Configuración no encontrada. Ejecute el seeder.',
             });
         }
-
-        const response = buildHomepageResponse(homepage);
+        const featuredProjects = await getFeaturedProjects();
+        const response = buildHomepageResponse(homepage, featuredProjects);
         logger.info('✅ Homepage obtenida con referencias pobladas');
         res.status(200).json(response);
     } catch (error) {
@@ -226,9 +235,7 @@ async function handleUserProfileUpdate(req, res) {
             details: missingFields,
         });
     }
-
     const updates = buildUserProfileUpdates(body);
-
     if (updates.featuredSkills) {
         const validationResult = await validateSkillIds(updates.featuredSkills);
         if (validationResult.invalidIds.length > 0) {
@@ -238,9 +245,7 @@ async function handleUserProfileUpdate(req, res) {
             });
         }
     }
-
     const userProfile = await updateUserProfile(updates);
-
     logger.info(`✅ Perfil actualizado: ${userProfile._id}`);
     res.status(200).json({
         message: 'Perfil actualizado',
@@ -308,9 +313,7 @@ async function validateSkillIds(skillIds) {
     const validSkills = await User.find({
         _id: { $in: skillIds },
     }).select('_id');
-
     const validIds = validSkills.map((skill) => skill._id.toString());
     const invalidIds = skillIds.filter((id) => !validIds.includes(id));
-
     return { validIds, invalidIds };
 }
