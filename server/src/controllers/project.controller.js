@@ -54,7 +54,7 @@ import logger from '../utils/logger.js';
  *         liveDemoUrl:
  *           type: string
  *           format: uri
- *           description: URL a una demo en vivo del proyecto (opcional, puede estar vacío).
+ *           description: URL a una demo en vivo del proyecto (opcional, puede estar vacía).
  *           example: "https://demo.cms-project.com"
  *         githubUrl:
  *           type: string
@@ -138,32 +138,67 @@ export const getProjectById = async (req, res, next) => {
 };
 
 /**
+ * Busca el ID de una habilidad por su nombre o ID
+ *
+ * @param {*} tech - Nombre o ID de la tecnología a buscar
+ * @returns {Promise<string|null>} - ID de la habilidad si se encuentra, null en caso contrario
+ */
+const findSkillId = async (tech) => {
+    if (typeof tech === 'string' && tech.length === 24) {
+        const skill = await Skill.findById(tech);
+        if (skill) {
+            return tech;
+        }
+    }
+    const skill = await Skill.findOne({ name: tech.trim() });
+    if (skill) {
+        return skill._id.toString();
+    }
+    return null;
+};
+
+/**
+ * Crea una nueva habilidad en la base de datos
+ *
+ * @param {*} tech - Nombre o ID de la tecnología a crear
+ * @returns {Promise<string>} - ID de la nueva habilidad creada
+ */
+const createNewSkill = async (tech) => {
+    const newSkill = new Skill({
+        name: tech.trim(),
+        category: 'Otras',
+        level: 'Intermedio',
+    });
+    await newSkill.save();
+    logger.info(`✅ Nueva habilidad creada: ${tech.trim()}`);
+    return newSkill._id.toString();
+};
+
+/**
  * Valida y procesa las tecnologías de un proyecto
  *
  * @param {Array} technologies - Array de tecnologías a validar
- * @returns {Array} Array de ObjectIds válidos
+ * @returns {Promise<Array>} Array de ObjectIds válidos
  */
 const validateTechnologies = async (technologies) => {
-    const validTechs = await Promise.all(
-        technologies.map(async (tech) => {
-            if (typeof tech === 'string' && tech.length === 24) {
-                return tech;
-            }
-            const skill = await Skill.findOne({ name: tech.trim() });
-            if (skill) {
-                return skill._id;
-            }
-            const newSkill = new Skill({
-                name: tech.trim(),
-                category: 'Otras',
-                level: 'Intermedio',
-            });
-            await newSkill.save();
-            logger.info(`✅ Nueva habilidad creada: ${tech.trim()}`);
-            return newSkill._id;
-        }),
-    );
-    return validTechs.filter((id) => id);
+    if (!technologies || !Array.isArray(technologies)) {
+        return [];
+    }
+    try {
+        const validTechs = await Promise.all(
+            technologies.map(async (tech) => {
+                const skillId = await findSkillId(tech);
+                if (skillId) {
+                    return skillId;
+                }
+                return await createNewSkill(tech);
+            }),
+        );
+        return validTechs.filter(Boolean);
+    } catch (error) {
+        logger.error('Error validando tecnologías:', error);
+        return [];
+    }
 };
 
 /**
@@ -196,7 +231,7 @@ const mapProjectData = (projectData) => {
 export const createProject = async (req, res, next) => {
     try {
         const projectData = req.body;
-        const validTechnologies = validateTechnologies(projectData.technologies);
+        const validTechnologies = await validateTechnologies(projectData.technologies);
         projectData.technologies = validTechnologies;
         const mappedData = mapProjectData(projectData);
         const newProject = new Project(mappedData);
@@ -251,8 +286,7 @@ const processUpdateTechnologies = async (updateData) => {
     if (!updateData.technologies || !Array.isArray(updateData.technologies)) {
         return;
     }
-    const validTechnologies = validateTechnologies(updateData.technologies);
-    updateData.technologies = validTechnologies;
+    updateData.technologies = await validateTechnologies(updateData.technologies);
 };
 
 /**
