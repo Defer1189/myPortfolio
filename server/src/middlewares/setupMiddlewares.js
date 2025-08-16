@@ -7,21 +7,51 @@ import helmet from 'helmet';
 
 import logger from '../utils/logger.js';
 
-const configureCors = (app) => {
+const getAllowedOrigins = () => {
     const allowedOrigins = [
         process.env.CLIENT_URL_DEV,
         process.env.CLIENT_URL_PROD,
         'http://localhost:3000',
         'https://myportfolio-staging-b7b6ffc6ftg5f9fd.brazilsouth-01.azurewebsites.net',
     ];
+    if (process.env.NODE_ENV === 'development') {
+        allowedOrigins.push(/http:\/\/localhost:\d+/);
+    }
+    return allowedOrigins.filter(Boolean).map((origin) => {
+        if (typeof origin === 'string') {
+            return origin.replace(/\/$/, '');
+        }
+        return origin;
+    });
+};
+
+const corsOriginCallback = (allowedOrigins, origin, callback) => {
+    if (!origin) {
+        return callback(null, true);
+    }
+    const isAllowed = allowedOrigins.some((allowedOrigin) => {
+        if (typeof allowedOrigin === 'string') {
+            return origin === allowedOrigin;
+        } else if (allowedOrigin instanceof RegExp) {
+            return allowedOrigin.test(origin);
+        }
+        return false;
+    });
+    if (isAllowed) {
+        callback(null, true);
+    } else {
+        logger.warn(`⚠️ Origen bloqueado por CORS: ${origin}`);
+        // eslint-disable-next-line no-console
+        console.warn(`⚠️ Origen bloqueado por CORS: ${origin}`);
+        callback(new Error(`Not allowed by CORS: ${origin}`));
+    }
+};
+
+const configureCors = (app) => {
+    const allowedOrigins = getAllowedOrigins();
+    logger.info(`🛡️ Orígenes permitidos: ${JSON.stringify(allowedOrigins)}`);
     const corsOptions = {
-        origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error(`Not allowed by CORS: ${origin}`));
-            }
-        },
+        origin: (origin, callback) => corsOriginCallback(allowedOrigins, origin, callback),
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
         credentials: true,
         optionsSuccessStatus: 204,
