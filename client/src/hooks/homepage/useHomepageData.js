@@ -22,7 +22,7 @@ function formatProfileData(data) {
  *
  * @returns {object} Estado de la página de inicio.
  */
-export function useHomepageData() {
+function useHomepageData() {
     const [state, setState] = useState({
         profile: null,
         loading: true,
@@ -51,3 +51,5 @@ export function useHomepageData() {
     }, []);
     return state;
 }
+
+export default useHomepageData;
