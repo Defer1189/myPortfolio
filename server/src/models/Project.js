@@ -106,13 +106,6 @@ const ProjectSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: 'Skill',
                 required: true,
-                validate: {
-                    validator: async function (value) {
-                        const skill = await this.model('Skill').findById(value);
-                        return !!skill;
-                    },
-                    message: (props) => `${props.value} no es un ID de habilidad válido`,
-                },
             },
         ],
         imageUrl: {
